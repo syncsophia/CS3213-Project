@@ -180,6 +180,7 @@ div#editorContainer {
 #editorContainer div {
     /* Parent <div> of small boxes */
     float: left;
+	position:absolute;
     margin-right: 10px;
     margin-bottom: 10px;
     margin-top: 0px;
@@ -198,6 +199,14 @@ div#editorContainer {
     540px;
     height: 500px;
 }
+#editorContainer div img {
+   position:absolute;
+   left:50%;
+   top:50%;
+   margin-left:-10px;
+   margin-top:-10px;
+}
+
 #editorContainer div ul {
     margin-left: 10px;
 }

@@ -93,12 +93,9 @@
 
 	<div id="editorContainer">
 		<!-- ONE <UL> for each "room" -->
-		<div>
-			<p></p>
-		</div>
-
+		<div class="human">
 		<img src="img/human.png" class='character_human' id="character_human">
-
+		</div>
 	</div>
 </div>
 <div id="footer">
@@ -115,6 +112,8 @@
 	
 	var characterElement = document.getElementById("character_human");
 
+	var listOfCommands = []; 
+		
 	var draggie = new Draggabilly( characterElement, {
 		containment: "#editorContainer"
 	});
@@ -127,10 +126,17 @@
     			if(current.children().size() > 0) {
     				return true;
     			}
-    			console.log(current.text());
+				//TODO: create command class and perform commands after loop
+				var command = Object.create(Command);
+				listOfCommands.push(command);
     		});
+			
+			listOfCommands.forEach(function(entry) {
+				entry.execute();
+    			console.log(entry);
+			});
     	});
-	}	
+	}
 </script>
 </body>
 
