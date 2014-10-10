@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<head>
+    
+	<link href="css/dragdropstyle.css" rel="stylesheet">
+	
+	<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
+	<script type="text/javascript" src="js/dragdrop.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	$(function() {
+		//console.log("Document ready");
+		
+		var dragDropElementTable = document.getElementById('allItems');
+		
+		var li_E = document.createElement("li");
+		li_E.appendChild(document.createTextNode("Move Right One Step"));
+		li_E.setAttribute("id", "li_move");
+		li_E.setAttribute("class", "code");
+		dragDropElementTable.appendChild(li_E);
+		
+		var li_Jump = document.createElement("li");
+		li_Jump.appendChild(document.createTextNode("Jump"));
+		li_Jump.setAttribute("id", "li_jump");
+		li_Jump.setAttribute("class", "code");
+		dragDropElementTable.appendChild(li_Jump);
+
+		
+		var txt_E = document.createElement("textarea");
+		txt_E.setAttribute("maxLength", '4');
+		txt_E.setAttribute("cols", '5');
+		txt_E.setAttribute("rows", '1');
+		txt_E.setAttribute("defaultValue", '2');
+		txt_E.setAttribute("id", "txt_Move");
+
+		//li_E.appendChild(txt_E);
+
+		/*
+		var txt_E = document.createElement("textarea");
+		txt_E.setAttribute("maxLength", '4');
+		txt_E.setAttribute("cols", '5');
+		txt_E.setAttribute("rows", '1');
+		txt_E.setAttribute("defaultValue", '2');
+		txt_E.setAttribute("id", "txt_Move");
+
+		li_E.appendChild(txt_E);
+		*/
+	});
+
+	</script>
+</head>
+
+<body>
+<div id="dhtmlgoodies_dragDropContainer">
+	<div id="topBar">
+
+	</div>
+	<div id="dhtmlgoodies_listOfItems">
+		<div>
+			<p>Elements</p>
+		<ul id="allItems">
+			<!--
+			<li id="node1">Student A</li>
+			<li id="node2">Student B</li>
+			<li id="node3">Student C</li>
+			<li id="node4">Student D</li>
+			<li id="node5">Student E</li>
+			<li id="node6">Student F</li>
+			<li id="node7">Student G</li>
+			<li id="node8">Student H</li>
+			<li id="node9">Student I</li>
+			<li id="node10">Student J</li>
+			<li id="node11">Student K</li>
+			<li id="node12">Student L</li>
+			<li id="node13">Student M</li>
+			<li id="node14">Student N</li>
+			<li id="node15">Student O</li>-->
+		</ul>
+		</div>
+	</div>
+	<div id="dhtmlgoodies_mainContainer">
+		<!-- ONE <UL> for each "room" -->
+		<div>
+			<p>Code</p>
+			<ul id="box1" class='class_code'>
+
+			</ul>
+		</div>
+	</div>
+
+
+	<div id="editorContainer">
+		<!-- ONE <UL> for each "room" -->
+		<div>
+			<p></p>
+		</div>
+
+		<img src="img/human.png" class='character_human' id="character_human">
+
+	</div>
+</div>
+<div id="footer">
+	<input type="button" onclick="PlayEditor()" value="Play">
+</div>
+<ul id="dragContent">
+
+</ul>
+<div id="dragDropIndicator"><img src="img/insert.gif"></div>
+
+<script type="text/javascript" src="js/init.js"></script>
+<script type="text/javascript" src="js/move.js"></script>
+<script type="text/javascript">
+	
+	var characterElement = document.getElementById("character_human");
+
+	var draggie = new Draggabilly( characterElement, {
+		containment: "#editorContainer"
+	});
+	
+	var PlayEditor = function() {
+		console.log("[dragdrop.html]: PlayEditor");
+		$('.class_code').each(function() {
+    		$(this).find("li").each(function() {
+    			var current = $(this);
+    			if(current.children().size() > 0) {
+    				return true;
+    			}
+    			console.log(current.text());
+    		});
+    	});
+	}	
+</script>
+</body>
+
+</html>

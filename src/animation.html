@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Animate IT!</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/mystyle.css" rel="stylesheet">
+	
+</head>
+
+<body>
+	<div id="header">
+		<h3>Animate-able</h3>
+	</div>
+
+	<a href="#" id="playButton">Play</a>
+
+	<div class="human">
+		<img src="img/human.png"></img>
+	</div>
+	<script type="text/javascript" src="js/move.min.js"></script>
+	<script type="text/javascript">
+		document.getElementById('playButton').onclick = function(e) {
+
+			move('.human')
+
+				// move
+				.x(400)
+				.y(200)
+				.duration('3s')
+
+				// jump
+				.then()
+					.ease('in-out')
+					.y(-100)
+						.then()
+							.ease('in-out')
+							.y(100)
+						.pop()
+				.pop()
+
+				// .then()
+				// 	.set("opacity", 0)
+				// 	.duration('3s')
+				// .pop()
+
+				.end();
+		};
+	</script>
+</body>
+</html>
