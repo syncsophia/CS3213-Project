@@ -14,7 +14,8 @@
 	var commands =  {"move": new MoveCommand(1), 
 					"jump": new JumpCommand(1), 
 					"xPos": new SetXPosCommand(1), 
-					"yPos": new SetYPosCommand(1)};
+					"yPos": new SetYPosCommand(1),
+					"origin": new SetToOriginCommand()};
 
 	$(function() {
 		//console.log("Document ready");
@@ -112,6 +113,7 @@
 				listOfCurrentCommands.push(command);
     		});
 			
+			listOfCurrentCommands.push("origin");
 			listOfCurrentCommands.forEach(function(entry) {
 				entry.execute();
 			});

@@ -89,14 +89,11 @@ var JumpCommand = function(step) {
 JumpCommand.prototype = Object.create(Command);
 JumpCommand.prototype.execute = function() {
 	move('.character_human')
-		.then()
-			.ease('in-out')
 			.add('margin-top', -100 * this.step)
 				.then()
 					.ease('in-out')
 					.add('margin-top', 100 * this.step)
-					.pop()
-			.pop()
+				.pop()
 		.end();
 	console.log("Jump Command Executed. Jumping: " + this.step);
 }
@@ -113,6 +110,9 @@ var SetXPosCommand = function(step) {
 }
 SetXPosCommand.prototype = Object.create(Command);
 SetXPosCommand.prototype.execute = function() {
+	move('.character_human')
+	.x(50*this.step)
+	.end();
 	console.log("Set X Pos Command Executed. Set X: " + this.step);
 }
 
@@ -128,5 +128,25 @@ var SetYPosCommand = function(step) {
 }
 SetYPosCommand.prototype = Object.create(Command);
 SetYPosCommand.prototype.execute = function() {
+	move('.character_human')
+	.y(50*this.step)
+	.end();
 	console.log("Set Y Pos Command Executed. Set Y: " + this.step);
+}
+
+var SetToOriginCommand = function() {
+	// private text to identify: Must not be changed
+	var text = "Set to origin position";
+	this.getText = function() {
+		return text;
+	}
+	console.log("Created new SetToOriginCommand");
+}
+SetYPosCommand.prototype = Object.create(Command);
+SetYPosCommand.prototype.execute = function() {
+	move('.character_human')
+	.x(0)
+	.y(0)
+	.end();
+	console.log("Set to origin Command Executed.");
 }
