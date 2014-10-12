@@ -66,6 +66,14 @@ var MoveCommand = function(step) {
 }
 MoveCommand.prototype = Object.create(Command);
 MoveCommand.prototype.execute = function() {
+	move('.character_human')
+
+		// move
+		.x(50)
+		.y(0)
+		.duration('3s')
+		
+		.end();
 	console.log("Move Command Executed. Moving: " + this.step);
 }
 
@@ -81,6 +89,16 @@ var JumpCommand = function(step) {
 }
 JumpCommand.prototype = Object.create(Command);
 JumpCommand.prototype.execute = function() {
+	move('.character_human')
+		.then()
+			.ease('in-out')
+			.y(-100)
+				.then()
+					.ease('in-out')
+					.y(100)
+					.pop()
+			.pop()
+		.end();
 	console.log("Jump Command Executed. Jumping: " + this.step);
 }
 

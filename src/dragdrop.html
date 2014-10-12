@@ -115,6 +115,8 @@
 			listOfCurrentCommands.forEach(function(entry) {
 				entry.execute();
 			});
+			//then delete the list: otherwise it will be summed up.
+			listOfCurrentCommands = [];
     	});
 	}
 	
