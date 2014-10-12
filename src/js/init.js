@@ -56,6 +56,12 @@ var Command = {
 
 var MoveCommand = function(step) {
 	this.step = step;
+	
+	// private text to identify: Must not be changed
+	var text = "Move Right One Step";
+	this.getText = function() {
+		return text;
+	}
 	console.log("Created new MoveCommand with param: " + step);
 }
 MoveCommand.prototype = Object.create(Command);
@@ -65,6 +71,12 @@ MoveCommand.prototype.execute = function() {
 
 var JumpCommand = function(step) {
 	this.step = step;
+	
+	// private text to identify: Must not be changed
+	var text = "Jump";
+	this.getText = function() {
+		return text;
+	}
 	console.log("Created new JumpCommand with param: " + step);
 }
 JumpCommand.prototype = Object.create(Command);
@@ -74,6 +86,12 @@ JumpCommand.prototype.execute = function() {
 
 var SetXPosCommand = function(step) {
 	this.step = step;
+	
+	// private text to identify: Must not be changed
+	var text = "Set x position";
+	this.getText = function() {
+		return text;
+	}
 	console.log("Created new SetXPosCommand with param: " + step);
 }
 SetXPosCommand.prototype = Object.create(Command);
@@ -83,6 +101,12 @@ SetXPosCommand.prototype.execute = function() {
 
 var SetYPosCommand = function(step) {
 	this.step = step;
+	
+	// private text to identify: Must not be changed
+	var text = "Set y position";
+	this.getText = function() {
+		return text;
+	}
 	console.log("Created new SetYPosCommand with param: " + step);
 }
 SetYPosCommand.prototype = Object.create(Command);

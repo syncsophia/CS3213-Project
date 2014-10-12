@@ -3,8 +3,9 @@ body {
     /* Font to use */
     background-color: #E2EBED;
 }
+/* play button footer*/
 #footer {
-    height: 30px;
+    height: 50px;
     vertical-align: middle;
     text-align: right;
     clear: both;
@@ -17,6 +18,7 @@ body {
     margin: 0px;
     margin-top: 2px;
 }
+/* container that contains code-box, commandlibrary-box and animation-box */
 #dhtmlgoodies_dragDropContainer {
     /* Main container for this script */
     width: 940px;
@@ -56,6 +58,7 @@ div#dhtmlgoodies_listOfItems {
     /* Left column "Available students" */
     float: left;
     padding-left: 10px;
+	padding-top: 10px;
     padding-right: 10px;
     /* CSS HACK */
     width: 180px;
@@ -72,7 +75,7 @@ div#dhtmlgoodies_listOfItems {
 }
 #dhtmlgoodies_listOfItems ul {
     /* Left(Sources) column <ul> */
-    height: 560px;
+    height: 550px;
 }
 div#dhtmlgoodies_listOfItems div {
     border: 1px solid #999;
@@ -102,7 +105,7 @@ div#dhtmlgoodies_listOfItems div ul {
 
 div#dhtmlgoodies_mainContainer {
     /* Right column DIV */
-    width: 590px;
+    width: 190px;
     float: left;
 }
 #dhtmlgoodies_mainContainer div {
@@ -110,7 +113,7 @@ div#dhtmlgoodies_mainContainer {
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
-    margin-top: 0px;
+    margin-top: 10px;
     border: 1px solid #999;
     /* CSS HACK */
     width: 172px;
@@ -124,9 +127,11 @@ div#dhtmlgoodies_mainContainer {
     width:
     /**/
     170px;
+	height: 578px;
 }
 #dhtmlgoodies_mainContainer div ul {
     margin-left: 10px;
+	margin-top: 20px;
 }
 #dhtmlgoodies_mainContainer div p {
     /* Heading above small boxes */
@@ -171,8 +176,8 @@ div#dhtmlgoodies_mainContainer {
 
 div#editorContainer {
     /* Right column DIV */
-    width: 540px;
-    height: 500px;
+    width: 550px;
+    height: 580px;
     float: left;
     margin-top: -590px;
     margin-left: 370px;
@@ -186,18 +191,18 @@ div#editorContainer {
     margin-top: 0px;
     border: 1px solid #999;
     /* CSS HACK */
-    width: 540px;
+    width: 557px;
     /* IE 5.x */
     width
     /* */
     :
     /**/
-    540px;
+    557px;
     /* Other browsers */
     width:
     /**/
-    540px;
-    height: 500px;
+    557px;
+    height: 580px;
 }
 #editorContainer div img {
    position:absolute;

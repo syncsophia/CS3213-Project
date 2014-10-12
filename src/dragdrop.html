@@ -4,30 +4,32 @@
 <head>
     
 	<link href="css/dragdropstyle.css" rel="stylesheet">
-	
 	<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
 	<script type="text/javascript" src="js/dragdrop.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
 	<script type="text/javascript">
+	
+	// global variable to get access to all possible commands
+	var commands =  {"move": new MoveCommand(1), 
+					"jump": new JumpCommand(1), 
+					"xPos": new SetXPosCommand(1), 
+					"yPos": new SetYPosCommand(1)};
 
 	$(function() {
 		//console.log("Document ready");
 		
 		var dragDropElementTable = document.getElementById('allItems');
 		
-		var li_E = document.createElement("li");
-		li_E.appendChild(document.createTextNode("Move Right One Step"));
-		li_E.setAttribute("id", "li_move");
-		li_E.setAttribute("class", "code");
-		dragDropElementTable.appendChild(li_E);
-		
-		var li_Jump = document.createElement("li");
-		li_Jump.appendChild(document.createTextNode("Jump"));
-		li_Jump.setAttribute("id", "li_jump");
-		li_Jump.setAttribute("class", "code");
-		dragDropElementTable.appendChild(li_Jump);
+		for (key in commands)
+		{
+			var li_Element = document.createElement("li");
+			li_Element.appendChild(document.createTextNode(commands[key].getText()));
+			li_Element.setAttribute("id", "li_" + key);
+			li_Element.setAttribute("class", "code");
+			dragDropElementTable.appendChild(li_Element);
+		};
 
-		
 		var txt_E = document.createElement("textarea");
 		txt_E.setAttribute("maxLength", '4');
 		txt_E.setAttribute("cols", '5');
@@ -35,20 +37,7 @@
 		txt_E.setAttribute("defaultValue", '2');
 		txt_E.setAttribute("id", "txt_Move");
 
-		//li_E.appendChild(txt_E);
-
-		/*
-		var txt_E = document.createElement("textarea");
-		txt_E.setAttribute("maxLength", '4');
-		txt_E.setAttribute("cols", '5');
-		txt_E.setAttribute("rows", '1');
-		txt_E.setAttribute("defaultValue", '2');
-		txt_E.setAttribute("id", "txt_Move");
-
-		li_E.appendChild(txt_E);
-		*/
 	});
-
 	</script>
 </head>
 
@@ -60,24 +49,7 @@
 	<div id="dhtmlgoodies_listOfItems">
 		<div>
 			<p>Elements</p>
-		<ul id="allItems">
-			<!--
-			<li id="node1">Student A</li>
-			<li id="node2">Student B</li>
-			<li id="node3">Student C</li>
-			<li id="node4">Student D</li>
-			<li id="node5">Student E</li>
-			<li id="node6">Student F</li>
-			<li id="node7">Student G</li>
-			<li id="node8">Student H</li>
-			<li id="node9">Student I</li>
-			<li id="node10">Student J</li>
-			<li id="node11">Student K</li>
-			<li id="node12">Student L</li>
-			<li id="node13">Student M</li>
-			<li id="node14">Student N</li>
-			<li id="node15">Student O</li>-->
-		</ul>
+		<ul id="allItems"></ul>
 		</div>
 	</div>
 	<div id="dhtmlgoodies_mainContainer">
@@ -99,24 +71,33 @@
 	</div>
 </div>
 <div id="footer">
-	<input type="button" onclick="PlayEditor()" value="Play">
+	<input type="image" src="img/recycle.png" onclick="ClearEditor()" value="Clear">
+	<input type="image" src="img/stop.png" onclick="StopEditor()" value="Stop">
+	<input type="image" src="img/play.png" onclick="PlayEditor()" value="Play">
 </div>
 <ul id="dragContent">
 
 </ul>
 <div id="dragDropIndicator"><img src="img/insert.gif"></div>
 
-<script type="text/javascript" src="js/init.js"></script>
 <script type="text/javascript" src="js/move.js"></script>
 <script type="text/javascript">
 	
 	var characterElement = document.getElementById("character_human");
-
-	var listOfCommands = []; 
+	
+	var listOfCurrentCommands = []; 
 		
 	var draggie = new Draggabilly( characterElement, {
 		containment: "#editorContainer"
 	});
+	
+	/*
+	* gets the right command for the object
+	*/
+	var newCommand = function(id) {
+		var commandId = id.substring(3);
+		return commands[commandId];
+	}
 	
 	var PlayEditor = function() {
 		console.log("[dragdrop.html]: PlayEditor");
@@ -126,15 +107,26 @@
     			if(current.children().size() > 0) {
     				return true;
     			}
-				//TODO: create command class and perform commands after loop
-				var command = Object.create(Command);
-				listOfCommands.push(command);
+				//create command class and perform commands after loop
+				var command = new newCommand(current.attr('id'));
+				listOfCurrentCommands.push(command);
     		});
 			
-			listOfCommands.forEach(function(entry) {
+			listOfCurrentCommands.forEach(function(entry) {
 				entry.execute();
-    			console.log(entry);
 			});
+    	});
+	}
+	
+	var StopEditor = function() {
+		//TODO
+	};
+	
+	/* clears the code panel
+	*/
+	var ClearEditor = function() {
+		$('.class_code').each(function() {
+    		$(this).find("li").remove();
     	});
 	}
 </script>
