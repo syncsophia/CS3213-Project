@@ -69,8 +69,7 @@ MoveCommand.prototype.execute = function() {
 	move('.character_human')
 
 		// move
-		.x(50)
-		.y(0)
+		.add('margin-left', 50 * this.step)
 		.duration('3s')
 		
 		.end();
@@ -92,10 +91,10 @@ JumpCommand.prototype.execute = function() {
 	move('.character_human')
 		.then()
 			.ease('in-out')
-			.y(-100)
+			.add('margin-top', -100 * this.step)
 				.then()
 					.ease('in-out')
-					.y(100)
+					.add('margin-top', 100 * this.step)
 					.pop()
 			.pop()
 		.end();
