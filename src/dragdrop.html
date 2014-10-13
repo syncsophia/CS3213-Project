@@ -16,7 +16,7 @@
 					"xPos": new SetXPosCommand(1), 
 					"yPos": new SetYPosCommand(1),
 					"origin": new SetToOriginCommand()};
-
+	
 	$(function() {
 		//console.log("Document ready");
 		
@@ -117,13 +117,15 @@
 			listOfCurrentCommands.forEach(function(entry) {
 				entry.execute();
 			});
-			//then delete the list: otherwise it will be summed up.
+			//then delete the list: otherwise it will be summed up?
 			listOfCurrentCommands = [];
     	});
 	}
 	
 	var StopEditor = function() {
 		//TODO
+		listOfCurrentCommands = [];
+		new ChangeCharacterCostume("img/snail_1.png");
 	};
 	
 	/* clears the code panel
@@ -132,6 +134,21 @@
 		$('.class_code').each(function() {
     		$(this).find("li").remove();
     	});
+	}
+	
+	/* 
+	* function to change to background of the editor panel.
+	*/
+	var ChangeBackground = function(url) {
+		var editorDiv = document.getElementById( 'editorContainer' );
+		editorDiv.style.backgroundImage = "url("+ url + ")";
+	}
+	
+	/* 
+	* function to change to costume of the character.
+	*/
+	var ChangeCharacterCostume = function(url) {
+		characterElement.src = url;
 	}
 </script>
 </body>

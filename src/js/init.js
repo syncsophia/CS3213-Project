@@ -69,6 +69,7 @@ MoveCommand.prototype.execute = function() {
 	move('.character_human')
 
 		// move
+		.ease('.character_human')
 		.add('margin-left', 50 * this.step)
 		.duration('3s')
 		
@@ -91,7 +92,7 @@ JumpCommand.prototype.execute = function() {
 	move('.character_human')
 			.add('margin-top', -100 * this.step)
 				.then()
-					.ease('in-out')
+					.ease('.character_human')
 					.add('margin-top', 100 * this.step)
 				.pop()
 		.end();
@@ -111,6 +112,7 @@ var SetXPosCommand = function(step) {
 SetXPosCommand.prototype = Object.create(Command);
 SetXPosCommand.prototype.execute = function() {
 	move('.character_human')
+	.ease('.character_human')
 	.x(50*this.step)
 	.end();
 	console.log("Set X Pos Command Executed. Set X: " + this.step);
@@ -129,6 +131,7 @@ var SetYPosCommand = function(step) {
 SetYPosCommand.prototype = Object.create(Command);
 SetYPosCommand.prototype.execute = function() {
 	move('.character_human')
+	.ease('.character_human')
 	.y(50*this.step)
 	.end();
 	console.log("Set Y Pos Command Executed. Set Y: " + this.step);
@@ -145,6 +148,7 @@ var SetToOriginCommand = function() {
 SetYPosCommand.prototype = Object.create(Command);
 SetYPosCommand.prototype.execute = function() {
 	move('.character_human')
+	.ease('.character_human')
 	.x(0)
 	.y(0)
 	.end();
