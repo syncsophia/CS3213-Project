@@ -3,7 +3,25 @@ body {
     /* Font to use */
     background-color: #E2EBED;
 }
-/* play button footer*/
+
+/* menu bar on top */
+#header {
+    height: 35px;
+    vertical-align: middle;
+	text-align: left;
+    clear: both;
+    padding-right: 3px;
+    background-color: #317082;
+    margin-top: 2px;
+    width: 940px;
+}
+
+#header form {
+    margin: 0px;
+    margin-top: 2px;
+}
+
+/* buttons footer*/
 #footer {
     height: 50px;
     vertical-align: middle;

@@ -4,10 +4,16 @@
 <head>
     
 	<link href="css/dragdropstyle.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/runnable.css" />
+	<!-- for menu bar -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	  <!-- Source our javascript file with the jQUERY code -->
+		
 	<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
 	<script type="text/javascript" src="js/dragdrop.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/init.js"></script>
+	<script type="text/javascript" src="js/menubar.js"></script>
 	<script type="text/javascript">
 	
 	// global variable to get access to all possible commands
@@ -43,10 +49,46 @@
 </head>
 
 <body>
+<div id="header" class="navigation">
+	<!-- do menu here -->
+	<ul class="nav">
+		<li>
+		  <a href="#">Home</a>
+		  	<ul>
+		  		<li><a href="#">Login/Logout</a></li>
+		  		<li><a href="#">Save</a></li>
+		  		<li><a href="#">Load</a></li>
+		  	</ul>
+		</li>
+		<li>
+		  	<a href="#">Change Character</a>
+		  		<ul>
+		  			<li>
+		  				<input type="image" title="snail1"
+						src="img/small_snail_1.png" onclick="ChangeCharacterCostume('img/snail_1.png')">
+		  			</li>
+		  			<li>
+		  				<input type="image" title="snail2" 
+						src="img/small_snail_2.png" onclick="ChangeCharacterCostume('img/snail_2.png')">
+		  			</li>
+		  			<li>
+		  				<input type="image" title="snail3" 
+						src="img/small_snail_3.png" onclick="ChangeCharacterCostume('img/snail_3.png')">
+		  			</li>
+		  		</ul>
+		</li>
+		<li>
+		  	<a href="#">Change Background</a>
+		  		<ul>
+		  			<li>
+		  				<input type="image" title="back1" 
+						src="img/code.jpg" onclick="ChangeBackground('img/code.jpg')">
+		  			</li>
+		  		</ul>
+		</li>
+	</ul>
+</div>
 <div id="dhtmlgoodies_dragDropContainer">
-	<div id="topBar">
-
-	</div>
 	<div id="dhtmlgoodies_listOfItems">
 		<div title="This is the list of code-command templates you can use.">
 			<p>Elements</p>
