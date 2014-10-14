@@ -13,3 +13,19 @@ $(document).ready(
     );
   }
 );
+
+/* 
+* function to change to background of the editor panel.
+*/
+var ChangeBackground = function(url) {
+	var editorDiv = document.getElementById( 'editorContainer' );
+	editorDiv.style.backgroundImage = "url("+ url + ")";
+}
+
+/* 
+* function to change to costume of the character.
+*/
+var ChangeCharacterCostume = function(url) {
+	var characterElement = document.getElementById('character_human');
+	characterElement.src = url;
+}

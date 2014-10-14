@@ -5,15 +5,13 @@
     
 	<link href="css/dragdropstyle.css" rel="stylesheet">
     <link rel="stylesheet" href="css/runnable.css" />
-	<!-- for menu bar -->
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-	  <!-- Source our javascript file with the jQUERY code -->
 		
 	<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
 	<script type="text/javascript" src="js/dragdrop.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/init.js"></script>
-	<script type="text/javascript" src="js/menubar.js"></script>
+    <script type="text/javascript" src="js/menubar.js"></script>
+	<script type="text/javascript" src="js/buttonEvents.js"></script>
 	<script type="text/javascript">
 	
 	// global variable to get access to all possible commands
@@ -37,12 +35,14 @@
 			dragDropElementTable.appendChild(li_Element);
 		};
 
+		/*
 		var txt_E = document.createElement("textarea");
 		txt_E.setAttribute("maxLength", '4');
 		txt_E.setAttribute("cols", '5');
 		txt_E.setAttribute("rows", '1');
 		txt_E.setAttribute("defaultValue", '2');
 		txt_E.setAttribute("id", "txt_Move");
+		*/
 
 	});
 	</script>
@@ -50,7 +50,7 @@
 
 <body>
 <div id="header" class="navigation">
-	<!-- do menu here -->
+	<!-- do menu here: Event handling in menubar.js -->
 	<ul class="nav">
 		<li>
 		  <a href="#">Home</a>
@@ -75,6 +75,10 @@
 		  				<input type="image" title="snail3" 
 						src="img/small_snail_3.png" onclick="ChangeCharacterCostume('img/snail_3.png')">
 		  			</li>
+					<li>
+						<input type="image" title="human"
+						src="img/human.png" width=50px heigth=50px onclick="ChangeCharacterCostume('img/human.png')">
+					</li>
 		  		</ul>
 		</li>
 		<li>
@@ -82,12 +86,25 @@
 		  		<ul>
 		  			<li>
 		  				<input type="image" title="back1" 
-						src="img/code.jpg" onclick="ChangeBackground('img/code.jpg')">
+						src="img/small_bg_code.png" onclick="ChangeBackground('img/code.jpg')">
+		  			</li>
+		  			<li>
+		  				<input type="image" title="back2" 
+						src="img/small_bg_beach.png" onclick="ChangeBackground('img/Beach-background.jpg')">
+		  			</li>
+		  			<li>
+		  				<input type="image" title="back3" 
+						src="img/small_bg_forrest.png" onclick="ChangeBackground('img/Background-forrest.jpg')">
+		  			</li>
+		  			<li>
+		  				<input type="image" title="back4" 
+						src="img/small_bg_heaven.png" onclick="ChangeBackground('img/Background-heaven.jpg')">
 		  			</li>
 		  		</ul>
 		</li>
 	</ul>
 </div>
+
 <div id="dhtmlgoodies_dragDropContainer">
 	<div id="dhtmlgoodies_listOfItems">
 		<div title="This is the list of code-command templates you can use.">
@@ -106,18 +123,27 @@
 	</div>
 
 
-	<div id="editorContainer" title="This is the editor. Please click the play-Button below to let the character perform your code.">
+	<div id="editorContainer" style="background-size: 100% 100%;">
+		<div title="This is the editor. Please click the play-Button below to let the character perform your code.">
 		<!-- ONE <UL> for each "room" -->
-		<div class="human">
-		<img src="img/human.png" class='character_human' id="character_human">
+			<ul class="human">
+				<img src="img/human.png" class='character_human' id="character_human">
+			</ul>
+			<ul class="goal_object">
+				<img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
+				 class='goal_object' id="goal_object">
+			</ul>
 		</div>
 	</div>
 </div>
+
 <div id="footer">
+	<!-- Buttons here, Event handling in buttonEvent.js -->
 	<input type="image" title="Clear All" src="img/recycle.png" onclick="ClearEditor()" value="Clear">
 	<input type="image" title="Stop" src="img/stop.png" onclick="StopEditor()" value="Stop">
 	<input type="image" title="Play" src="img/play.png" onclick="PlayEditor()" value="Play">
 </div>
+
 <ul id="dragContent">
 
 </ul>
@@ -125,73 +151,20 @@
 
 <script type="text/javascript" src="js/move.js"></script>
 <script type="text/javascript">
-	
 	var characterElement = document.getElementById("character_human");
+	var goalElement = document.getElementById("goal_object");
 	
-	var listOfCurrentCommands = []; 
-		
-	var draggie = new Draggabilly( characterElement, {
+	var draggie = new Draggabilly( 
+		characterElement, {
 		containment: "#editorContainer"
 	});
 	
-	/*
-	* gets the right command for the object
-	*/
-	var newCommand = function(id) {
-		var commandId = id.substring(3);
-		return commands[commandId];
-	}
+	var draggieObject = new Draggabilly( 
+		goalElement, {
+		containment: "#editorContainer"
+	});
 	
-	var PlayEditor = function() {
-		console.log("[dragdrop.html]: PlayEditor");
-		$('.class_code').each(function() {
-    		$(this).find("li").each(function() {
-    			var current = $(this);
-    			if(current.children().size() > 0) {
-    				return true;
-    			}
-				//create command class and perform commands after loop
-				var command = new newCommand(current.attr('id'));
-				listOfCurrentCommands.push(command);
-    		});
-			
-			listOfCurrentCommands.push("origin");
-			listOfCurrentCommands.forEach(function(entry) {
-				entry.execute();
-			});
-			//then delete the list: otherwise it will be summed up?
-			listOfCurrentCommands = [];
-    	});
-	}
 	
-	var StopEditor = function() {
-		//TODO
-		listOfCurrentCommands = [];
-		new ChangeCharacterCostume("img/snail_1.png");
-	};
-	
-	/* clears the code panel
-	*/
-	var ClearEditor = function() {
-		$('.class_code').each(function() {
-    		$(this).find("li").remove();
-    	});
-	}
-	
-	/* 
-	* function to change to background of the editor panel.
-	*/
-	var ChangeBackground = function(url) {
-		var editorDiv = document.getElementById( 'editorContainer' );
-		editorDiv.style.backgroundImage = "url("+ url + ")";
-	}
-	
-	/* 
-	* function to change to costume of the character.
-	*/
-	var ChangeCharacterCostume = function(url) {
-		characterElement.src = url;
-	}
 </script>
 </body>
 
