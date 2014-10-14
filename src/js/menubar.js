@@ -1,3 +1,4 @@
+
 /*  jQuery ready function. Specify a function to execute when the DOM is fully loaded.  */
 $(document).ready(
   /* This is the function that will get executed after the DOM is fully loaded */
@@ -26,6 +27,6 @@ var ChangeBackground = function(url) {
 * function to change to costume of the character.
 */
 var ChangeCharacterCostume = function(url) {
-	var characterElement = document.getElementById('character_human');
-	characterElement.src = url;
+	var character = new Character("character_human");
+	character.setImage(url);
 }
