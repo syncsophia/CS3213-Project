@@ -38,7 +38,8 @@ var PlayEditor = function() {
 			listOfCurrentCommands.push(command);
 		});
 		
-		listOfCurrentCommands.push("origin");
+		//listOfCurrentCommands.push("origin");
+		//TODO: delay
 		listOfCurrentCommands.forEach(function(entry) {
 			entry.execute();
 		});

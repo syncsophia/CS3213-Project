@@ -19,6 +19,11 @@ var MoveCommand = function(step) {
 }
 MoveCommand.prototype = Object.create(Command);
 MoveCommand.prototype.execute = function() {
+	if (this.step > 0)
+		game.character.moveRight(this.step);
+	if (this.step < 0)
+		game.character.moveLeft(this.step);
+	/*
 	move('.character_human')
 
 		// move
@@ -27,6 +32,7 @@ MoveCommand.prototype.execute = function() {
 		.duration('3s')
 		
 		.end();
+	*/
 	console.log("Move Command Executed. Moving: " + this.step);
 }
 
@@ -64,10 +70,8 @@ var SetXPosCommand = function(step) {
 }
 SetXPosCommand.prototype = Object.create(Command);
 SetXPosCommand.prototype.execute = function() {
-	move('.character_human')
-	.ease('.character_human')
-	.x(50*this.step)
-	.end();
+	game.character.placeObject(this.step, game.character.y_position);
+	
 	console.log("Set X Pos Command Executed. Set X: " + this.step);
 }
 
@@ -83,10 +87,7 @@ var SetYPosCommand = function(step) {
 }
 SetYPosCommand.prototype = Object.create(Command);
 SetYPosCommand.prototype.execute = function() {
-	move('.character_human')
-	.ease('.character_human')
-	.y(50*this.step)
-	.end();
+	game.character.placeObject(game.character.x_position, this.step);
 	console.log("Set Y Pos Command Executed. Set Y: " + this.step);
 }
 
@@ -100,10 +101,6 @@ var SetToOriginCommand = function() {
 }
 SetYPosCommand.prototype = Object.create(Command);
 SetYPosCommand.prototype.execute = function() {
-	move('.character_human')
-	.ease('.character_human')
-	.x(0)
-	.y(0)
-	.end();
+	game.character.placeObject(0, 0);
 	console.log("Set to origin Command Executed.");
 }

@@ -226,8 +226,8 @@ div#editorContainer {
    position:absolute;
    left:50%;
    top:50%;
-   margin-left:-10px;
-   margin-top:-10px;
+   margin-left:0px;
+   margin-top:0px;
 }
 
 #editorContainer div ul {

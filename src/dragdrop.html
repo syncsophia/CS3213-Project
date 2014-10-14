@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="css/runnable.css" />
 		
 	<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
+	<script type="text/javascript" src="js/game.js"></script>
 	<script type="text/javascript" src="js/dragdrop.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/command.js"></script>
 	<script type="text/javascript" src="js/character.js"></script>
+	<script type="text/javascript" src="js/command.js"></script>
     <script type="text/javascript" src="js/menubar.js"></script>
 	<script type="text/javascript" src="js/buttonEvents.js"></script>
 	<script type="text/javascript">
@@ -86,19 +87,19 @@
 		  	<a href="#">Change Background</a>
 		  		<ul>
 		  			<li>
-		  				<input type="image" title="back1" 
+		  				<input type="image" title="plain background" 
 						src="img/small_bg_code.png" onclick="ChangeBackground('img/code.jpg')">
 		  			</li>
 		  			<li>
-		  				<input type="image" title="back2" 
+		  				<input type="image" title="beach background" 
 						src="img/small_bg_beach.png" onclick="ChangeBackground('img/Beach-background.jpg')">
 		  			</li>
 		  			<li>
-		  				<input type="image" title="back3" 
+		  				<input type="image" title="forrest background" 
 						src="img/small_bg_forrest.png" onclick="ChangeBackground('img/Background-forrest.jpg')">
 		  			</li>
 		  			<li>
-		  				<input type="image" title="back4" 
+		  				<input type="image" title="sky background" 
 						src="img/small_bg_heaven.png" onclick="ChangeBackground('img/Background-heaven.jpg')">
 		  			</li>
 		  		</ul>
@@ -154,6 +155,7 @@
 <script type="text/javascript">
 	var characterElement = document.getElementById("character_human");
 	var goalElement = document.getElementById("goal_object");
+	var game = new StartGame();
 	
 	var draggie = new Draggabilly( 
 		characterElement, {

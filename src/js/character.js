@@ -4,6 +4,7 @@
 //
 //------------------------------------------------------------------------------------
 
+
 var IObject = {
 	x_position : 0,
 	y_position : 0,
@@ -20,18 +21,50 @@ var IObject = {
 /* The actual character class */
 var Character = function(elementId) {
 	this.elementID = elementId;
+	this.x_position = $("#editorContainer").width() / 2;
+	this.y_position = $("#editorContainer").height() / 2;
 	
 	this.moveLeft = function(steps) {
-		this.x_position += steps;
+		if (0 < (this.x_position + steps*20))
+			this.x_position -= steps*20;
+		
+	    $("#" + elementId).css({
+	        position : "absolute",
+	        top : this.y_position + "px",
+	        left : this.x_position + "px",
+	    });
 	},
 	this.moveRight = function(steps) {
-		this.x_position -= steps;
+		if (($("#editorContainer").width()-50) > (this.x_position + steps*20))
+			this.x_position += steps*20;
+		
+	    $("#" + elementId).css({
+	        position : "absolute",
+	        top : this.y_position + "px",
+	        left : this.x_position + "px",
+	    });
 	},
 	this.moveUp = function(steps) {
-		this.y_position += steps;
+		// it's "-" instead of "+" because the coordinates are different
+		if (20 < (this.y_position + steps*20))
+			this.y_position -= steps*20;
+		
+		$("#" + elementId).css({
+		    position : "absolute",
+		    top : this.y_position + "px",
+		    left : this.x_position + "px",
+		});
 	},
 	this.moveDown = function(steps) {
-		this.y_position -= steps;
+		// it's "+" instead of "-" because the coordinates are different
+		if (($("#editorContainer").height()-110) > (this.y_position + steps*20))
+			this.y_position += steps*20;
+			
+		$("#" + elementId).css({
+		    position : "absolute",
+		    top : this.y_position + "px",
+		    left : this.x_position + "px",
+		});
 	}
 	this.jump = function(height) {
 		
@@ -56,8 +89,15 @@ Character.prototype.deleteObject = function() {
 }
 
 Character.prototype.placeObject = function(x,y) {
-	this.x_position = x;
-	this.y_position = y;
+	if (x >= 0 && x <= ($("#editorContainer").width()-50))
+		{this.x_position = x;};
+	if (y >= 0 && y <= ($("#editorContainer").height()-50))
+		{this.y_position = y;};
+	$("#" + this.elementID).css({
+	    position : "absolute",
+		top : this.y_position + "px",
+		left : this.x_position + "px",
+	});
 }
 
 Character.prototype.setImage = function(image) {
