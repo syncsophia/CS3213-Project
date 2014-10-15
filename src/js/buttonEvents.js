@@ -64,17 +64,13 @@ var PlayEditor = function() {
 		if(tempCmdString != "")
 			finalCmdString+=tempCmdString;
 
-		console.log("[dragdrop.html] PlayEditor(): Final Command String: " + finalCmdString);
+		//console.log("[dragdrop.html] PlayEditor(): Final Command String: " + finalCmdString);
 		var cmdObjList = createCommands(finalCmdString);
-		console.log('[dragdrop.html] PlayEditor(): cmdObjList size:' + cmdObjList.length);
+		//console.log('[dragdrop.html] PlayEditor(): cmdObjList size:' + cmdObjList.length);
 
 		for(var i=0; i < cmdObjList.length; i++) {
 			cmdObjList[i].execute();
 		}
-
-		cmdObjList.forEach(function(entry) {
-			entry.execute();
-		});
 		//then delete the list: otherwise it will be summed up?
 		listOfCurrentCommands = [];
 	});
