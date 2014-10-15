@@ -37,13 +37,6 @@ var StartGame = function() {
 			return true;
 		return false;
 	}
-}
-	
-	$("#" + "character_human").css({
-	    position : "absolute",
-		top : randomInt3 + "px",
-		left : randomInt4 + "px",
-	});
 	
 	ChangeBackground("img/Background-wood.jpg");
 
@@ -51,6 +44,7 @@ var StartGame = function() {
 	insertAllItemsIntoMenu(mediaContentManager);
 
 	var li_Element = document.createElement("li");
+
 }
 
 var insertAllItemsIntoMenu = function(mediaContent) {
