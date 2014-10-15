@@ -4,7 +4,7 @@ var StartGame = function() {
 	
 	
 	var randomInt1 = Math.floor((Math.random() * 500) + 1);
-	var randomInt2 = Math.floor((Math.random() * 5s00) + 1);
+	var randomInt2 = Math.floor((Math.random() * 500) + 1);
 	
 	$("#" + "goal_object").css({
 	    position : "absolute",
