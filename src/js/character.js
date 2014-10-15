@@ -99,6 +99,7 @@ Character.prototype.placeObject = function(x,y) {
 		{this.x_position = x;};
 	if (y >= 0 && y <= ($("#editorContainer").height()-50))
 		{this.y_position = y;};
+		console.log(this.elementID);
 	$("#" + this.elementID).css({
 	    position : "absolute",
 		top : this.y_position + "px",
@@ -121,8 +122,6 @@ Character.prototype.setImage = function(image) {
 var Goal = function(elementId) {
 	this.elementID = elementId;
 	this.hasAchieved = false;
-	
-	this.DisableDragable = function() {
-		draggieObject.disable();
-	}
 }
+
+Goal.prototype = Object.create(IObject);
