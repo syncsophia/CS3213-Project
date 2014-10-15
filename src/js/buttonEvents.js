@@ -24,7 +24,7 @@ var ClearEditor = function() {
 var PlayEditor = function() {
 	var characterElement = document.getElementById("character_human");
 	
-	var listOfCurrentCommands = []; 
+	var listOfCurrentCommands = [];
 	
 	console.log("[dragdrop.html]: PlayEditor");
 	$('.class_code').each(function() {
@@ -40,8 +40,14 @@ var PlayEditor = function() {
 		
 		//listOfCurrentCommands.push("origin");
 		//TODO: delay
+        console.log(listOfCurrentCommands.length);
 		listOfCurrentCommands.forEach(function(entry) {
-			entry.execute();
+			setTimeout(function(){
+                entry.execute();
+            }, 1000);
+            //entry.execute();
+
+
 		});
 		//then delete the list: otherwise it will be summed up?
 		listOfCurrentCommands = [];

@@ -20,55 +20,61 @@ var IObject = {
 
 /* The actual character class */
 var Character = function(elementId) {
-	this.elementID = elementId;
-	this.x_position = $("#editorContainer").width() / 2;
-	this.y_position = $("#editorContainer").height() / 2;
-	
-	this.moveLeft = function(steps) {
-		if (0 < (this.x_position + steps*20))
-			this.x_position -= steps*20;
-		
-	    $("#" + elementId).css({
-	        position : "absolute",
-	        top : this.y_position + "px",
-	        left : this.x_position + "px",
-	    });
-	},
-	this.moveRight = function(steps) {
-		if (($("#editorContainer").width()-50) > (this.x_position + steps*20))
-			this.x_position += steps*20;
-		
-	    $("#" + elementId).css({
-	        position : "absolute",
-	        top : this.y_position + "px",
-	        left : this.x_position + "px",
-	    });
-	},
-	this.moveUp = function(steps) {
-		// it's "-" instead of "+" because the coordinates are different
-		if (20 < (this.y_position + steps*20))
-			this.y_position -= steps*20;
-		
-		$("#" + elementId).css({
-		    position : "absolute",
-		    top : this.y_position + "px",
-		    left : this.x_position + "px",
-		});
-	},
-	this.moveDown = function(steps) {
-		// it's "+" instead of "-" because the coordinates are different
-		if (($("#editorContainer").height()-110) > (this.y_position + steps*20))
-			this.y_position += steps*20;
-			
-		$("#" + elementId).css({
-		    position : "absolute",
-		    top : this.y_position + "px",
-		    left : this.x_position + "px",
-		});
-	}
-	this.jump = function(height) {
-		
-	}
+    var me = this;
+    this.elementID = elementId;
+    this.x_position = $("#editorContainer").width() / 2;
+    this.y_position = $("#editorContainer").height() / 2;
+
+    this.target_x = this.x_position + 100;
+    this.target_y = this.y_position;
+    this.hasArrived = false;
+
+    this.moveLeft = function (steps) {
+        if (0 < (this.x_position + steps * 20))
+            this.x_position -= steps * 20;
+
+        $("#" + elementId).css({
+            position: "absolute",
+            top: this.y_position + "px",
+            left: this.x_position + "px",
+        });
+    },
+        this.moveRight = function (steps) {
+            if (($("#editorContainer").width() - 50) > (this.x_position + steps * 20))
+                this.x_position += steps * 20;
+
+            $("#" + elementId).css({
+                position: "absolute",
+                top: this.y_position + "px",
+                left: this.x_position + "px",
+            });
+
+        },
+        this.moveUp = function (steps) {
+            // it's "-" instead of "+" because the coordinates are different
+            if (20 < (this.y_position + steps * 20))
+                this.y_position -= steps * 20;
+
+            $("#" + elementId).css({
+                position: "absolute",
+                top: this.y_position + "px",
+                left: this.x_position + "px",
+            });
+        },
+        this.moveDown = function (steps) {
+            // it's "+" instead of "-" because the coordinates are different
+            if (($("#editorContainer").height() - 110) > (this.y_position + steps * 20))
+                this.y_position += steps * 20;
+
+            $("#" + elementId).css({
+                position: "absolute",
+                top: this.y_position + "px",
+                left: this.x_position + "px",
+            });
+        },
+    this.jump = function (height) {
+
+    }
 }
 
 Character.prototype = Object.create(IObject);

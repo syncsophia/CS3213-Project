@@ -20,11 +20,29 @@ var MoveCommand = function(step) {
 MoveCommand.prototype = Object.create(Command);
 MoveCommand.prototype.execute = function() {
 	if (this.step > 0)
-		game.character.moveRight(this.step);
-	if (this.step < 0)
-		game.character.moveLeft(this.step);
-	/*
-	move('.character_human')
+    {
+        move('.character_human')
+
+            // move
+            .ease('.character_human')
+            .add('margin-left', 50 * this.step)
+            .duration('2s')
+            .end();
+    }
+		//game.character.moveRight(this.step);
+	else if (this.step < 0)
+    {
+        move('.character_human')
+
+            // move
+            .ease('.character_human')
+            .add('margin-right', 50 * this.step)
+            .duration('2s')
+            .end();
+    }
+        //game.character.moveLeft(this.step);
+
+	/*move('.character_human')
 
 		// move
 		.ease('.character_human')
@@ -32,7 +50,7 @@ MoveCommand.prototype.execute = function() {
 		.duration('3s')
 		
 		.end();
-	*/
+     */
 	console.log("Move Command Executed. Moving: " + this.step);
 }
 
