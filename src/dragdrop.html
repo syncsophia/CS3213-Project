@@ -46,29 +46,21 @@
 	COMMANDS.push( CMD_REPEAT);
 
 	$(function() {
-		//console.log("Document ready");
+		addDragableCommands();
+	});
+
+	var addDragableCommands = function() {
 		
 		var dragDropElementTable = document.getElementById('allItems');
 		
-		for (key in commands)
-		{
+		for(text in COMMANDS) {
 			var li_Element = document.createElement("li");
-			li_Element.appendChild(document.createTextNode(commands[key].getText()));
-			li_Element.setAttribute("id", "li_" + key);
-			li_Element.setAttribute("class", "code");
+			li_Element.appendChild(document.createTextNode(COMMANDS[text]));
+			li_Element.setAttribute("id", "id_" + COMMANDS[text]);
+			li_Element.setAttribute("class", "class_" + COMMANDS[text]);
 			dragDropElementTable.appendChild(li_Element);
-		};
-
-		/*
-		var txt_E = document.createElement("textarea");
-		txt_E.setAttribute("maxLength", '4');
-		txt_E.setAttribute("cols", '5');
-		txt_E.setAttribute("rows", '1');
-		txt_E.setAttribute("defaultValue", '2');
-		txt_E.setAttribute("id", "txt_Move");
-		*/
-
-	});
+		}
+	}
 	</script>
 </head>
 
