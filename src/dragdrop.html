@@ -24,7 +24,27 @@
 					"yPos": new SetYPosCommand(1),
 					"origin": new SetToOriginCommand()
                      };
-	
+	var COMMANDS = [];
+	var CMD_MOVE_RIGHT = "Move_Right";
+	var CMD_MOVE_LEFT = "Move_Left";
+	var CMD_RESET_X = "Reset_X";
+	var CMD_RESET_Y = "Reset_Y";
+	var CMD_RESET_POSITION = "Reset_Position";
+	var CMD_JUMP = "Jump";
+	var CMD_HIDE = "Hide";
+	var CMD_SHOW = "Show";
+	var CMD_REPEAT = "Repeat";
+
+	COMMANDS.push( CMD_MOVE_RIGHT);
+	COMMANDS.push( CMD_MOVE_LEFT);
+	COMMANDS.push( CMD_RESET_X );
+	COMMANDS.push( CMD_RESET_Y );
+	COMMANDS.push( CMD_RESET_POSITION);
+	COMMANDS.push( CMD_JUMP);
+	COMMANDS.push( CMD_HIDE);
+	COMMANDS.push( CMD_SHOW);
+	COMMANDS.push( CMD_REPEAT);
+
 	$(function() {
 		//console.log("Document ready");
 		
