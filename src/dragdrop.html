@@ -21,7 +21,9 @@
 					"jump": new JumpCommand(1), 
 					"xPos": new SetXPosCommand(1), 
 					"yPos": new SetYPosCommand(1),
-					"origin": new SetToOriginCommand()
+					"origin": new SetToOriginCommand(),
+					"hide" : new HideCommand(),
+					"show" : new ShowCommand(),
                      };
 	
 	$(function() {
@@ -64,7 +66,7 @@
 		  	</ul>
 		</li>
 		<li>
-		  	<a href="#">Change Character</a>
+		  	<a href="#">Character</a>
 		  		<ul>
 		  			<li>
 		  				<input type="image" title="snail1"
@@ -85,8 +87,8 @@
 		  		</ul>
 		</li>
 		<li>
-		  	<a href="#">Change Background</a>
-		  		<ul>
+		  	<a href="#">Background</a>
+		  		<ul z-index=140>
 		  			<li>
 		  				<input type="image" title="plain background" 
 						src="img/small_bg_code.png" onclick="ChangeBackground('img/code.jpg')">
@@ -126,17 +128,15 @@
 	</div>
 
 
-	<div id="editorContainer" style="background-size: 100% 100%;">
-		<div title="This is the editor. Please click the play-Button below to let the character perform your code.">
+	<div id="editorContainer" style="background-size: 100% 100%;" z-index=-140 title="This is the editor. Please click the play-Button below to let the character perform your code.">
 		<!-- ONE <UL> for each "room" -->
-			<ul class="human">
+			<div class="human">
 				<img src="img/human.png" class='character_human' id="character_human">
-			</ul>
-			<ul class="goal_object">
+			</div>
+			<div class="goal_object">
 				<img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
 				 class='goal_object' id="goal_object">
-			</ul>
-		</div>
+			</div>
 	</div>
 </div>
 
