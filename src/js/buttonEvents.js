@@ -24,6 +24,11 @@ var ClearEditor = function() {
 var PlayEditor = function() {
 	var characterElement = document.getElementById("character_human");
 	
+	var origin_x_of_Character = $("#character_human").css("left");
+	var origin_y_of_Character = $("#character_human").css("top");
+	
+	//console.log("this is the origin of the character: " + origin_x_of_Character + "  " + origin_y_of_Character);
+	
 	var listOfCurrentCommands = [];
 	
 	var isRepeatCommand = false;
@@ -71,6 +76,14 @@ var PlayEditor = function() {
 		for(var i=0; i < cmdObjList.length; i++) {
 			cmdObjList[i].execute();
 		}
+		
+		var goalAchieved = game.isEndOfGame();
+		
+		if (!goalAchieved) {
+			// user didn't reach the goal: set character back to origin position.
+			game.character.placeObject(origin_x_of_Character, origin_y_of_Character);
+		}
+		
 		//then delete the list: otherwise it will be summed up?
 		listOfCurrentCommands = [];
 	});

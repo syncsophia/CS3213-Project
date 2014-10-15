@@ -12,22 +12,24 @@ var MoveCommand = function(step) {
 }
 MoveCommand.prototype = Object.create(Command);
 MoveCommand.prototype.execute = function() {
+	
+	//TODO: should be moved to the character class !!!
 	if (this.step > 0)
     {
-        move('.character_human')
+        move('.' + game.character.elementID)
 
             // move
-            .ease('.character_human')
+            .ease('.' + game.character.elementID)
             .add('margin-left', 50 * this.step)
             .duration('2s')
             .end();
     }
 	else if (this.step < 0)
     {
-        move('.character_human')
+        move('.' + game.character.elementID)
 
             // move
-            .ease('.character_human')
+            .ease('.' + game.character.elementID)
             .add('margin-right', 50 * this.step)
             .duration('2s')
             .end();
@@ -36,14 +38,17 @@ MoveCommand.prototype.execute = function() {
 }
 
 var JumpCommand = function(step) {
-
+	this.step = step;
 }
 JumpCommand.prototype = Object.create(Command);
 JumpCommand.prototype.execute = function() {
-	move('.character_human')
+	game.character.jump(this.step);
+	
+	// TODO: should be moved to the character class !!!
+	move('.' + game.character.elementID)
 			.add('margin-top', -100 * this.step)
 				.then()
-					.ease('.character_human')
+					.ease('.' + game.character.elementID)
 					.add('margin-top', 100 * this.step)
 				.pop()
 		.end();
