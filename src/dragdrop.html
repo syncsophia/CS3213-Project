@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/runnable.css" />
 		
 	<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
+	<script type="text/javascript" src="js/game.js"></script>
 	<script type="text/javascript" src="js/dragdrop.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/character.js"></script>
@@ -74,40 +75,48 @@
 		  		<ul>
 		  			<li>
 		  				<input type="image" title="snail1"
-						src="img/small_snail_1.png" onclick="ChangeCharacterCostume('img/snail_1.png')">
+						src="img/snail_1.png" onclick="ChangeCharacterCostume('img/snail_1.png')">
 		  			</li>
 		  			<li>
 		  				<input type="image" title="snail2" 
-						src="img/small_snail_2.png" onclick="ChangeCharacterCostume('img/snail_2.png')">
+						src="img/snail_2.png" onclick="ChangeCharacterCostume('img/snail_2.png')">
 		  			</li>
 		  			<li>
 		  				<input type="image" title="snail3" 
-						src="img/small_snail_3.png" onclick="ChangeCharacterCostume('img/snail_3.png')">
+						src="img/snail_3.png" onclick="ChangeCharacterCostume('img/snail_3.png')">
 		  			</li>
-					<li>
-						<input type="image" title="human"
-						src="img/human.png" width=50px heigth=50px onclick="ChangeCharacterCostume('img/human.png')">
-					</li>
+		  			<li>
+		  				<input type="image" title="snail3" 
+						src="img/albert.png" onclick="ChangeCharacterCostume('img/albert.png')">
+		  			</li>
 		  		</ul>
 		</li>
 		<li>
 		  	<a href="#">Background</a>
-		  		<ul z-index=140>
+		  		<ul>
 		  			<li>
 		  				<input type="image" title="plain background" 
-						src="img/small_bg_code.png" onclick="ChangeBackground('img/code.jpg')">
+						src="img/Background-wood.jpg" onclick="ChangeBackground('img/Background-wood.jpg')">
 		  			</li>
 		  			<li>
 		  				<input type="image" title="beach background" 
-						src="img/small_bg_beach.png" onclick="ChangeBackground('img/Beach-background.jpg')">
+						src="img/Background-beach.jpg" onclick="ChangeBackground('img/Background-beach.jpg')">
 		  			</li>
 		  			<li>
 		  				<input type="image" title="forrest background" 
-						src="img/small_bg_forrest.png" onclick="ChangeBackground('img/Background-forrest.jpg')">
+						src="img/Background-forrest.jpg" onclick="ChangeBackground('img/Background-forrest.jpg')">
 		  			</li>
 		  			<li>
 		  				<input type="image" title="sky background" 
-						src="img/small_bg_heaven.png" onclick="ChangeBackground('img/Background-heaven.jpg')">
+						src="img/Background-heaven.jpg" onclick="ChangeBackground('img/Background-heaven.jpg')">
+		  			</li>
+		  			<li>
+		  				<input type="image" title="sky background" 
+						src="img/Background-machu.jpg" onclick="ChangeBackground('img/Background-machu.jpg')">
+		  			</li>
+		  			<li>
+		  				<input type="image" title="sky background" 
+						src="img/Background-moai.jpg" onclick="ChangeBackground('img/Background-moai.jpg')">
 		  			</li>
 		  		</ul>
 		</li>
@@ -135,7 +144,7 @@
 	<div id="editorContainer" style="background-size: 100% 100%;" z-index=-140 title="This is the editor. Please click the play-Button below to let the character perform your code.">
 		<!-- ONE <UL> for each "room" -->
 			<div class="human">
-				<img src="img/human.png" class='character_human' id="character_human">
+				<img src="img/snail_1.png" class='character_human' id="character_human">
 			</div>
 			<div class="goal_object">
 				<img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
