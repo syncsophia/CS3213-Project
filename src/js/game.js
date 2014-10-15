@@ -38,3 +38,86 @@ var StartGame = function() {
 		return false;
 	}
 }
+	
+	$("#" + "character_human").css({
+	    position : "absolute",
+		top : randomInt3 + "px",
+		left : randomInt4 + "px",
+	});
+	
+	ChangeBackground("img/Background-wood.jpg");
+
+	var mediaContentManager = new MediaContent();
+	insertAllItemsIntoMenu(mediaContentManager);
+
+	var li_Element = document.createElement("li");
+}
+
+var insertAllItemsIntoMenu = function(mediaContent) {
+	insertHomeItemsIntoMenu(mediaContent);
+	insertBackgroundItemsIntoMenu(mediaContent);
+	insertCharacterItemsIntoMenu(mediaContent);
+}
+
+var insertCharacterItemsIntoMenu = function(mediaContent) {
+	var characterMenuElement = document.getElementById('id_MenuCharacterSelect');
+	var images = mediaContent.getArrBackgroundImages();
+
+	for(var i=0; i <images.length; i++) {
+		var li_Element = document.createElement("li");
+		var img_Element = document.createElement("img");
+		img_Element.setAttribute("src", images[i]);
+		img_Element.setAttribute("title", images[i]);
+		img_Element.setAttribute("onclick", "ChangeCharacterCostume(" + images[i] + ")");
+	}
+	// 	var li_Element = document.createElement("li");
+	// 	var img_Element = document.createElement("img");
+	
+		//characterMenuElement.appendChild(li_Element);
+
+		/*
+			<li>		
+  				<input type="image" title="snail1"
+				src="img/snail_1.png" onclick="ChangeCharacterCostume('img/snail_1.png')">
+  			</li>
+		*/
+	//}
+}
+
+var insertBackgroundItemsIntoMenu = function(mediaContent) {
+
+}
+
+var insertHomeItemsIntoMenu = function(mediaContent) {
+
+}
+
+function MediaContent() {
+	this.arr_backgroundImages = [];
+	this.arr_characterImages = [];
+	this.arr_buttonImages = [];
+	this.goalImage;
+
+	this.arr_backgroundImages.push("img/Background-wood.jpg");
+	this.arr_backgroundImages.push("img/Background-beach.jpg");
+	this.arr_backgroundImages.push("img/Background-forrest.jpg"); 
+	this.arr_backgroundImages.push("img/Background-heaven.jpg");
+	this.arr_backgroundImages.push("img/Background-machu.jpg");
+	this.arr_backgroundImages.push("img/Background-moai.jpg");
+
+	this.arr_buttonImages.push("img/recycle.png");
+	this.arr_buttonImages.push("img/stop.png");
+	this.arr_buttonImages.push("img/play.png");
+
+	this.arr_characterImages.push("img/snail_1.png");
+	this.arr_characterImages.push("img/snail_2.png");
+	this.arr_characterImages.push("img/snail_3.png");
+	this.arr_characterImages.push("img/albert.png");
+
+	this.goalImage = "img/goal.png";
+}
+
+MediaContent.prototype.getArrBackgroundImages = function() { return this.arr_backgroundImages; }
+MediaContent.prototype.getArrCharacterImages = function() { return this.arr_backgroundImages; }
+MediaContent.prototype.getArrButtonImages = function() { return this.arr_backgroundImages; }
+MediaContent.prototype.getGoalImages = function() { return this.goalImage; }

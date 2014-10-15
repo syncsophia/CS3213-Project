@@ -71,7 +71,7 @@
 		  	</ul>
 		</li>
 		<li>
-		  	<a href="#">Character</a>
+		  	<a href="#" id="id_MenuCharacterSelect">Character</a>
 		  		<ul>
 		  			<li>
 		  				<input type="image" title="snail1"
@@ -93,7 +93,7 @@
 		</li>
 		<li>
 		  	<a href="#">Background</a>
-		  		<ul>
+		  		<ul class="class_backgroundImages" id="id_backgroundImages">
 		  			<li>
 		  				<input type="image" title="plain background" 
 						src="img/Background-wood.jpg" onclick="ChangeBackground('img/Background-wood.jpg')">
@@ -167,10 +167,12 @@
 
 <script type="text/javascript" src="js/move.js"></script>
 <script type="text/javascript">
+
 	var characterElement = document.getElementById("character_human");
 	var goalElement = document.getElementById("goal_object");
 	var game = new StartGame();
 	game.init();
+		
 </script>
 </body>
 
