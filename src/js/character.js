@@ -80,13 +80,13 @@ var Character = function(elementId) {
 Character.prototype = Object.create(IObject);
 
 Character.prototype.showObject = function(bool) {
-	var characterElement = document.getElementById(this.elementID);
-	characterElement.show();
+    var characterElement = document.getElementById(this.elementID);
+    characterElement.setAttribute("style", "opacity:1.0");
 }
 
 Character.prototype.hideObject = function(bool) {
-	var characterElement = document.getElementById(this.elementID);
-	characterElement.hide();
+    var characterElement = document.getElementById(this.elementID);
+    characterElement.setAttribute("style", "opacity:0.0");
 }
 
 Character.prototype.deleteObject = function() {
@@ -99,7 +99,7 @@ Character.prototype.placeObject = function(x,y) {
 		{this.x_position = x;};
 	if (y >= 0 && y <= ($("#editorContainer").height()-50))
 		{this.y_position = y;};
-		console.log(this.elementID);
+		//console.log(this.elementID);
 	$("#" + this.elementID).css({
 	    position : "absolute",
 		top : this.y_position + "px",
