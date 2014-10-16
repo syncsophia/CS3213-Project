@@ -35,47 +35,20 @@ var PlayEditor = function() {
 	var tempCmdString = "";
 	var finalCmdString = "";
 
+	var fc = new FrontControl();
+
 	$('.class_code').each(function() {
 		$(this).find("li").each(function() {
 			var current = $(this);
 			if(current.children().size() > 0) {
 				return true;
 			}
-			
-			//create command class and perform commands after loop
-			var command = new newCommand(current.attr('id'));
-			listOfCurrentCommands.push(command);
-
-			//rather than just push into array, we check if the command is a repeat command
-			var str_commandType = current.attr("id") + " ";
-
-			if(str_commandType.trim() == "id_" + CMD_REPEAT)
-				isRepeatCommand = true;
-			else
-				isRepeatCommand = false;
-
-			if(isRepeatCommand) {
-				if(tempCmdString == "")
-					finalCmdString = finalCmdString + finalCmdString;
-				else
-					finalCmdString += tempCmdString + tempCmdString;
-				tempCmdString = "";
-			}
-			else {
-				tempCmdString += str_commandType;
-			}
+			// Retrieve the id of the elements on the code panel, consider them as Request
+			listOfCurrentCommands.push(current.attr('id'));
 		});
-		
-		if(tempCmdString != "")
-			finalCmdString+=tempCmdString;
 
-		//console.log("[dragdrop.html] PlayEditor(): Final Command String: " + finalCmdString);
-		var cmdObjList = createCommands(finalCmdString);
-		//console.log('[dragdrop.html] PlayEditor(): cmdObjList size:' + cmdObjList.length);
-
-		for(var i=0; i < cmdObjList.length; i++) {
-			cmdObjList[i].execute();
-		}
+		// ask the frontControl to deal with all Rquests
+		fc.getCommand(listOfCurrentCommands);
 		
 		var goalAchieved = game.isEndOfGame();
 		
