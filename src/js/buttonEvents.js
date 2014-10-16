@@ -51,13 +51,11 @@ var PlayEditor = function() {
 		frontCtrl.getCommand(listOfCurrentCommands);
 		
 		var goalAchieved = game.isEndOfGame();
-		
 		if (!goalAchieved) {
 			// user didn't reach the goal: set character back to origin position.
 			game.character.placeObject(origin_x_of_Character, origin_y_of_Character);
 		}
 		
-		//then delete the list: otherwise it will be summed up?
 		listOfCurrentCommands = [];
 	});
 }

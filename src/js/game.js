@@ -1,9 +1,10 @@
 var StartGame = function() {
 
+	/**
+	 * Append all the dragable codes to the elements panel
+	 */
 	var addDragableCommands = function() {
-		
 		var dragDropElementTable = document.getElementById('allItems');
-		
 		for(text in COMMANDS) {
 			var li_Element = document.createElement("li");
 			li_Element.appendChild(document.createTextNode(COMMANDS[text]));
@@ -12,14 +13,27 @@ var StartGame = function() {
 			dragDropElementTable.appendChild(li_Element);
 		}
 	}
-
+	/**
+	 * Generate a random integer between min and max 
+	 * @param min: minimum number. default value is 1
+	 *		  max: maximum number. default value is 500
+	 * @return a random integer point number
+	 */
+	var getRandomInteger = function(minValue, maxValue) {
+		// to take in default values if minValue and/ maxValue is not given
+		minValue = typeof minValue != 'undefined' ? minValue : 1;
+		maxValue = typeof maxValue != 'undefined' ? maxValue : 500;
+	
+		return Math.floor((Math.random() * maxValue) + minValue);
+	}
 
 	this.character = new Character("character_human");
 	this.goal_object = new Goal("goal_object");
 
+
 	this.init = function() {
-		var randomInt1 = Math.floor((Math.random() * 500) + 1);
-		var randomInt2 = Math.floor((Math.random() * 500) + 1);
+		 var randomInt1 = getRandomInteger();
+		 var randomInt2 = getRandomInteger();
 
 		$("#" + "goal_object").css({
 			position: "absolute",
@@ -30,13 +44,13 @@ var StartGame = function() {
 		goal_object.x_position = randomInt1;
 		goal_object.y_position = randomInt2;
 
-		var randomInt3 = Math.floor((Math.random() * 500) + 1);
-		var randomInt4 = Math.floor((Math.random() * 500) + 1);
+		var randomInt3 = getRandomInteger();
+		var randomInt4 = getRandomInteger();
 
 		if (Math.abs(randomInt1 - randomInt3) < 20 && Math.abs(randomInt2 - randomInt4) < 20) {
 			// The difference between goal position and character position is too low
-			var randomInt3 = Math.floor((Math.random() * 500) + 1) % 5;
-			var randomInt4 = Math.floor((Math.random() * 500) + 1) % 3;
+			var randomInt3 = getRandomInteger();
+			var randomInt4 = getRandomInteger();
 		}
 
 		$("#character_human").css({
@@ -45,10 +59,14 @@ var StartGame = function() {
 			left: randomInt4 + "px",
 		});
 
-
 		addDragableCommands();
 	},
 	
+	/**
+	 * Checks if the character manage to reach the goal flag object
+	 * @return: true if the character reaches the goal, 
+	 *			otherwise false
+	 */
 	this.isEndOfGame = function() {
 		if (Math.abs($("#character_human").css("left") - goal_object.x_position) < 50 &&
 			Math.abs($("#character_human").css("top") - goal_object.y_position) < 50)
@@ -56,10 +74,12 @@ var StartGame = function() {
 		return false;
 	}
 	
-	ChangeBackground("img/Background-wood.jpg");
-
+	
 	var mediaContentManager = new MediaContent();
-	insertAllItemsIntoMenu(mediaContentManager);
+
+	// Randomize the sprite for both background and character
+	ChangeBackground(mediaContentManager.getArrBackgroundImages()[getRandomInteger(0, 6)]);
+	ChangeCharacterCostume(mediaContentManager.getArrCharacterImages()[getRandomInteger(0, 4)]);
 }
 
 var insertAllItemsIntoMenu = function(mediaContent) {
