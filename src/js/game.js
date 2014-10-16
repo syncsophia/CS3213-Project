@@ -1,3 +1,10 @@
+//------------------------------------------------------------------------------------
+//
+//	StartGame Class
+//
+//	Description: To initialize the Visual IDE
+//
+//------------------------------------------------------------------------------------
 var StartGame = function() {
 
 	/**
@@ -82,6 +89,10 @@ var StartGame = function() {
 	ChangeCharacterCostume(mediaContentManager.getArrCharacterImages()[getRandomInteger(0, 4)]);
 }
 
+//------------------------------------------------------------------------------------
+// (Future Expansion) The functions below is meant to added menu items into the html 
+// via javascript 
+//------------------------------------------------------------------------------------
 var insertAllItemsIntoMenu = function(mediaContent) {
 	insertHomeItemsIntoMenu(mediaContent);
 	insertBackgroundItemsIntoMenu(mediaContent);
@@ -101,10 +112,21 @@ var insertHomeItemsIntoMenu = function(mediaContent) {
 
 }
 
+//------------------------------------------------------------------------------------
+//
+//	MediaContent Class
+//
+//	Description: To store the location for all media content such as image and
+//				 audio files
+//				 This is meant for future expansion where DOM elements are added 
+//				 dynamically through javascript as well as references for other 
+//				 classes
+//------------------------------------------------------------------------------------
 function MediaContent() {
 	this.arr_backgroundImages = [];
 	this.arr_characterImages = [];
 	this.arr_buttonImages = [];
+	this.arr_soundEffects = [];
 	this.goalImage;
 
 	this.arr_backgroundImages.push("img/Background-wood.jpg");
@@ -124,9 +146,13 @@ function MediaContent() {
 	this.arr_characterImages.push("img/albert.png");
 
 	this.goalImage = "img/goal.png";
+
+	this.arr_soundEffects.push("audio/cartoonhop,mp3");
+	this.arr_soundEffects.push("audio/cartoonwalk.mp3");
 }
 
 MediaContent.prototype.getArrBackgroundImages = function() { return this.arr_backgroundImages; }
 MediaContent.prototype.getArrCharacterImages = function() { return this.arr_characterImages; }
 MediaContent.prototype.getArrButtonImages = function() { return this.arr_buttonImages; }
+MediaContent.prototype.getSoundEffects = function() { return this.arr_soundEffects; }
 MediaContent.prototype.getGoalImages = function() { return this.goalImage; }
