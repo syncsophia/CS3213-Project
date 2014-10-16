@@ -1,12 +1,22 @@
 //------------------------------------------------------------------------------------
 //
-//	Command Interface & Its Implementable Class
+//	Command (Inteface) Class
+//
+//	Description: Interface for other commands to implement the execute function
+//				 In general, the execute function animates the character
 //
 //------------------------------------------------------------------------------------
 var Command = {
 	execute: function() {}
 }
 
+//------------------------------------------------------------------------------------
+//
+//	MoveCommand (Implements Command)
+//
+//	Description: Command to move the character Left/Right given the step value
+//
+//------------------------------------------------------------------------------------
 var MoveCommand = function(step) {
 	this.step = step;
 }
@@ -37,6 +47,14 @@ MoveCommand.prototype.execute = function() {
 	//console.log("[command.js] MoveCommand.execute():  Moving: " + this.step);
 }
 
+
+//------------------------------------------------------------------------------------
+//
+//	JumpCommand (Implements Command)
+//
+//	Description: Command to move the character upwards given the step value
+//
+//------------------------------------------------------------------------------------
 var JumpCommand = function(step) {
 	this.step = step;
 }
@@ -55,6 +73,14 @@ JumpCommand.prototype.execute = function() {
 	//console.log("[command.js] JumpCommand.execute():   Jumping: " + this.step);
 }
 
+
+//------------------------------------------------------------------------------------
+//
+//	SetXPosCommand (Implements Command)
+//
+//	Description: Command to set the x position/coordinates of the character
+//
+//------------------------------------------------------------------------------------
 var SetXPosCommand = function(step) {
 	this.step = step;
 }
@@ -64,6 +90,14 @@ SetXPosCommand.prototype.execute = function() {
 	//console.log("[command.js] SetXPosCommand.execute(): Set X: " + this.step);
 }
 
+
+//------------------------------------------------------------------------------------
+//
+//	SetYPosCommand (Implements Command)
+//
+//	Description: Command to set the y position/coordinates of the character
+//
+//------------------------------------------------------------------------------------
 var SetYPosCommand = function(step) {
 	this.step = step;
 }
@@ -73,6 +107,15 @@ SetYPosCommand.prototype.execute = function() {
 	//console.log("[command.js] SetYPosCommand.execute():  Set Y: " + this.step);
 }
 
+
+//------------------------------------------------------------------------------------
+//
+//	SetToOriginCommand (Implements Command)
+//
+//	Description: Command to set the character to the origin @ coordinates (0,0)
+//				 w.r.t. the top left hand corner of the editor
+//
+//------------------------------------------------------------------------------------
 var SetToOriginCommand = function() {
 
 }
@@ -82,6 +125,13 @@ SetToOriginCommand.prototype.execute = function() {
 	//console.log("[command.js] SetToOriginCommand.execute():  Set to origin.");
 }
 
+//------------------------------------------------------------------------------------
+//
+//	HideCommand (Implements Command)
+//
+//	Description: Command to hide the character
+//
+//------------------------------------------------------------------------------------
 var HideCommand = function() { 
 
 }
@@ -91,6 +141,14 @@ HideCommand.prototype.execute = function() {
 	//console.log("[command.js] HideCommand.execute():  Hide character");
 }
 
+
+//------------------------------------------------------------------------------------
+//
+//	ShowCommand (Implements Command)
+//
+//	Description: Command to display/unhide the character
+//
+//------------------------------------------------------------------------------------
 var ShowCommand = function() {
 
 }
