@@ -1,12 +1,11 @@
 h1 {
-  font-family: Helvetica;
-  font-weight: 100;
+	font-family: 'Averia Serif Libre', cursive;
 }
 body {
   color:#317082;
   width:600px;
   text-align:center;
-  font-family: arial;
+  font-family: 'Averia Serif Libre', cursive;
 }
 
 .nav {
