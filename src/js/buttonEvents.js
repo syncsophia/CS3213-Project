@@ -35,7 +35,7 @@ var PlayEditor = function() {
 	var tempCmdString = "";
 	var finalCmdString = "";
 
-	var fc = new FrontControl();
+	var frontCtrl = new FrontControl();
 
 	$('.class_code').each(function() {
 		$(this).find("li").each(function() {
@@ -48,7 +48,7 @@ var PlayEditor = function() {
 		});
 
 		// ask the frontControl to deal with all Rquests
-		fc.getCommand(listOfCurrentCommands);
+		frontCtrl.getCommand(listOfCurrentCommands);
 		
 		var goalAchieved = game.isEndOfGame();
 		
@@ -60,35 +60,4 @@ var PlayEditor = function() {
 		//then delete the list: otherwise it will be summed up?
 		listOfCurrentCommands = [];
 	});
-}
-
-var createCommands = function(cmdString) {
-	var commandList = [];
-	var str = cmdString.trim();
-	var arr_commandString = str.split(" ");
-	var commandIsValid = true;
-	
-	//console.log(arr_commandString.length);
-
-	for(var i=0; i < arr_commandString.length; i++) {
-		var temp = arr_commandString[i].trim().substring(3);
-		
-		if(temp == CMD_MOVE_RIGHT)
-			commandList.push(new MoveCommand(1));
-		else if (temp == CMD_MOVE_LEFT)
-			commandList.push(new MoveCommand(-1));
-		else if (temp == CMD_RESET_X)
-			commandList.push(new SetXPosCommand(1));
-		else if (temp == CMD_RESET_Y)
-			commandList.push(new SetYPosCommand(1));
-		else if (temp == CMD_RESET_POSITION)
-			commandList.push(new SetToOriginCommand());
-		else if (temp == CMD_JUMP)
-			commandList.push(new JumpCommand(1));
-		else if (temp == CMD_SHOW)
-			commandList.push(new ShowCommand());
-		else if (temp == CMD_HIDE)
-			commandList.push(new HideCommand());
-	}
-	return commandList;	
 }
