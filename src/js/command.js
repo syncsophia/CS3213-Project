@@ -10,6 +10,7 @@ var Command = {
 	execute: function() {}
 }
 
+
 //------------------------------------------------------------------------------------
 //
 //	MoveCommand (Implements Command)
@@ -124,6 +125,7 @@ SetToOriginCommand.prototype.execute = function() {
 	game.character.placeObject(0, 0);
 	//console.log("[command.js] SetToOriginCommand.execute():  Set to origin.");
 }
+
 
 //------------------------------------------------------------------------------------
 //
