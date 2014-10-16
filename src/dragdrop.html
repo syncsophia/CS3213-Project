@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="js/game.js"></script>
 	<script type="text/javascript" src="js/command.js"></script>
     <script type="text/javascript" src="js/menubar.js"></script>
+	<script type="text/javascript" src="js/frontcommand.js"></script>
 	<script type="text/javascript" src="js/buttonEvents.js"></script>
 	<script type="text/javascript">
 
@@ -39,22 +40,6 @@
 	COMMANDS.push( CMD_SHOW);
 	COMMANDS.push( CMD_REPEAT);
 
-	$(function() {
-		addDragableCommands();
-	});
-
-	var addDragableCommands = function() {
-		
-		var dragDropElementTable = document.getElementById('allItems');
-		
-		for(text in COMMANDS) {
-			var li_Element = document.createElement("li");
-			li_Element.appendChild(document.createTextNode(COMMANDS[text]));
-			li_Element.setAttribute("id", "id_" + COMMANDS[text]);
-			li_Element.setAttribute("class", "class_" + COMMANDS[text]);
-			dragDropElementTable.appendChild(li_Element);
-		}
-	}
 	</script>
 </head>
 
@@ -71,8 +56,8 @@
 		  	</ul>
 		</li>
 		<li>
-		  	<a href="#" id="id_MenuCharacterSelect">Character</a>
-		  		<ul>
+		  	<a href="#">Character</a>
+		  		<ul id="id_MenuCharacterSelect" class="class_MenuCharacterSelect">
 		  			<li>
 		  				<input type="image" title="snail1"
 						src="img/snail_1.png" onclick="ChangeCharacterCostume('img/snail_1.png')">
@@ -163,6 +148,7 @@
 <ul id="dragContent">
 
 </ul>
+
 <div id="dragDropIndicator"><img src="img/insert.gif"></div>
 
 <script type="text/javascript" src="js/move.js"></script>

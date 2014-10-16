@@ -1,4 +1,19 @@
 var StartGame = function() {
+
+	var addDragableCommands = function() {
+		
+		var dragDropElementTable = document.getElementById('allItems');
+		
+		for(text in COMMANDS) {
+			var li_Element = document.createElement("li");
+			li_Element.appendChild(document.createTextNode(COMMANDS[text]));
+			li_Element.setAttribute("id", "id_" + COMMANDS[text]);
+			li_Element.setAttribute("class", "class_" + COMMANDS[text]);
+			dragDropElementTable.appendChild(li_Element);
+		}
+	}
+
+
 	this.character = new Character("character_human");
 	this.goal_object = new Goal("goal_object");
 
@@ -29,6 +44,9 @@ var StartGame = function() {
 			top: randomInt3 + "px",
 			left: randomInt4 + "px",
 		});
+
+
+		addDragableCommands();
 	},
 	
 	this.isEndOfGame = function() {
@@ -42,9 +60,6 @@ var StartGame = function() {
 
 	var mediaContentManager = new MediaContent();
 	insertAllItemsIntoMenu(mediaContentManager);
-
-	var li_Element = document.createElement("li");
-
 }
 
 var insertAllItemsIntoMenu = function(mediaContent) {
@@ -55,27 +70,7 @@ var insertAllItemsIntoMenu = function(mediaContent) {
 
 var insertCharacterItemsIntoMenu = function(mediaContent) {
 	var characterMenuElement = document.getElementById('id_MenuCharacterSelect');
-	var images = mediaContent.getArrBackgroundImages();
-
-	for(var i=0; i <images.length; i++) {
-		var li_Element = document.createElement("li");
-		var img_Element = document.createElement("img");
-		img_Element.setAttribute("src", images[i]);
-		img_Element.setAttribute("title", images[i]);
-		img_Element.setAttribute("onclick", "ChangeCharacterCostume(" + images[i] + ")");
-	}
-	// 	var li_Element = document.createElement("li");
-	// 	var img_Element = document.createElement("img");
-	
-		//characterMenuElement.appendChild(li_Element);
-
-		/*
-			<li>		
-  				<input type="image" title="snail1"
-				src="img/snail_1.png" onclick="ChangeCharacterCostume('img/snail_1.png')">
-  			</li>
-		*/
-	//}
+	var images = mediaContent.getArrCharacterImages();
 }
 
 var insertBackgroundItemsIntoMenu = function(mediaContent) {
@@ -112,6 +107,6 @@ function MediaContent() {
 }
 
 MediaContent.prototype.getArrBackgroundImages = function() { return this.arr_backgroundImages; }
-MediaContent.prototype.getArrCharacterImages = function() { return this.arr_backgroundImages; }
-MediaContent.prototype.getArrButtonImages = function() { return this.arr_backgroundImages; }
+MediaContent.prototype.getArrCharacterImages = function() { return this.arr_characterImages; }
+MediaContent.prototype.getArrButtonImages = function() { return this.arr_buttonImages; }
 MediaContent.prototype.getGoalImages = function() { return this.goalImage; }
