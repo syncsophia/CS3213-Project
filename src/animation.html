@@ -23,28 +23,49 @@
 	<script type="text/javascript" src="js/move.min.js"></script>
 	<script type="text/javascript">
 		document.getElementById('playButton').onclick = function(e) {
+            var hide = move('.human')
+                .set("opacity", 0)
+                .duration('1s');
+            
+            var show = move('.human')
+                .set("opacity", 1)
+                .duration('1s');
+                
+//            var jump = move('.human') // trying to encapsulate movements into vars
+//                .ease('in-out').y(-100)
+//                .end(function(){
+//                     move('.human')
+//                     .ease('in-out').y(100).end();
+//                     });
 
 			move('.human')
 
-				// move
-				.x(400)
-				.y(200)
+				// Move to specific coordinates
+                .translate(400, 200)
 				.duration('3s')
+//                .then(hide)       // hide will work, but show will not
+//                .then(show)
 
-				// jump
+				// Jump, Hide, Show, Rotate - this entire process works (except rotate)
 				.then()
 					.ease('in-out')
 					.y(-100)
-						.then()
+                        .then()
 							.ease('in-out')
 							.y(100)
-						.pop()
-				.pop()
-
-				// .then()
-				// 	.set("opacity", 0)
-				// 	.duration('3s')
-				// .pop()
+                                .then()     // hide
+                                    .set("opacity", 0)
+                                    .duration('1s')
+                                        .then()     // show
+                                            .set("opacity", 1)
+                                            .duration('1s')
+                                                .then()    // rotate
+                                                    .rotate(90)
+                                                    .pop()
+                                            .pop()
+                                    .pop()
+                            .pop()
+                    .pop()
 
 				.end();
 		};

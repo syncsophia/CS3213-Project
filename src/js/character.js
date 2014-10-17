@@ -20,6 +20,7 @@ var IObject = {
 
 /* The actual character class */
 var Character = function(elementId) {
+<<<<<<< Updated upstream
 	var me = this;
 	this.originPosition = [];
 	this.elementID = elementId;
@@ -74,6 +75,102 @@ var Character = function(elementId) {
 	this.jump = function(height) {
 
 	}
+=======
+    var me = this;
+    this.elementID = elementId;
+    this.x_position = $("#editorContainer").width() / 2;
+    this.y_position = $("#editorContainer").height() / 2;
+
+    this.target_x = this.x_position + 100;
+    this.target_y = this.y_position;
+    this.hasArrived = false;
+
+    this.moveLeft = function (steps) {
+        if (0 < (this.x_position + steps * 20))
+            this.x_position -= steps * 20;
+
+        $("#" + elementId).css({
+            position: "absolute",
+            top: this.y_position + "px",
+            left: this.x_position + "px",
+        });
+    },
+        this.moveRight = function (steps) {
+            console.log("timer: " + this.timer);
+
+            
+            var stepTo = this.x_position + 50;
+            if (stepTo > $("#editorContainer").width()) {
+                var adjStep = $("#editorContainer").width() - stepTo;
+                setTimeout(this.draw(adjStep, "right"), 200);
+            } else {
+                setTimeout(this.draw(stepTo, "right"), 200);
+            }
+//            if (($("#editorContainer").width() - 50) > (this.x_position + steps * 20))
+//                this.x_position += steps * 20;
+//
+//            $("#" + elementId).css({
+//                position: "absolute",
+//                top: this.y_position + "px",
+//                left: this.x_position + "px",
+//            });
+
+        },
+        this.moveUp = function (steps) {
+            // it's "-" instead of "+" because the coordinates are different
+            if (20 < (this.y_position + steps * 20))
+                this.y_position -= steps * 20;
+
+            $("#" + elementId).css({
+                position: "absolute",
+                top: this.y_position + "px",
+                left: this.x_position + "px",
+            });
+        },
+        this.moveDown = function (steps) {
+            // it's "+" instead of "-" because the coordinates are different
+            if (($("#editorContainer").height() - 110) > (this.y_position + steps * 20))
+                this.y_position += steps * 20;
+
+            $("#" + elementId).css({
+                position: "absolute",
+                top: this.y_position + "px",
+                left: this.x_position + "px",
+            });
+        },
+    this.jump = function (height) {
+
+    }
+    
+    //trackRender function? = elapsedTime
+    
+    this.render = function (axis) {
+        this.x_position ++;
+        $("#" + elementId).css({
+                               position: "absolute",
+                               top: this.y_position + "px",
+                               left: this.x_position + "px",
+                               opacity : 1,
+                               });
+    }
+    
+    this.draw = function (end, direction) {
+        
+        
+        
+        if (direction == "right") {
+           do {
+               // current time is system time once play starts
+               // elapsed time starts when render called
+               // if currenttime - elapsedtime < interval:
+            
+               
+               
+            } while (this.x_position <= end);
+        }
+        
+    }
+>>>>>>> Stashed changes
 }
 
 Character.prototype = Object.create(IObject);
