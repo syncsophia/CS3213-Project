@@ -23,7 +23,6 @@ var MoveCommand = function(step) {
 }
 MoveCommand.prototype = Object.create(Command);
 MoveCommand.prototype.execute = function() {
-<<<<<<< Updated upstream
 	
 	//TODO: should be moved to the character class !!!
 	if (this.step > 0)
@@ -37,20 +36,6 @@ MoveCommand.prototype.execute = function() {
             .end();
     }
 	else if (this.step < 0)
-=======
-//	if (this.step > 0)
-//    {
-//        move('.character_human')
-//
-//            // move
-//            .ease('.character_human')
-//            .add('margin-left', 50 * this.step)
-//            .duration('2s')
-//            .end();
-//    }
-        game.character.moveRight(this.step);
-    if (this.step < 0)
->>>>>>> Stashed changes
     {
         move('.' + game.character.elementID)
 
