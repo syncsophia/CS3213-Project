@@ -11,8 +11,9 @@ var StartGame = function() {
 	 * Append all the dragable codes to the elements panel
 	 */
 	var addDragableCommands = function() {
+		
 		var dragDropElementTable = document.getElementById('allItems');
-		for(text in COMMANDS) {
+		for (text in COMMANDS) {
 			var li_Element = document.createElement("li");
 			li_Element.appendChild(document.createTextNode(COMMANDS[text]));
 			li_Element.setAttribute("id", "id_" + COMMANDS[text]);
@@ -21,7 +22,7 @@ var StartGame = function() {
 		}
 	}
 	/**
-	 * Generate a random integer between min and max 
+	 * Generate a random integer between min and max
 	 * @param min: minimum number. default value is 1
 	 *		  max: maximum number. default value is 500
 	 * @return a random integer point number
@@ -30,7 +31,7 @@ var StartGame = function() {
 		// to take in default values if minValue and/ maxValue is not given
 		minValue = typeof minValue != 'undefined' ? minValue : 1;
 		maxValue = typeof maxValue != 'undefined' ? maxValue : 500;
-	
+
 		return Math.floor((Math.random() * maxValue) + minValue);
 	}
 
@@ -38,16 +39,20 @@ var StartGame = function() {
 	this.goal_object = new Goal("goal_object");
 
 
-	this.init = function() {
-		 var randomInt1 = getRandomInteger();
-		 var randomInt2 = getRandomInteger();
+	/**
+	*  Creates random positions for Character and Goal.
+	*  And checks that the two have not the same Position.
+	*/
+	var doPositioningOfCharacterAndGoal = function() {
+		var randomInt1 = getRandomInteger();
+		var randomInt2 = getRandomInteger();
 
 		$("#" + "goal_object").css({
 			position: "absolute",
 			top: randomInt1 + "px",
 			left: randomInt2 + "px",
 		});
-		
+
 		goal_object.x_position = randomInt1;
 		goal_object.y_position = randomInt2;
 
@@ -65,13 +70,21 @@ var StartGame = function() {
 			top: randomInt3 + "px",
 			left: randomInt4 + "px",
 		});
+	}
+
+	/**
+	* Does the positioning of character and goal and 
+	* adds all possible Commands to the element List (Library of commands).
+	*/
+	this.init = function() {
+		doPositioningOfCharacterAndGoal();
 
 		addDragableCommands();
 	},
-	
+
 	/**
 	 * Checks if the character manage to reach the goal flag object
-	 * @return: true if the character reaches the goal, 
+	 * @return: true if the character reaches the goal,
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
@@ -80,8 +93,8 @@ var StartGame = function() {
 			return true;
 		return false;
 	}
-	
-	
+
+
 	var mediaContentManager = new MediaContent();
 
 	// Randomize the sprite for both background and character
@@ -122,37 +135,48 @@ var insertHomeItemsIntoMenu = function(mediaContent) {
 //				 dynamically through javascript as well as references for other 
 //				 classes
 //------------------------------------------------------------------------------------
-function MediaContent() {
-	this.arr_backgroundImages = [];
-	this.arr_characterImages = [];
-	this.arr_buttonImages = [];
-	this.arr_soundEffects = [];
-	this.goalImage;
 
-	this.arr_backgroundImages.push("img/Background-wood.jpg");
-	this.arr_backgroundImages.push("img/Background-beach.jpg");
-	this.arr_backgroundImages.push("img/Background-forrest.jpg"); 
-	this.arr_backgroundImages.push("img/Background-heaven.jpg");
-	this.arr_backgroundImages.push("img/Background-machu.jpg");
-	this.arr_backgroundImages.push("img/Background-moai.jpg");
+	function MediaContent() {
+		this.arr_backgroundImages = [];
+		this.arr_characterImages = [];
+		this.arr_buttonImages = [];
+		this.arr_soundEffects = [];
+		this.goalImage;
 
-	this.arr_buttonImages.push("img/recycle.png");
-	this.arr_buttonImages.push("img/stop.png");
-	this.arr_buttonImages.push("img/play.png");
+		this.arr_backgroundImages.push("img/Background-wood.jpg");
+		this.arr_backgroundImages.push("img/Background-beach.jpg");
+		this.arr_backgroundImages.push("img/Background-forrest.jpg");
+		this.arr_backgroundImages.push("img/Background-heaven.jpg");
+		this.arr_backgroundImages.push("img/Background-machu.jpg");
+		this.arr_backgroundImages.push("img/Background-moai.jpg");
 
-	this.arr_characterImages.push("img/snail_1.png");
-	this.arr_characterImages.push("img/snail_2.png");
-	this.arr_characterImages.push("img/snail_3.png");
-	this.arr_characterImages.push("img/albert.png");
+		this.arr_buttonImages.push("img/recycle.png");
+		this.arr_buttonImages.push("img/stop.png");
+		this.arr_buttonImages.push("img/play.png");
 
-	this.goalImage = "img/goal.png";
+		this.arr_characterImages.push("img/snail_1.png");
+		this.arr_characterImages.push("img/snail_2.png");
+		this.arr_characterImages.push("img/snail_3.png");
+		this.arr_characterImages.push("img/albert.png");
 
-	this.arr_soundEffects.push("audio/cartoonhop,mp3");
-	this.arr_soundEffects.push("audio/cartoonwalk.mp3");
+		this.goalImage = "img/goal.png";
+
+		this.arr_soundEffects.push("audio/cartoonhop,mp3");
+		this.arr_soundEffects.push("audio/cartoonwalk.mp3");
+	}
+
+MediaContent.prototype.getArrBackgroundImages = function() {
+	return this.arr_backgroundImages;
 }
-
-MediaContent.prototype.getArrBackgroundImages = function() { return this.arr_backgroundImages; }
-MediaContent.prototype.getArrCharacterImages = function() { return this.arr_characterImages; }
-MediaContent.prototype.getArrButtonImages = function() { return this.arr_buttonImages; }
-MediaContent.prototype.getSoundEffects = function() { return this.arr_soundEffects; }
-MediaContent.prototype.getGoalImages = function() { return this.goalImage; }
+MediaContent.prototype.getArrCharacterImages = function() {
+	return this.arr_characterImages;
+}
+MediaContent.prototype.getArrButtonImages = function() {
+	return this.arr_buttonImages;
+}
+MediaContent.prototype.getSoundEffects = function() {
+	return this.arr_soundEffects;
+}
+MediaContent.prototype.getGoalImages = function() {
+	return this.goalImage;
+}

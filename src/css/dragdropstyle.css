@@ -52,8 +52,8 @@ body {
     margin-bottom: 0px;
     padding: 2px;
 }
-#dhtmlgoodies_dragDropContainer li,
 #dragContent li,
+#dhtmlgoodies_listOfItems li,
 li#indicateDestination {
     /* Movable items, i.e. <LI> */
     list-style-type: none;
@@ -65,6 +65,7 @@ li#indicateDestination {
     cursor: pointer;
     font-size: 0.9em;
 }
+
 li#indicateDestination {
     /* Box indicating where content will be dropped - i.e. the one you use if you don't use arrow */
     border: 1px solid #317082;
@@ -98,6 +99,7 @@ div#dhtmlgoodies_listOfItems {
 div#dhtmlgoodies_listOfItems div {
     border: 1px solid #999;
 }
+
 div#dhtmlgoodies_listOfItems div ul {
     /* Left column <ul> */
     margin-left: 10px;
@@ -119,7 +121,22 @@ div#dhtmlgoodies_listOfItems div ul {
     background-color: #E2EBED;
     border: 1px solid #317082;
 }
-/* Start main container CSS */
+
+
+
+/* Start main container CSS : Thats the container containing the code*/
+
+#dhtmlgoodies_mainContainer li{
+    /* Movable items, i.e. <LI> */
+    list-style-type: none;
+    height: 40px;
+    background-color: #EEE;
+    border: 1px solid #000;
+    padding: 2px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
 
 div#dhtmlgoodies_mainContainer {
     /* Right column DIV */

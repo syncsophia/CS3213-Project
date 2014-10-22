@@ -23,7 +23,6 @@ FrontControl.prototype.getCommand = function(commandString) {
 	for(var i=0; i < commandString.length; i++)
 		commandList.push( commandString[i].trim().substring(3) );
 
-	//console.log("[FrontControl] commandList size: " + commandList.length);
 	this.cmdHandler.constructCommands(commandList);
 };
 

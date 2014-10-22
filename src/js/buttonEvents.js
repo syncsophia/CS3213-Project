@@ -22,6 +22,7 @@ var ClearEditor = function() {
 
 /* User pressed play button */
 var PlayEditor = function() {
+	
 	var characterElement = document.getElementById("character_human");
 	
 	var origin_x_of_Character = $("#character_human").css("left");
@@ -40,7 +41,7 @@ var PlayEditor = function() {
 	$('.class_code').each(function() {
 		$(this).find("li").each(function() {
 			var current = $(this);
-			if(current.children().size() > 0) {
+			if(current.children().size() > 1) {
 				return true;
 			}
 			// Retrieve the id of the elements on the code panel, consider them as Request
