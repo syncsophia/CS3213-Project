@@ -240,9 +240,8 @@
 		}else{
 
 			if(destinationObj){
-				//Change text to text with step field
-				console.log(contentToBeDragged.innerHTML);
-				contentToBeDragged.innerHTML += ": <input type='text' id='steps' value='1' size='5'/> (steps)"; 
+				// Change text to text with step field
+				contentToBeDragged.innerHTML = contentToBeDragged.id.substring(3) + ": <input type='text' id='steps' value='1' size='5'/> (steps)"; 
 				
 				if(destinationObj.tagName=='UL'){
 					destinationObj.appendChild(contentToBeDragged);
