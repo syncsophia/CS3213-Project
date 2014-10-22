@@ -51,20 +51,21 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 
 	for(var i=0; i < commandDraftStringList.length; i++) {
 		
-		temp = commandDraftStringList[i];
+		temp = commandDraftStringList[i].split(";")[0];
+		temp_steps = commandDraftStringList[i].split(";")[1];
 
 		if(temp == CMD_MOVE_RIGHT)
-			commandList.push(new MoveCommand(1));
+			commandList.push(new MoveCommand(temp_steps));
 		else if (temp == CMD_MOVE_LEFT)
-			commandList.push(new MoveCommand(-1));
-		else if (temp == CMD_RESET_X)
-			commandList.push(new SetXPosCommand(1));
-		else if (temp == CMD_RESET_Y)
-			commandList.push(new SetYPosCommand(1));
+			commandList.push(new MoveCommand(-temp_steps));
+		else if (temp == CMD_SET_X)
+			commandList.push(new SetXPosCommand(temp_steps));
+		else if (temp == CMD_SET_Y)
+			commandList.push(new SetYPosCommand(temp_steps));
 		else if (temp == CMD_RESET_POSITION)
 			commandList.push(new SetToOriginCommand());
 		else if (temp == CMD_JUMP)
-			commandList.push(new JumpCommand(1));
+			commandList.push(new JumpCommand(temp_steps));
 		else if (temp == CMD_SHOW)
 			commandList.push(new ShowCommand());
 		else if (temp == CMD_HIDE)
@@ -94,7 +95,9 @@ CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
 	var str_commandType = "";
 
 	for(var i=0; i < commandStrArray.length; i++) {
-		str_commandType = commandStrArray[i];
+		str_commandType = commandStrArray[i].split(";")[0];
+		str_steps = commandStrArray[i].split(";")[1];
+		
 		if(str_commandType == CMD_REPEAT)
 			isRepeatCommand = true;
 		else
@@ -108,7 +111,7 @@ CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
 			tempCmdString = "";
 		}
 		else {
-			tempCmdString += str_commandType + " ";
+			tempCmdString += str_commandType + ";" + str_steps + " ";
 		}
 	}
 	if(tempCmdString != "")
