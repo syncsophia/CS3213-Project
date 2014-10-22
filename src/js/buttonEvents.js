@@ -44,6 +44,7 @@ var PlayEditor = function() {
 			if(current.children().size() > 1) {
 				return true;
 			}
+			console.log(current);
 			// Retrieve the id of the elements on the code panel and the correspoding steps, consider them as Request
 			listOfCurrentCommands.push(current.attr('id') + ";" + current.find("input").attr('value'));
 		});

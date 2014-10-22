@@ -51,6 +51,7 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 
 	for(var i=0; i < commandDraftStringList.length; i++) {
 		
+		console.log(commandDraftStringList);
 		temp = commandDraftStringList[i].split(";")[0];
 		temp_steps = commandDraftStringList[i].split(";")[1];
 

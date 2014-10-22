@@ -244,7 +244,6 @@
 				if (contentToBeDragged.id.indexOf("Hide") == -1 && contentToBeDragged.id.indexOf("Show") == -1 && contentToBeDragged.id.indexOf("Reset") == -1)
 				contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":<br><input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='5'> (steps)" + "</form>"; 
 				
-				console.log(contentToBeDragged);
 				if(destinationObj.tagName=='UL'){
 					destinationObj.appendChild(contentToBeDragged);
 				}else{
