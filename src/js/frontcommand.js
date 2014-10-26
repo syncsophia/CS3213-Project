@@ -73,6 +73,8 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 			commandList.push(new ShowCommand());
 		else if (temp == CMD_HIDE)
 			commandList.push(new HideCommand());
+		else if (temp == CMD_REPEAT_FOREVER)
+			commandList.push(new RepeatForeverCommand());
 	}
 	this.cmdPro.processCommands(commandList);
 }
@@ -97,10 +99,17 @@ CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
 	var finalCmdString = "";
 	var str_commandType = "";
 
+	var isRepeatForeverCommand = false;
+
 	for(var i=0; i < commandStrArray.length; i++) {
 		str_commandType = commandStrArray[i].split(";")[0];
 		str_steps = commandStrArray[i].split(";")[1];
 		
+		if(str_commandType == CMD_REPEAT_FOREVER) {
+			isRepeatForeverCommand = true;
+			continue;
+		}
+
 		if(str_commandType == CMD_REPEAT)
 			isRepeatCommand = true;
 		else
@@ -123,6 +132,10 @@ CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
 	if(tempCmdString != "")
 		finalCmdString+=tempCmdString;
 
+
+	if(isRepeatForeverCommand)
+		finalCmdString += CMD_REPEAT_FOREVER+";100000 ";
+
 	finalCmdString = finalCmdString.trim();
 
 	listOfCompleteStrCommands = finalCmdString.split(" ");
@@ -130,7 +143,11 @@ CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
 };
 
 function CommandProcessor() {
+	CommandProcessor.hasInterrupt = false;
 
+	function Interrupt() {
+		CommandProcessor.hasInterrupt =  true;
+	}
 }
 /**
  * This is the lowest point of delegation of request where this function
@@ -138,7 +155,27 @@ function CommandProcessor() {
  *
  * @param commandStrArray: an array of Command objects delegated by the FrontControl
  */
+
 CommandProcessor.prototype.processCommands = function(commandObjArr) {
-	for(var i=0; i <commandObjArr.length; i++)
-		commandObjArr[i].execute();
+
+	var foreverLooping = false;
+	for(var i=0; i <commandObjArr.length; i++) {
+		if(commandObjArr[i] instanceof RepeatForeverCommand) {
+			foreverLooping = true;
+			console.log("Forever");
+		}
+	}
+
+	if(foreverLooping) {
+		while(true && !CommandProcessor.hasInterrupt) 
+			for(var i=0; i <commandObjArr.length; i++) {
+				if(commandObjArr[i] instanceof RepeatForeverCommand == false)
+					commandObjArr[i].execute();
+				console.log(CommandProcessor.hasInterrupt);
+			}
+	}
+	else
+		for(var i=0; i <commandObjArr.length; i++)
+			commandObjArr[i].execute();
+
 };
