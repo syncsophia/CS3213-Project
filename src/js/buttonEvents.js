@@ -10,6 +10,7 @@ var newCommand = function(id) {
 */
 var StopEditor = function() {
 	//TODO
+	CommandProcessor.hasInterrupt = true;
 };
 
 /* clears the code panel
