@@ -242,7 +242,7 @@
 			if(destinationObj){
 				// Change text to text with step field
 				if (contentToBeDragged.id.indexOf("Hide") == -1 && contentToBeDragged.id.indexOf("Show") == -1 && contentToBeDragged.id.indexOf("Reset") == -1)
-				contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":<br><input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='5'> (steps)" + "</form>"; 
+				contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + ": <input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + ""; 
 				
 				if(destinationObj.tagName=='UL'){
 					destinationObj.appendChild(contentToBeDragged);

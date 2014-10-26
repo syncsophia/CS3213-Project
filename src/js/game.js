@@ -14,11 +14,16 @@ var StartGame = function() {
 		
 		var dragDropElementTable = document.getElementById('allItems');
 		for (text in COMMANDS) {
-			var li_Element = document.createElement("li");
-			li_Element.appendChild(document.createTextNode(COMMANDS[text]));
-			li_Element.setAttribute("id", "id_" + COMMANDS[text]);
-			li_Element.setAttribute("class", "class_" + COMMANDS[text]);
-			dragDropElementTable.appendChild(li_Element);
+			if(COMMANDS[text] == CMD_SET_X || COMMANDS[text] == CMD_SET_Y || COMMANDS[text] == CMD_RESET_POSITION) {
+
+			}
+			else {
+				var li_Element = document.createElement("li");
+				li_Element.appendChild(document.createTextNode(COMMANDS[text]));
+				li_Element.setAttribute("id", "id_" + COMMANDS[text]);
+				li_Element.setAttribute("class", "class_" + COMMANDS[text]);
+				dragDropElementTable.appendChild(li_Element);
+			}
 		}
 	}
 	/**
