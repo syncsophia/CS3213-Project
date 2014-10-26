@@ -159,3 +159,12 @@ ShowCommand.prototype.execute = function() {
 	game.character.showObject();
 	//console.log("[command.js] ShowCommand.execute():  Show character");
 }
+
+var RepeatForeverCommand = function() {
+
+}
+RepeatForeverCommand.prototype = Object.create(Command);
+RepeatForeverCommand.prototype.execute = function() {
+	// Handle Infinite repeating request
+	console.log("You should not see this");
+}
