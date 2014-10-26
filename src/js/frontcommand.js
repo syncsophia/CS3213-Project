@@ -143,12 +143,11 @@ CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
 };
 
 function CommandProcessor() {
-	CommandProcessor.hasInterrupt = false;
 
-	function Interrupt() {
-		CommandProcessor.hasInterrupt =  true;
-	}
 }
+
+CommandProcessor.hasInterrupted = false;
+CommandProcessor.Interrupt = function() { CommandProcessor.hasInterrupted = true; }
 /**
  * This is the lowest point of delegation of request where this function
  * performs the ACTUAL execution of the commands
@@ -167,15 +166,30 @@ CommandProcessor.prototype.processCommands = function(commandObjArr) {
 	}
 
 	if(foreverLooping) {
-		while(true && !CommandProcessor.hasInterrupt) 
-			for(var i=0; i <commandObjArr.length; i++) {
-				if(commandObjArr[i] instanceof RepeatForeverCommand == false)
+		var i = 0;
+		var t1 = setInterval( function() { 
+			console.log(i +  " " + commandObjArr.length);
+			intRun(commandObjArr[i]); 
+			i++;
+			if(CommandProcessor.hasInterrupted) clearInterval(t1);
+			if(i >= commandObjArr.length) i=0;
+		}, 1000);
+
+		var intRun = function(command) { command.execute(); }
+
+
+		var j = 0;
+
+		while(j < 10 && CommandProcessor.hasInterrupt == false) {
+			for(var i=0; i <commandObjArr.length && CommandProcessor.hasInterrupt == false; i++) {
+				if(commandObjArr[i] instanceof RepeatForeverCommand == false) {
 					commandObjArr[i].execute();
-				console.log(CommandProcessor.hasInterrupt);
+				}
 			}
+			j++;
+		}
 	}
 	else
 		for(var i=0; i <commandObjArr.length; i++)
 			commandObjArr[i].execute();
-
 };

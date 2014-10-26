@@ -10,7 +10,7 @@ var newCommand = function(id) {
 */
 var StopEditor = function() {
 	//TODO
-	CommandProcessor.hasInterrupt = true;
+	CommandProcessor.Interrupt();
 };
 
 /* clears the code panel
@@ -19,6 +19,8 @@ var ClearEditor = function() {
 	$('.class_code').each(function() {
 		$(this).find("li").remove();
 	});
+
+	console.log(CommandProcessor.hasInterrupt);
 }
 
 /* User pressed play button */
