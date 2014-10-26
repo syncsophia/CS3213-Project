@@ -51,9 +51,11 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 
 	for(var i=0; i < commandDraftStringList.length; i++) {
 		
-		console.log(commandDraftStringList);
+		//console.log(commandDraftStringList);
 		temp = commandDraftStringList[i].split(";")[0];
 		temp_steps = commandDraftStringList[i].split(";")[1];
+
+		//console.log(temp + ": " + temp_steps);
 
 		if(temp == CMD_MOVE_RIGHT)
 			commandList.push(new MoveCommand(temp_steps));
@@ -105,10 +107,13 @@ CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
 			isRepeatCommand = false;
 
 		if(isRepeatCommand) {
+			var theRepeatString = "";
 			if(tempCmdString == "")
-				finalCmdString = finalCmdString + finalCmdString;
+				theRepeatString = finalCmdString;
 			else
-				finalCmdString += tempCmdString + tempCmdString;
+				theRepeatString = tempCmdString;
+			for(var i=0; i < str_steps; i++)
+				finalCmdString += theRepeatString;
 			tempCmdString = "";
 		}
 		else {
