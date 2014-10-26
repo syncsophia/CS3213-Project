@@ -44,9 +44,9 @@ var PlayEditor = function() {
 			if(current.children().size() > 1) {
 				return true;
 			}
-			console.log(current);
+			//console.log(current.firstChild.find("input"));
 			// Retrieve the id of the elements on the code panel and the correspoding steps, consider them as Request
-			listOfCurrentCommands.push(current.attr('id') + ";" + current.find("input").attr('value'));
+			listOfCurrentCommands.push(current.attr('id') + ";" + current.find("input").val());
 		});
 
 		// ask the frontControl to deal with all Rquests
