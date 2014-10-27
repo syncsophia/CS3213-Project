@@ -8,6 +8,8 @@
 var IObject = {
 	x_position: 0,
 	y_position: 0,
+	initXPos:0,
+	initYPos:0,
 	image: "",
 	elementID: "",
 
@@ -15,7 +17,8 @@ var IObject = {
 	hideObject: function(bool) {},
 	deleteObject: function() {},
 	placeObject: function(x, y) {},
-	setImage: function(image) {}
+	setImage: function(image) {},
+	setInitXY: function(x, y) { initXPos = x; initYPos = y; }
 }
 
 /* The actual character class */
@@ -27,28 +30,24 @@ var Character = function(elementId) {
 	this.target_x = this.x_position + 100;
 	this.target_y = this.y_position;
 	this.hasArrived = false;
-
-	this.moveLeft = function(steps) {
-		if (0 < (this.x_position + steps * 20))
-			this.x_position -= steps * 20;
-
-		$("#" + elementId).css({
-			position: "absolute",
-			top: this.y_position + "px",
-			left: this.x_position + "px",
-		});
-	},
-	this.moveRight = function(steps) {
-		if (($("#editorContainer").width() - 50) > (this.x_position + steps * 20))
-			this.x_position += steps * 20;
-
-		$("#" + elementId).css({
-			position: "absolute",
-			top: this.y_position + "px",
-			left: this.x_position + "px",
-		});
-
-	},
+	
+	this.move = function(steps) {	
+		move('.' + this.elementID)
+			.ease('.' + this.elementID)
+			.add('margin-left', 50 * steps)
+			.duration('1s')
+			.end();
+    },
+    this.jump = function(steps) {
+    	move('.' + this.elementID)
+			.add('margin-top', -100 * steps)
+				.then()
+					.ease('.' + this.elementID)
+					.add('margin-top', 100 * steps)
+				.pop()
+			.duration('0.8s')
+		.end();
+    },
 	this.moveUp = function(steps) {
 		// it's "-" instead of "+" because the coordinates are different
 		if (20 < (this.y_position + steps * 20))
@@ -71,21 +70,29 @@ var Character = function(elementId) {
 			left: this.x_position + "px",
 		});
 	},
-	this.jump = function(height) {
-
+	this.resetPosition = function(steps) {
+		
+	},
+	this.initPosition = function(x, y) {
+		this.x_position = this.initXPos = x;
+		this.y_position = this.initYPos = y;
 	}
 }
+
 
 Character.prototype = Object.create(IObject);
 
 Character.prototype.showObject = function(bool) {
 	var characterElement = document.getElementById(this.elementID);
-	characterElement.setAttribute("style", "opacity:1.0");
+	//characterElement.setAttribute("style", "opacity:1.0");
+	move("#" + this.elementID).set('opacity', 1.0).duration('0.5s').end();
 }
 
 Character.prototype.hideObject = function(bool) {
 	var characterElement = document.getElementById(this.elementID);
-	characterElement.setAttribute("style", "opacity:0.0");
+	//characterElement.setAttribute("style", "opacity:0.0");
+	
+	move("#" + this.elementID).set('opacity', 0.0).duration('0.5s').end();
 }
 
 Character.prototype.deleteObject = function() {
@@ -111,6 +118,11 @@ Character.prototype.setImage = function(image) {
 	this.image = image;
 	var characterElement = document.getElementById(this.elementID);
 	characterElement.src = image;
+}
+
+Character.prototype.setInitPosition = function(x, y) {
+	this.initXPos = x;
+	this.initYPos = y;
 }
 
 //------------------------------------------------------------------------------------
