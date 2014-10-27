@@ -7,6 +7,9 @@
 //------------------------------------------------------------------------------------
 var StartGame = function() {
 
+	this.character = new Character("character_human");
+	this.goal_object = new Goal("goal_object");
+	
 	/**
 	 * Append all the dragable codes to the elements panel
 	 */
@@ -34,14 +37,11 @@ var StartGame = function() {
 	 */
 	var getRandomInteger = function(minValue, maxValue) {
 		// to take in default values if minValue and/ maxValue is not given
-		minValue = typeof minValue != 'undefined' ? minValue : 1;
-		maxValue = typeof maxValue != 'undefined' ? maxValue : 500;
+		//minValue = typeof minValue != 'undefined' ? minValue : 1;
+		//maxValue = typeof maxValue != 'undefined' ? maxValue : 500;
 
 		return Math.floor((Math.random() * maxValue) + minValue);
 	}
-
-	this.character = new Character("character_human");
-	this.goal_object = new Goal("goal_object");
 
 
 	/**
@@ -49,9 +49,38 @@ var StartGame = function() {
 	*  And checks that the two have not the same Position.
 	*/
 	var doPositioningOfCharacterAndGoal = function() {
+		
+		//this.character.setInitPosition(0,0);
+		
+		// Human boundary 0 < x < 430, 0 < y < 430
+		var randomX = getRandomInteger(0,100);
+		var randomY = getRandomInteger(0,430);
+		
+		$("#character_human").css({
+			position: "absolute",
+			top: randomY + "px",
+			left: randomX + "px",
+		});
+		
+		//this.character.setInitXY(randomX, randomY);
+		
+		// Flag boundary 0 < x < 480, 0 < y < 510
+		randomX = getRandomInteger(0,100);
+		randomY = getRandomInteger(0,510);
+		
+		$("#goal_object").css({
+			position: "absolute",
+			top: randomY + "px",
+			left: (randomX + 380) + "px",
+		});
+		
+		
+		//goal_object.setInitXY(randomX, randomY);
+		
+		/*
 		var randomInt1 = getRandomInteger();
 		var randomInt2 = getRandomInteger();
-
+		
 		$("#" + "goal_object").css({
 			position: "absolute",
 			top: randomInt1 + "px",
@@ -75,6 +104,7 @@ var StartGame = function() {
 			top: randomInt3 + "px",
 			left: randomInt4 + "px",
 		});
+		*/
 	}
 
 	/**
