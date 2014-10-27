@@ -87,6 +87,18 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 			}
 			*/
 		}
+		else if (cmdType == CMD_REPEAT_FOREVER) {
+			repeatCmdList = commandList;
+			if(commandBeforeRepeat.length != 0) {
+				for(var i=0; i < commandBeforeRepeat.length; i++) {
+					repeatCmdList.push(commandBeforeRepeat[i]);
+				}
+			}
+			commandBeforeRepeat = [];
+			commandList = [];
+			commandList.push(new RepeatForeverCommand(repeatCmdList));
+			break;
+		}
 	}
 	
 	if(commandBeforeRepeat.length != 0) {

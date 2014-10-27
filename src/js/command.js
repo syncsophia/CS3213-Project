@@ -132,13 +132,27 @@ ShowCommand.prototype.execute = function() {
 
 var RepeatForeverCommand = function(list_CommandObjects) {
 	this.cmdList = list_CommandObjects;
+	this.numRepeatCommands = list_CommandObjects.length;
+	this.hasBeenInterrupted = false;
 }
 RepeatForeverCommand.prototype = Object.create(Command);
 RepeatForeverCommand.prototype.execute = function() {
-	// Handle Infinite repeating request
-	console.log("You should not see this");
+	hasBeenInterrupted = false;
+	
+	var delay = 1500;
+	var i = 0;
+	
+	var cmdList = this.cmdList;
+	
+	// setInterval has no clue of this class's variables. i.e. cmdList
+	var t1 = setInterval( function() {
+		cmdList[i].execute();
+		i++;
+		if(i >= cmdList.length) { i = 0; }
+		if(hasBeenInterrupted) { clearInterval(); }
+	}, delay);		
 }
-
+RepeatForeverCommand.prototype.Interrupt = function() { hasBeenInterrupted = true; }
 
 
 
@@ -166,7 +180,7 @@ RepeatCommand.prototype.execute = function() {
 		var numIterations = this.step;
 		var cmdList = this.cmdList;
 		
-		// setInterval has no clue of this class's variables. i.e.
+		// setInterval has no clue of this class's variables. i.e. step, cmdList
 		var t1 = setInterval( function() {
 			cmdList[i].execute();
 			i++;
