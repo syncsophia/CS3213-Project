@@ -66,8 +66,6 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 		else if (cmdType == CMD_HIDE)
 			commandBeforeRepeat.push(new HideCommand());
 		else if (cmdType == CMD_REPEAT) {
-			console.log(commandBeforeRepeat);
-
 			if(commandBeforeRepeat.length != 0) {
 				var repeatCmd = new RepeatCommand(cmdStep, commandBeforeRepeat);
 				commandBeforeRepeat = [];
@@ -78,14 +76,6 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 				commandList = [];
 				commandList.push(repeatCmd);
 			}
-		
-			/*
-			if(commandList.length > 0) {
-				var repeatCmd = new RepeatCommand(cmdStep, commandList);
-				commandList = [];
-				commandList.push(repeatCmd);	
-			}
-			*/
 		}
 		else if (cmdType == CMD_REPEAT_FOREVER) {
 			repeatCmdList = commandList;
@@ -106,23 +96,8 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 			commandList.push(commandBeforeRepeat[i]);
 		}
 	}
-	
-	console.log(commandList);
 
-	var i = 0;
-	var delay = 1500;
-	if(commandList[i] instanceof RepeatCommand)
-		delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
-	var t1 = setInterval( function() {
-		if(commandList[i] instanceof RepeatCommand)
-			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
-		else
-			delay = 1500;
-		commandList[i].execute();
-		i++;
-		if(i >= commandList.length) clearInterval(t1);
-	}, delay);
-	
+	this.cmdPro.processCommands(commandList);	
 	
 	/*
 	var commandDraftStringList = [];
@@ -264,9 +239,23 @@ CommandProcessor.Interrupt = function() { CommandProcessor.hasInterrupted = true
  *
  * @param commandStrArray: an array of Command objects delegated by the FrontControl
  */
+CommandProcessor.prototype.processCommands = function(commandList) {
 
-CommandProcessor.prototype.processCommands = function(commandObjArr) {
+	var i = 0;
+	var delay = 1500;
+	if(commandList[i] instanceof RepeatCommand)
+		delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
+	var t1 = setInterval( function() {
+		if(commandList[i] instanceof RepeatCommand)
+			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
+		else
+			delay = 1500;
+		commandList[i].execute();
+		i++;
+		if(i >= commandList.length) clearInterval(t1);
+	}, delay);
 
+	/*
 	var delay = 1500;
 	var foreverLooping = false;
 	for(var i=0; i <commandObjArr.length; i++) {
@@ -303,4 +292,5 @@ CommandProcessor.prototype.processCommands = function(commandObjArr) {
 		}, delay);
 		var intRun = function(command) { command.execute(); }
 	}
+	*/
 };
