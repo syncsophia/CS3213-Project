@@ -44,6 +44,75 @@ function CommandHandler() {
  * @param commandStrArray: string of requests delegated by the FrontControl
  */
 CommandHandler.prototype.constructCommands = function(commandStrArray) {
+	
+	//----- NEW
+	var commandList = [];
+	var commandBeforeRepeat = [];
+	for(var i=0; i < commandStrArray.length; i++) {
+		var tuple = commandStrArray[i].split(";");
+		var cmdType = tuple[0];
+		var cmdStep = tuple[1];
+		
+		//console.log(cmdType + " " + cmdStep);
+		
+		if(cmdType == CMD_MOVE_RIGHT)
+			commandBeforeRepeat.push(new MoveCommand(cmdStep));
+		else if (cmdType == CMD_MOVE_LEFT)
+			commandBeforeRepeat.push(new MoveCommand(-cmdStep));
+		else if (cmdType == CMD_JUMP)
+			commandBeforeRepeat.push(new JumpCommand(cmdStep));
+		else if (cmdType == CMD_SHOW)
+			commandBeforeRepeat.push(new ShowCommand());
+		else if (cmdType == CMD_HIDE)
+			commandBeforeRepeat.push(new HideCommand());
+		else if (cmdType == CMD_REPEAT) {
+			console.log(commandBeforeRepeat);
+
+			if(commandBeforeRepeat.length != 0) {
+				var repeatCmd = new RepeatCommand(cmdStep, commandBeforeRepeat);
+				commandBeforeRepeat = [];
+				commandList.push(repeatCmd);
+			}
+			else { 
+				var repeatCmd = new RepeatCommand(cmdStep, commandList);
+				commandList = [];
+				commandList.push(repeatCmd);
+			}
+		
+			/*
+			if(commandList.length > 0) {
+				var repeatCmd = new RepeatCommand(cmdStep, commandList);
+				commandList = [];
+				commandList.push(repeatCmd);	
+			}
+			*/
+		}
+	}
+	
+	if(commandBeforeRepeat.length != 0) {
+		for(var i=0; i < commandBeforeRepeat.length; i++) {
+			commandList.push(commandBeforeRepeat[i]);
+		}
+	}
+	
+	console.log(commandList);
+
+	var i = 0;
+	var delay = 1500;
+	if(commandList[i] instanceof RepeatCommand)
+		delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
+	var t1 = setInterval( function() {
+		if(commandList[i] instanceof RepeatCommand)
+			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
+		else
+			delay = 1500;
+		commandList[i].execute();
+		i++;
+		if(i >= commandList.length) clearInterval(t1);
+	}, delay);
+	
+	
+	/*
 	var commandDraftStringList = [];
 	commandDraftStringList =  this.draftCommandStrings(commandStrArray);
 	var commandList = [];
@@ -55,28 +124,57 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 		temp = commandDraftStringList[i].split(";")[0];
 		temp_steps = commandDraftStringList[i].split(";")[1];
 
-		//console.log(temp + ": " + temp_steps);
-
+		console.log(temp + ": " + temp_steps);
+		
 		if(temp == CMD_MOVE_RIGHT)
 			commandList.push(new MoveCommand(temp_steps));
 		else if (temp == CMD_MOVE_LEFT)
 			commandList.push(new MoveCommand(-temp_steps));
-		else if (temp == CMD_SET_X)
-			commandList.push(new SetXPosCommand(temp_steps));
-		else if (temp == CMD_SET_Y)
-			commandList.push(new SetYPosCommand(temp_steps));
-		else if (temp == CMD_RESET_POSITION)
-			commandList.push(new SetToOriginCommand());
 		else if (temp == CMD_JUMP)
 			commandList.push(new JumpCommand(temp_steps));
 		else if (temp == CMD_SHOW)
 			commandList.push(new ShowCommand());
 		else if (temp == CMD_HIDE)
 			commandList.push(new HideCommand());
-		else if (temp == CMD_REPEAT_FOREVER)
-			commandList.push(new RepeatForeverCommand());
+		else if (temp == CMD_REPEAT) {
+			if(commandList.length > 1)
+				commandList.push(new RepeatCommand(temp_steps, commandList));
+		}
+		
+		
+		// if(temp == CMD_MOVE_RIGHT)
+// 			commandList.push(new MoveCommand(temp_steps));
+// 		else if (temp == CMD_MOVE_LEFT)
+// 			commandList.push(new MoveCommand(-temp_steps));
+// 		else if (temp == CMD_SET_X)
+// 			commandList.push(new SetXPosCommand(temp_steps));
+// 		else if (temp == CMD_SET_Y)
+// 			commandList.push(new SetYPosCommand(temp_steps));
+// 		else if (temp == CMD_RESET_POSITION)
+// 			commandList.push(new SetToOriginCommand());
+// 		else if (temp == CMD_JUMP)
+// 			commandList.push(new JumpCommand(temp_steps));
+// 		else if (temp == CMD_SHOW)
+// 			commandList.push(new ShowCommand());
+// 		else if (temp == CMD_HIDE)
+// 			commandList.push(new HideCommand());
+// 		else if (temp == CMD_REPEAT)
+// 			commandList.push(new RepeatCommand(temp_steps, commandList));
+// 		else if (temp == CMD_REPEAT_FOREVER)
+// 			commandList.push(new RepeatForeverCommand());
+		
 	}
+	
+	var i = 0;
+	var t1 = setInterval( function() {
+		commandList[i].execute();
+		i++;
+		if(i >= commandList.length) clearInterval(t1);
+	}, 1500);
+	
+
 	this.cmdPro.processCommands(commandList);
+	*/
 }
 
 /**
@@ -157,6 +255,7 @@ CommandProcessor.Interrupt = function() { CommandProcessor.hasInterrupted = true
 
 CommandProcessor.prototype.processCommands = function(commandObjArr) {
 
+	var delay = 1500;
 	var foreverLooping = false;
 	for(var i=0; i <commandObjArr.length; i++) {
 		if(commandObjArr[i] instanceof RepeatForeverCommand) {
@@ -177,7 +276,7 @@ CommandProcessor.prototype.processCommands = function(commandObjArr) {
 			i++;
 			if(CommandProcessor.hasInterrupted) clearInterval(t1);
 			if(i >= commandObjArr.length) i=0;
-		}, 1000);
+		}, delay);
 
 		var intRun = function(command) { command.execute(); }
 	}
@@ -189,7 +288,7 @@ CommandProcessor.prototype.processCommands = function(commandObjArr) {
 			}
 			i++;
 			if(i >= commandObjArr.length) clearInterval(t1);
-		}, 1000);
+		}, delay);
 		var intRun = function(command) { command.execute(); }
 	}
 };
