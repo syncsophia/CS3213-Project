@@ -22,29 +22,8 @@ var MoveCommand = function(step) {
 	this.step = step;
 }
 MoveCommand.prototype = Object.create(Command);
-MoveCommand.prototype.execute = function() {
-	
-	//TODO: should be moved to the character class !!!
-	if (this.step > 0)
-    {
-        move('.' + game.character.elementID)
-
-            // move
-            .ease('.' + game.character.elementID)
-            .add('margin-left', 50 * this.step)
-            .duration('2s')
-            .end();
-    }
-	else if (this.step < 0)
-    {
-        move('.' + game.character.elementID)
-
-            // move
-            .ease('.' + game.character.elementID)
-            .add('margin-right', 50 * this.step)
-            .duration('2s')
-            .end();
-    }
+MoveCommand.prototype.execute = function() {    	
+	game.character.move(this.step)
 	//console.log("[command.js] MoveCommand.execute():  Moving: " + this.step);
 }
 
@@ -62,15 +41,6 @@ var JumpCommand = function(step) {
 JumpCommand.prototype = Object.create(Command);
 JumpCommand.prototype.execute = function() {
 	game.character.jump(this.step);
-	
-	// TODO: should be moved to the character class !!!
-	move('.' + game.character.elementID)
-			.add('margin-top', -100 * this.step)
-				.then()
-					.ease('.' + game.character.elementID)
-					.add('margin-top', 100 * this.step)
-				.pop()
-		.end();
 	//console.log("[command.js] JumpCommand.execute():   Jumping: " + this.step);
 }
 
@@ -160,11 +130,49 @@ ShowCommand.prototype.execute = function() {
 	//console.log("[command.js] ShowCommand.execute():  Show character");
 }
 
-var RepeatForeverCommand = function() {
-
+var RepeatForeverCommand = function(list_CommandObjects) {
+	this.cmdList = list_CommandObjects;
 }
 RepeatForeverCommand.prototype = Object.create(Command);
 RepeatForeverCommand.prototype.execute = function() {
 	// Handle Infinite repeating request
 	console.log("You should not see this");
 }
+
+
+
+
+/*
+var JumpCommand = function(step) {
+	this.step = step;
+}
+JumpCommand.prototype = Object.create(Command);
+JumpCommand.prototype.execute = function() {
+	game.character.jump(this.step);
+	//console.log("[command.js] JumpCommand.execute():   Jumping: " + this.step);
+}
+*/
+var RepeatCommand = function(step, list_CommandObjects) {
+	this.step = step;
+	this.cmdList = list_CommandObjects;
+	this.numRepeatCommands = list_CommandObjects.length;
+}
+RepeatCommand.prototype = Object.create(Command);
+RepeatCommand.prototype.execute = function() {
+		var delay = 1500;
+		var n_Repeat = 0;
+		var i = 0;
+		
+		var numIterations = this.step;
+		var cmdList = this.cmdList;
+		
+		// setInterval has no clue of this class's variables. i.e.
+		var t1 = setInterval( function() {
+			cmdList[i].execute();
+			i++;
+			if(i >= cmdList.length) { i = 0; n_Repeat++; }
+			if (n_Repeat > numIterations) clearInterval(t1);
+			
+		}, delay);
+}
+RepeatCommand.prototype.getNumRepeatCommands = function() { return this.numRepeatCommands; }
