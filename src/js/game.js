@@ -17,7 +17,9 @@ var StartGame = function() {
 		
 		var dragDropElementTable = document.getElementById('allItems');
 		for (text in COMMANDS) {
-			if(COMMANDS[text] == CMD_SET_X || COMMANDS[text] == CMD_SET_Y || COMMANDS[text] == CMD_RESET_POSITION) {
+			if(COMMANDS[text] == CMD_SET_X || 
+			   COMMANDS[text] == CMD_SET_Y || 
+			   COMMANDS[text] == CMD_RESET_POSITION) {
 
 			}
 			else {
@@ -36,83 +38,34 @@ var StartGame = function() {
 	 * @return a random integer point number
 	 */
 	var getRandomInteger = function(minValue, maxValue) {
-		// to take in default values if minValue and/ maxValue is not given
-		//minValue = typeof minValue != 'undefined' ? minValue : 1;
-		//maxValue = typeof maxValue != 'undefined' ? maxValue : 500;
-
 		return Math.floor((Math.random() * maxValue) + minValue);
 	}
 
-
 	/**
-	*  Creates random positions for Character and Goal.
-	*  And checks that the two have not the same Position.
-	*/
-	var doPositioningOfCharacterAndGoal = function() {
+	*  Creates random positions for any object
+	*/	
+	var setRandomObjectPosition = function(inObj, inObjID, minX, maxX, minY, maxY) {
 		
-		//this.character.setInitPosition(0,0);
+		var randomX = getRandomInteger(0, maxX-minX) + minX;
+		var randomY = getRandomInteger(0, maxY-minY) + minY;
 		
-		// Human boundary 0 < x < 430, 0 < y < 430
-		var randomX = getRandomInteger(0,100);
-		var randomY = getRandomInteger(0,430);
-		
-		$("#character_human").css({
+		// Render the character according to the position		
+		$("#" + inObjID).css({
 			position: "absolute",
-			top: randomY + "px",
+			top:  randomY + "px",
 			left: randomX + "px",
 		});
 		
-		//this.character.setInitXY(randomX, randomY);
-		
-		// Flag boundary 0 < x < 480, 0 < y < 510
-		randomX = getRandomInteger(0,100);
-		randomY = getRandomInteger(0,510);
-		
-		$("#goal_object").css({
-			position: "absolute",
-			top: randomY + "px",
-			left: (randomX + 380) + "px",
-		});
-		
-		
-		//goal_object.setInitXY(randomX, randomY);
-		
-		/*
-		var randomInt1 = getRandomInteger();
-		var randomInt2 = getRandomInteger();
-		
-		$("#" + "goal_object").css({
-			position: "absolute",
-			top: randomInt1 + "px",
-			left: randomInt2 + "px",
-		});
-
-		goal_object.x_position = randomInt1;
-		goal_object.y_position = randomInt2;
-
-		var randomInt3 = getRandomInteger();
-		var randomInt4 = getRandomInteger();
-
-		if (Math.abs(randomInt1 - randomInt3) < 20 && Math.abs(randomInt2 - randomInt4) < 20) {
-			// The difference between goal position and character position is too low
-			var randomInt3 = getRandomInteger();
-			var randomInt4 = getRandomInteger();
-		}
-
-		$("#character_human").css({
-			position: "absolute",
-			top: randomInt3 + "px",
-			left: randomInt4 + "px",
-		});
-		*/
+		inObj.setInitXY(randomX, randomY);
 	}
-
+	
 	/**
 	* Does the positioning of character and goal and 
 	* adds all possible Commands to the element List (Library of commands).
 	*/
 	this.init = function() {
-		doPositioningOfCharacterAndGoal();
+		setRandomObjectPosition(this.character, this.character.elementID, 0, 100, 0, 430);
+		setRandomObjectPosition(this.goal_object, this.goal_object.elementID, 380, 480, 0, 510);
 
 		addDragableCommands();
 	},
@@ -129,6 +82,16 @@ var StartGame = function() {
 		return false;
 	}
 
+	this.resetCharacter = function() {
+		this.character.resetPosition();
+		
+		$("#" + this.character.elementID).css({
+			position: "absolute",
+			top:  this.character.initYPos + "px",
+			left: this.character.initXPos + "px",
+		});
+		this.character.showObject();
+	}
 
 	var mediaContentManager = new MediaContent();
 
@@ -136,6 +99,8 @@ var StartGame = function() {
 	ChangeBackground(mediaContentManager.getArrBackgroundImages()[getRandomInteger(0, 6)]);
 	ChangeCharacterCostume(mediaContentManager.getArrCharacterImages()[getRandomInteger(0, 4)]);
 }
+
+
 
 //------------------------------------------------------------------------------------
 // (Future Expansion) The functions below is meant to added menu items into the html 
