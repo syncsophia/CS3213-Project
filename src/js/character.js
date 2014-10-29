@@ -18,7 +18,7 @@ var IObject = {
 	deleteObject: function() {},
 	placeObject: function(x, y) {},
 	setImage: function(image) {},
-	setInitXY: function(x, y) { initXPos = x; initYPos = y; }
+	setInitXY: function(x, y) { this.initXPos = this.x_position = x; this.initYPos = this.y_position = y;}
 }
 
 /* The actual character class */
@@ -48,34 +48,9 @@ var Character = function(elementId) {
 			.duration('0.8s')
 		.end();
     },
-	this.moveUp = function(steps) {
-		// it's "-" instead of "+" because the coordinates are different
-		if (20 < (this.y_position + steps * 20))
-			this.y_position -= steps * 20;
-
-		$("#" + elementId).css({
-			position: "absolute",
-			top: this.y_position + "px",
-			left: this.x_position + "px",
-		});
-	},
-	this.moveDown = function(steps) {
-		// it's "+" instead of "-" because the coordinates are different
-		if (($("#editorContainer").height() - 110) > (this.y_position + steps * 20))
-			this.y_position += steps * 20;
-
-		$("#" + elementId).css({
-			position: "absolute",
-			top: this.y_position + "px",
-			left: this.x_position + "px",
-		});
-	},
-	this.resetPosition = function(steps) {
-		
-	},
-	this.initPosition = function(x, y) {
-		this.x_position = this.initXPos = x;
-		this.y_position = this.initYPos = y;
+	this.resetPosition = function() {
+		this.x_position = this.initXPos;
+		this.y_position = this.initYPos;
 	}
 }
 
@@ -118,11 +93,6 @@ Character.prototype.setImage = function(image) {
 	this.image = image;
 	var characterElement = document.getElementById(this.elementID);
 	characterElement.src = image;
-}
-
-Character.prototype.setInitPosition = function(x, y) {
-	this.initXPos = x;
-	this.initYPos = y;
 }
 
 //------------------------------------------------------------------------------------
