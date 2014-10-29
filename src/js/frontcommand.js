@@ -45,7 +45,6 @@ function CommandHandler() {
  */
 CommandHandler.prototype.constructCommands = function(commandStrArray) {
 	
-	//----- NEW
 	var commandList = [];
 	var commandBeforeRepeat = [];
 	for(var i=0; i < commandStrArray.length; i++) {
@@ -97,71 +96,7 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 		}
 	}
 
-	this.cmdPro.processCommands(commandList);	
-	
-	/*
-	var commandDraftStringList = [];
-	commandDraftStringList =  this.draftCommandStrings(commandStrArray);
-	var commandList = [];
-	var temp = "";
-
-	for(var i=0; i < commandDraftStringList.length; i++) {
-		
-		//console.log(commandDraftStringList);
-		temp = commandDraftStringList[i].split(";")[0];
-		temp_steps = commandDraftStringList[i].split(";")[1];
-
-		console.log(temp + ": " + temp_steps);
-		
-		if(temp == CMD_MOVE_RIGHT)
-			commandList.push(new MoveCommand(temp_steps));
-		else if (temp == CMD_MOVE_LEFT)
-			commandList.push(new MoveCommand(-temp_steps));
-		else if (temp == CMD_JUMP)
-			commandList.push(new JumpCommand(temp_steps));
-		else if (temp == CMD_SHOW)
-			commandList.push(new ShowCommand());
-		else if (temp == CMD_HIDE)
-			commandList.push(new HideCommand());
-		else if (temp == CMD_REPEAT) {
-			if(commandList.length > 1)
-				commandList.push(new RepeatCommand(temp_steps, commandList));
-		}
-		
-		
-		// if(temp == CMD_MOVE_RIGHT)
-// 			commandList.push(new MoveCommand(temp_steps));
-// 		else if (temp == CMD_MOVE_LEFT)
-// 			commandList.push(new MoveCommand(-temp_steps));
-// 		else if (temp == CMD_SET_X)
-// 			commandList.push(new SetXPosCommand(temp_steps));
-// 		else if (temp == CMD_SET_Y)
-// 			commandList.push(new SetYPosCommand(temp_steps));
-// 		else if (temp == CMD_RESET_POSITION)
-// 			commandList.push(new SetToOriginCommand());
-// 		else if (temp == CMD_JUMP)
-// 			commandList.push(new JumpCommand(temp_steps));
-// 		else if (temp == CMD_SHOW)
-// 			commandList.push(new ShowCommand());
-// 		else if (temp == CMD_HIDE)
-// 			commandList.push(new HideCommand());
-// 		else if (temp == CMD_REPEAT)
-// 			commandList.push(new RepeatCommand(temp_steps, commandList));
-// 		else if (temp == CMD_REPEAT_FOREVER)
-// 			commandList.push(new RepeatForeverCommand());
-		
-	}
-	
-	var i = 0;
-	var t1 = setInterval( function() {
-		commandList[i].execute();
-		i++;
-		if(i >= commandList.length) clearInterval(t1);
-	}, 1500);
-	
-
 	this.cmdPro.processCommands(commandList);
-	*/
 }
 
 /**
@@ -252,7 +187,6 @@ CommandProcessor.Interrupt = function() {
 CommandProcessor.prototype.processCommands = function(commandList) {
 	
 	CommandProcessor.StaticCommandList = this.cmdList = commandList;
-	console.log(commandList + " " + this.cmdList.length);
 	
 	hasInterrupted = false;
 	
@@ -265,47 +199,17 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
 		else
 			delay = 1500;
+		// console.log("BEFORE: initX: " + game.character.initXPos + 
+// 					" initY: " + game.character.initYPos + 
+// 					" X: " + game.character.x_position + 
+// 					" Y: " + game.character.y_position);
 		commandList[i].execute();
+		// console.log("AFTER: initX: " + game.character.initXPos + 
+// 					" initY: " + game.character.initYPos + 
+// 					" X: " + game.character.x_position + 
+// 					" Y: " + game.character.y_position);
 		i++;
 		if(i >= commandList.length) clearInterval(t1);
+		
 	}, delay);
-
-	/*
-	var delay = 1500;
-	var foreverLooping = false;
-	for(var i=0; i <commandObjArr.length; i++) {
-		if(commandObjArr[i] instanceof RepeatForeverCommand) {
-			foreverLooping = true;
-			console.log("Forever");
-			CommandProcessor.hasInterrupted = false;
-		}
-	}
-
-	if(foreverLooping) {
-		var i = 0;
-		var t1 = setInterval( function() { 
-			if(commandObjArr[i] instanceof RepeatForeverCommand == false) {
-				console.log(i +  " " + commandObjArr.length);
-				intRun(commandObjArr[i]); 
-			}
-			
-			i++;
-			if(CommandProcessor.hasInterrupted) clearInterval(t1);
-			if(i >= commandObjArr.length) i=0;
-		}, delay);
-
-		var intRun = function(command) { command.execute(); }
-	}
-	else {
-		var i = 0;
-		var t1 = setInterval( function() {
-			if(commandObjArr[i] instanceof RepeatForeverCommand == false) {
-				intRun(commandObjArr[i]); 
-			}
-			i++;
-			if(i >= commandObjArr.length) clearInterval(t1);
-		}, delay);
-		var intRun = function(command) { command.execute(); }
-	}
-	*/
 };

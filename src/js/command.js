@@ -154,7 +154,6 @@ RepeatForeverCommand.prototype.execute = function() {
 	
 	// setInterval has no clue of this class's variables. i.e. cmdList
 	var t1 = setInterval( function() {
-		console.log("hasBeenInterrupted " + hasBeenInterrupted);
 		cmdList[i].execute();
 		i++;
 		if(i >= cmdList.length) { i = 0; }
