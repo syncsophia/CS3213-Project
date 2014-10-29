@@ -51,7 +51,10 @@ var PlayEditor = function() {
 			// Retrieve the id of the elements on the code panel and the correspoding steps, consider them as Request
 			listOfCurrentCommands.push(current.attr('id') + ";" + current.find("input").val());
 		});
-
+		
+		if(listOfCurrentCommands.length <= 0)
+			return;
+		
 		// ask the frontControl to deal with all Rquests
 		frontCtrl.getCommand(listOfCurrentCommands);
 		

@@ -130,6 +130,14 @@ ShowCommand.prototype.execute = function() {
 	//console.log("[command.js] ShowCommand.execute():  Show character");
 }
 
+
+//------------------------------------------------------------------------------------
+//
+//	RepeatForeverCommand (Implements Command)
+//
+//	Description: Command to loop the given list of commands infinitely
+//
+//------------------------------------------------------------------------------------
 var RepeatForeverCommand = function(list_CommandObjects) {
 	this.cmdList = list_CommandObjects;
 	this.numRepeatCommands = list_CommandObjects.length;
@@ -146,33 +154,33 @@ RepeatForeverCommand.prototype.execute = function() {
 	
 	// setInterval has no clue of this class's variables. i.e. cmdList
 	var t1 = setInterval( function() {
+		console.log("hasBeenInterrupted " + hasBeenInterrupted);
 		cmdList[i].execute();
 		i++;
 		if(i >= cmdList.length) { i = 0; }
-		if(hasBeenInterrupted) { clearInterval(); }
+		if(hasBeenInterrupted) { clearInterval(t1); }
 	}, delay);		
 }
 RepeatForeverCommand.prototype.Interrupt = function() { hasBeenInterrupted = true; }
 
 
-
-/*
-var JumpCommand = function(step) {
-	this.step = step;
-}
-JumpCommand.prototype = Object.create(Command);
-JumpCommand.prototype.execute = function() {
-	game.character.jump(this.step);
-	//console.log("[command.js] JumpCommand.execute():   Jumping: " + this.step);
-}
-*/
+//------------------------------------------------------------------------------------
+//
+//	RepeatCommand (Implements Command)
+//
+//	Description: Command to loop the given list of commands by n # of iterations
+//
+//------------------------------------------------------------------------------------
 var RepeatCommand = function(step, list_CommandObjects) {
 	this.step = step;
 	this.cmdList = list_CommandObjects;
 	this.numRepeatCommands = list_CommandObjects.length;
+	this.hasBeenInterrupted = false;
 }
 RepeatCommand.prototype = Object.create(Command);
 RepeatCommand.prototype.execute = function() {
+		hasBeenInterrupted = false;
+
 		var delay = 1500;
 		var n_Repeat = 0;
 		var i = 0;
@@ -185,8 +193,9 @@ RepeatCommand.prototype.execute = function() {
 			cmdList[i].execute();
 			i++;
 			if(i >= cmdList.length) { i = 0; n_Repeat++; }
-			if (n_Repeat > numIterations) clearInterval(t1);
+			if (n_Repeat > numIterations || hasBeenInterrupted) clearInterval(t1);
 			
 		}, delay);
 }
 RepeatCommand.prototype.getNumRepeatCommands = function() { return this.numRepeatCommands; }
+RepeatCommand.prototype.Interrupt = function() { hasBeenInterrupted = true; }

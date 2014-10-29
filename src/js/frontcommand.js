@@ -228,11 +228,21 @@ CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
 };
 
 function CommandProcessor() {
-
+	this.cmdList = [];
 }
-
 CommandProcessor.hasInterrupted = false;
-CommandProcessor.Interrupt = function() { CommandProcessor.hasInterrupted = true; }
+CommandProcessor.StaticCommandList = [];
+CommandProcessor.Interrupt = function() {
+	CommandProcessor.hasInterrupted = true;
+	
+	for(var i=0; i < CommandProcessor.StaticCommandList.length; i++) {
+		if(CommandProcessor.StaticCommandList[i] instanceof RepeatCommand || 
+		   CommandProcessor.StaticCommandList[i] instanceof RepeatForeverCommand) {
+			CommandProcessor.StaticCommandList[i].Interrupt();
+		}	
+	} 
+	
+}
 /**
  * This is the lowest point of delegation of request where this function
  * performs the ACTUAL execution of the commands
@@ -240,7 +250,12 @@ CommandProcessor.Interrupt = function() { CommandProcessor.hasInterrupted = true
  * @param commandStrArray: an array of Command objects delegated by the FrontControl
  */
 CommandProcessor.prototype.processCommands = function(commandList) {
-
+	
+	CommandProcessor.StaticCommandList = this.cmdList = commandList;
+	console.log(commandList + " " + this.cmdList.length);
+	
+	hasInterrupted = false;
+	
 	var i = 0;
 	var delay = 1500;
 	if(commandList[i] instanceof RepeatCommand)
