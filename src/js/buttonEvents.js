@@ -11,6 +11,7 @@ var newCommand = function(id) {
 var StopEditor = function() {
 	//TODO
 	CommandProcessor.Interrupt();
+	game.resetCharacter();
 };
 
 /* clears the code panel
