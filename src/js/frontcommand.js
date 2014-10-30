@@ -209,7 +209,7 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 // 					" X: " + game.character.x_position + 
 // 					" Y: " + game.character.y_position);
 		i++;
-		if(i >= commandList.length) clearInterval(t1);
+		if(i >= commandList.length || CommandProcessor.hasInterrupted) clearInterval(t1);
 		
 	}, delay);
 };
