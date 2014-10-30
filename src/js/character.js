@@ -99,6 +99,7 @@ Character.prototype.placeObject = function(x, y) {
 }
 
 Character.prototype.setImage = function(image) {
+	console.log("Change image: " + image);
 	this.image = image;
 	var characterElement = document.getElementById(this.elementID);
 	characterElement.src = image;

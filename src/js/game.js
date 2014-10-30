@@ -58,6 +58,7 @@ var StartGame = function() {
 			}
 		}
 	}
+	
 	/**
 	 * Generate a random integer between min and max
 	 * @param min: minimum number. default value is 1
@@ -94,7 +95,6 @@ var StartGame = function() {
 		setRandomObjectPosition(this.character, this.character.elementID, 0, 100, 0, 430);
 		setRandomObjectPosition(this.goal_object, this.goal_object.elementID, 380, 480, 0, 510);
 
-		addDragableCommands();
 	},
 
 	/**
