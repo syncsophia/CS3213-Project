@@ -248,6 +248,9 @@
 					contentToBeDragged.id.indexOf("If") == -1)
 				contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + ": <input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + ""; 
 				
+				if (contentToBeDragged.id.indexOf("Hide") == -1 && contentToBeDragged.id.indexOf("Show") == -1 && contentToBeDragged.id.indexOf("Reset") == -1)
+				contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + ":<input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2'>" + ""; 
+				
 				if(contentToBeDragged.id.indexOf("If") != -1){
 					contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + 
 					" <select autofocus> <option value='a_1'>1</option> <option value='a_2'>2</option> <option value='a_3'>3</option> </select>" + 

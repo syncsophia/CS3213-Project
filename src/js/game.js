@@ -5,6 +5,33 @@
 //	Description: To initialize the Visual IDE
 //
 //------------------------------------------------------------------------------------
+//	Constant variables for each command
+var COMMANDS = [];
+var CMD_MOVE_RIGHT = "Move_Right";
+var CMD_MOVE_LEFT = "Move_Left";
+var CMD_SET_X = "Set_X";
+var CMD_SET_Y = "Set_Y";
+var CMD_RESET_POSITION = "Reset_Position";
+var CMD_JUMP = "Jump";
+var CMD_HIDE = "Hide";
+var CMD_SHOW = "Show";
+var CMD_REPEAT = "Repeat";
+var CMD_REPEAT_FOREVER = "Repeat_Forever";
+var CMD_IF = "If";
+
+COMMANDS.push( CMD_MOVE_RIGHT);
+COMMANDS.push( CMD_MOVE_LEFT);
+COMMANDS.push( CMD_SET_X );
+COMMANDS.push( CMD_SET_Y );
+COMMANDS.push( CMD_RESET_POSITION);
+COMMANDS.push( CMD_JUMP);
+COMMANDS.push( CMD_HIDE);
+COMMANDS.push( CMD_SHOW);
+COMMANDS.push( CMD_REPEAT);
+COMMANDS.push( CMD_REPEAT_FOREVER);
+COMMANDS.push( CMD_IF);
+
+
 var StartGame = function() {
 
 	this.character = new Character("character_human");

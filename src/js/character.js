@@ -18,27 +18,35 @@ var IObject = {
 	deleteObject: function() {},
 	placeObject: function(x, y) {},
 	setImage: function(image) {},
-	setInitXY: function(x, y) { this.initXPos = this.x_position = x; this.initYPos = this.y_position = y;}
+	setInitXY: function(x, y) { this.initXPos = this.x_position = parseInt(x,10); this.initYPos = this.y_position = parseInt(y,10);}
 }
 
 /* The actual character class */
 var Character = function(elementId) {
 	var me = this;
-	this.originPosition = [];
 	this.elementID = elementId;
 
 	this.target_x = this.x_position + 100;
 	this.target_y = this.y_position;
 	this.hasArrived = false;
 	
-	this.move = function(steps) {	
-		move('.' + this.elementID)
-			.ease('.' + this.elementID)
-			.add('margin-left', 50 * steps)
-			.duration('1s')
-			.end();
+	this.move = function(steps) {
+		
+		if (parseInt(steps*50, 10) >= 0 && 
+				(parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
+			
+					move('.' + this.elementID)
+						.ease('.' + this.elementID)
+						.add('margin-left', 50 * steps)
+						.duration('1s')
+					.end();
+				this.x_position = (parseInt(this.x_position ,10) + parseInt(steps*50, 10));	
+		}
     },
     this.jump = function(steps) {
+		if (parseInt(steps*100, 10) >= 0 && 
+				(parseInt(this.y_position ,10)  + parseInt(steps*100, 10)) <= ($("#editorContainer").height() - 50)) {
+			// no change in x and y position inside the object.
     	move('.' + this.elementID)
 			.add('margin-top', -100 * steps)
 				.then()
@@ -47,6 +55,7 @@ var Character = function(elementId) {
 				.pop()
 			.duration('0.8s')
 		.end();
+		}
     },
 	this.resetPosition = function() {
 		this.x_position = this.initXPos;
@@ -124,10 +133,10 @@ Goal.prototype.deleteObject = function() {
 }
 
 Goal.prototype.placeObject = function(x, y) {
-	if (x >= 0 && x <= ($("#editorContainer").width() - 50)) {
+	if (parseInt(x, 10) >= 0 && parseInt(x, 10) <= ($("#editorContainer").width() - 50)) {
 		this.x_position = x;
 	};
-	if (y >= 0 && y <= ($("#editorContainer").height() - 50)) {
+	if (parseInt(y, 10) >= 0 && parseInt(y, 10) <= ($("#editorContainer").height() - 50)) {
 		this.y_position = y;
 	};
 	//console.log(this.elementID);
