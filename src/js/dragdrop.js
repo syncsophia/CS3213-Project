@@ -247,16 +247,16 @@
 					contentToBeDragged.id.indexOf("Repeat_Forever") == -1 &&
 					contentToBeDragged.id.indexOf("If") == -1)
 				contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + ": <input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + ""; 
-				
-				if (contentToBeDragged.id.indexOf("Hide") == -1 && contentToBeDragged.id.indexOf("Show") == -1 && contentToBeDragged.id.indexOf("Reset") == -1)
-				contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + ":<input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2'>" + ""; 
-				
+							
 				if(contentToBeDragged.id.indexOf("If") != -1){
 					contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + 
-					" <select autofocus> <option value='a_1'>1</option> <option value='a_2'>2</option> <option value='a_3'>3</option> </select>" + 
-					" <select autofocus> <option value='b_+'>+</option> <option value='b_-'>-</option> <option value='b_x'>x</option> <option value='b_/'>/</option> </select>" + 
-					" <select autofocus> <option value='c_1'>1</option> <option value='c_2'>2</option> <option value='c_3'>3</option> </select>=" + 
-					" <select autofocus> <option value='d_0'>0</option> <option value='d_1'>1</option> <option value='d_2'>2</option> <option value='d_3'>3</option> <option value='d_4'>4</option> <option value='d_5'>5</option> <option value='d_6'>6</option> <option value='d_7'>7</option> <option value='d_8'>8</option> <option value='d_9'>9</option> </select>";
+					" <select autofocus> <option value='para1_1'>Character.X</option></select>" + 	
+					" <select autofocus> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
+					" <select autofocus> <option value='para3_1'>Goal.X</option> <option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" ;
+					//" <select autofocus> <option value='para1_tokens'>NumTokensCollected</option></select>" + 
+					//" <select autofocus> <option value='para2_<'><</option> <option value='para_2'>></option> <option value='para2_='>=</option></select>" + 
+					//" <select autofocus> <option value='para3_1<'>None</option> <option value='para3_2<'>All</option></select>";
+					//" <select autofocus> <option value='para3_0'>0</option> <option value='para3_1'>1</option> <option value='para3_2'>2</option> <option value='para3_3'>3</option> <option value='para3_4'>4</option> <option value='para3_5'>5</option> <option value='para3_6'>6</option> <option value='para3_7'>7</option> <option value='para3_8'>8</option> <option value='para3_9'>9</option> </select>";
 					//" <select autofocus> <option value='char'>Reach</option> <option value='char'>Not Reach</option> </select>" + 
 					//" Goal";
 				}
