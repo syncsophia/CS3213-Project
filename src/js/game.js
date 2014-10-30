@@ -94,7 +94,7 @@ var StartGame = function() {
 	this.init = function() {
 		setRandomObjectPosition(this.character, this.character.elementID, 0, 100, 0, 430);
 		setRandomObjectPosition(this.goal_object, this.goal_object.elementID, 380, 480, 0, 510);
-
+		addDragableCommands();
 	},
 
 	/**
