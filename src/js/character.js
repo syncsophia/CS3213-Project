@@ -30,10 +30,9 @@ var Character = function(elementId) {
 	this.target_y = this.y_position;
 	this.hasArrived = false;
 	
-	this.move = function(steps) {
+	this.move = function(steps) { 
 		
-		if (parseInt(steps*50, 10) >= 0 && 
-				(parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
+		//if (parseInt(steps*50, 10) >= 0 && (parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
 			
 					move('.' + this.elementID)
 						.ease('.' + this.elementID)
@@ -41,11 +40,10 @@ var Character = function(elementId) {
 						.duration('1s')
 					.end();
 				this.x_position = (parseInt(this.x_position ,10) + parseInt(steps*50, 10));	
-		}
+		//}
     },
     this.jump = function(steps) {
-		if (parseInt(steps*100, 10) >= 0 && 
-				(parseInt(this.y_position ,10)  + parseInt(steps*100, 10)) <= ($("#editorContainer").height() - 50)) {
+		//if (parseInt(steps*100, 10) >= 0 && (parseInt(this.y_position ,10)  + parseInt(steps*100, 10)) <= ($("#editorContainer").height() - 50)) {
 			// no change in x and y position inside the object.
     	move('.' + this.elementID)
 			.add('margin-top', -100 * steps)
@@ -55,7 +53,7 @@ var Character = function(elementId) {
 				.pop()
 			.duration('0.8s')
 		.end();
-		}
+		//}
     },
 	this.resetPosition = function() {
 		this.x_position = this.initXPos;
@@ -99,7 +97,6 @@ Character.prototype.placeObject = function(x, y) {
 }
 
 Character.prototype.setImage = function(image) {
-	console.log("Change image: " + image);
 	this.image = image;
 	var characterElement = document.getElementById(this.elementID);
 	characterElement.src = image;
