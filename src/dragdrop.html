@@ -28,6 +28,7 @@
 <div id="header" class="navigation">
 	<!-- do menu here: Event handling in menubar.js -->
 	<ul class="nav">
+		<!--
 		<li>
 		  <a href="#">Home</a>
 		  	<ul>
@@ -36,6 +37,7 @@
 		  		<li><a href="#">Load</a></li>
 		  	</ul>
 		</li>
+		-->
 		<li>
 		  	<a href="#">Character</a>
 		  		<ul id="id_MenuCharacterSelect" class="class_MenuCharacterSelect">
@@ -121,9 +123,10 @@
 
 <div id="footer">
 	<!-- Buttons here, Event handling in buttonEvent.js -->
-	<input type="image" title="Clear All" src="img/recycle.png" onclick="ClearEditor()" value="Clear">
-	<input type="image" title="Stop" src="img/stop.png" onclick="StopEditor()" value="Stop">
-	<input type="image" title="Play" src="img/play.png" onclick="PlayEditor()" value="Play">
+	<input type="image" hspace="250" width="5.7%" title="Clear All" src="img/btn_dustbin.png" onclick="ClearEditor()" value="Clear">
+	<input type="image" width="5.7%" title="Toggle Sound" src="img/btn_play.png" onclick="PlayEditor()" value="Play">
+	<input type="image" width="5.7%" title="Stop" src="img/btn_stop.png" onclick="StopEditor()" value="Stop">
+	<input type="image" id='id_btnMusicImg' width="5.7%" title="Play" src="img/btn_musicon.png" onclick="MusicEditor()" value="Music">
 </div>
 
 <ul id="dragContent">
