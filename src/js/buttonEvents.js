@@ -45,12 +45,27 @@ var PlayEditor = function() {
 	$('.class_code').each(function() {
 		$(this).find("li").each(function() {
 			var current = $(this);
+			
+			/*
 			if(current.children().size() > 1) {
 				return true;
 			}
-			//console.log(current.firstChild.find("input"));
-			// Retrieve the id of the elements on the code panel and the correspoding steps, consider them as Request
-			listOfCurrentCommands.push(current.attr('id') + ";" + current.find("input").val());
+			*/
+			
+			var parameters;
+			
+			var arr_SelectedItems = current.find(":selected").map(function() {
+				return $(this).text();
+			});
+			
+			if(arr_SelectedItems.length == 3) {
+				parameters = arr_SelectedItems[0] + ";" + arr_SelectedItems[1] + ";" + arr_SelectedItems[2];
+			}
+			else
+				parameters = current.find("input").val();
+			
+			// Retrieve the id of the elements on the code panel and the corresponding steps, consider them as Request
+			listOfCurrentCommands.push(current.attr('id') + ";" + parameters);
 		});
 		
 		if(listOfCurrentCommands.length <= 0)
