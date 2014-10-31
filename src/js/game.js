@@ -19,11 +19,18 @@ var CMD_REPEAT = "Repeat";
 var CMD_REPEAT_FOREVER = "Repeat_Forever";
 var CMD_IF = "If";
 
+var CHARACTER_MAX_Y = 430;
+var CHARACTER_MIN_Y = 0;
+var CHARACTER_MAX_X = 440;
+var CHARACTER_MIN_X = 0;
+
+var GOAL_MAX_Y = 510;
+var GOAL_MIN_Y = 0;
+var GOAL_MAX_X = 380;
+var GOAL_MIN_X = 480;
+
 COMMANDS.push( CMD_MOVE_RIGHT);
 COMMANDS.push( CMD_MOVE_LEFT);
-COMMANDS.push( CMD_SET_X );
-COMMANDS.push( CMD_SET_Y );
-COMMANDS.push( CMD_RESET_POSITION);
 COMMANDS.push( CMD_JUMP);
 COMMANDS.push( CMD_HIDE);
 COMMANDS.push( CMD_SHOW);
@@ -31,11 +38,46 @@ COMMANDS.push( CMD_REPEAT);
 COMMANDS.push( CMD_REPEAT_FOREVER);
 COMMANDS.push( CMD_IF);
 
+var IF_SELECT_PARA1_CHAR_X = "Character.X";
+
+var IF_SELECT_PARA2_LESSER = "<";
+var IF_SELECT_PARA2_GREATER = ">";
+var IF_SELECT_PARA2_EQUAL = "=";
+
+var IF_SELECT_PARA3_GOAL_X = "Goal.X";
+var IF_SELECT_PARA3_RIGHTMOST = "RightMost";
+var IF_SELECT_PARA3_LEFTMOST = "LeftMost";
+
+var IF_SELECTS = [
+	[IF_SELECT_PARA1_CHAR_X],
+	[IF_SELECT_PARA2_LESSER,IF_SELECT_PARA2_GREATER,IF_SELECT_PARA2_EQUAL],
+	[IF_SELECT_PARA3_GOAL_X,IF_SELECT_PARA3_RIGHTMOST,IF_SELECT_PARA3_LEFTMOST]
+];
+
+var IF_SELECT_PARA1_CHAR_X_EVALUATOR = "game.character.x_position";
+
+var IF_SELECT_PARA2_LESSER_EVALUATOR = "<";
+var IF_SELECT_PARA2_GREATER_EVALUATOR = ">";
+var IF_SELECT_PARA2_EQUAL_EVALUATOR = "==";
+
+var IF_SELECT_PARA3_GOAL_X_EVALUATOR = "game.goal_object.x_position";
+var IF_SELECT_PARA3_RIGHTMOST_EVALUATOR = "CHARACTER_MAX_X";
+var IF_SELECT_PARA3_LEFTMOST_EVALUATOR = "CHARACTER_MIN_X";
+
+var IF_SELECTS_EVALUATOR = [
+	[IF_SELECT_PARA1_CHAR_X_EVALUATOR],
+	[IF_SELECT_PARA2_LESSER_EVALUATOR,IF_SELECT_PARA2_GREATER_EVALUATOR,IF_SELECT_PARA2_EQUAL_EVALUATOR],
+	[IF_SELECT_PARA3_GOAL_X_EVALUATOR,IF_SELECT_PARA3_RIGHTMOST_EVALUATOR,IF_SELECT_PARA3_LEFTMOST_EVALUATOR]
+];
 
 var StartGame = function() {
 
 	this.character = new Character("character_human");
 	this.goal_object = new Goal("goal_object");
+	
+	this.moveCommandObserver = new MoveCommandObserver();
+	this.jumpCommandObserver = new JumpCommandObserver();
+	this.showHideCommandObserver = new ShowHideCommandObserver();
 	
 	/**
 	 * Append all the dragable codes to the elements panel
@@ -44,18 +86,12 @@ var StartGame = function() {
 		
 		var dragDropElementTable = document.getElementById('allItems');
 		for (text in COMMANDS) {
-			if(COMMANDS[text] == CMD_SET_X || 
-			   COMMANDS[text] == CMD_SET_Y || 
-			   COMMANDS[text] == CMD_RESET_POSITION) {
-
-			}
-			else {
-				var li_Element = document.createElement("li");
-				li_Element.appendChild(document.createTextNode(COMMANDS[text]));
-				li_Element.setAttribute("id", "id_" + COMMANDS[text]);
-				li_Element.setAttribute("class", "class_" + COMMANDS[text]);
-				dragDropElementTable.appendChild(li_Element);
-			}
+			var li_Element = document.createElement("li");
+			li_Element.appendChild(document.createTextNode(COMMANDS[text]));
+			li_Element.setAttribute("id", "id_" + COMMANDS[text]);
+			li_Element.setAttribute("class", "class_" + COMMANDS[text]);
+			dragDropElementTable.appendChild(li_Element);
+			
 		}
 	}
 	
@@ -92,8 +128,8 @@ var StartGame = function() {
 	* adds all possible Commands to the element List (Library of commands).
 	*/
 	this.init = function() {
-		setRandomObjectPosition(this.character, this.character.elementID, 0, 100, 0, 430);
-		setRandomObjectPosition(this.goal_object, this.goal_object.elementID, 380, 480, 0, 510);
+		setRandomObjectPosition(this.character, this.character.elementID, CHARACTER_MIN_X, CHARACTER_MAX_X, CHARACTER_MAX_Y-2, CHARACTER_MAX_Y);
+		setRandomObjectPosition(this.goal_object, this.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MAX_Y);
 		addDragableCommands();
 	},
 
