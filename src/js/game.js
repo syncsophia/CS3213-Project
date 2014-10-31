@@ -70,10 +70,32 @@ var IF_SELECTS_EVALUATOR = [
 	[IF_SELECT_PARA3_GOAL_X_EVALUATOR,IF_SELECT_PARA3_RIGHTMOST_EVALUATOR,IF_SELECT_PARA3_LEFTMOST_EVALUATOR]
 ];
 
-var StartGame = function() {
+var bgAudio;
 
+var ToggleMusic = function(isMusicOn) {
+	if(isMusicOn) {
+		bgAudio.play();
+	}
+	else {
+		bgAudio.pause();
+		bgAudio.currentTime = 0;
+	}
+}
+
+var StartGame = function() {
+	bgAudio = new Audio("audio/bg.m4a");
+	bgAudio.addEventListener('ended', function() {
+		this.currentTime = 0;
+		this.play();
+	}, false);
+	
+	//bgAudio.play();
+	
+	
 	this.character = new Character("character_human");
 	this.goal_object = new Goal("goal_object");
+	
+	this.musicOn = true;
 	
 	this.moveCommandObserver = new MoveCommandObserver();
 	this.jumpCommandObserver = new JumpCommandObserver();

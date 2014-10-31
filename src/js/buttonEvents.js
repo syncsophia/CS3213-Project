@@ -6,6 +6,19 @@ var newCommand = function(id) {
 	//return commands[commandId];
 }
 
+var MusicEditor = function() {
+	game.musicOn = !game.musicOn;
+	
+	if(game.musicOn) {
+		$("#id_btnMusicImg").attr("src", "img/btn_musicon.png");
+		ToggleMusic(game.musicOn);
+	}
+	else {
+		$("#id_btnMusicImg").attr("src", "img/btn_musicoff.png");
+		ToggleMusic(game.musicOn);
+	}
+}
+
 /* User pressed stop button
 */
 var StopEditor = function() {
