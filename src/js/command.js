@@ -154,6 +154,7 @@ RepeatForeverCommand.prototype.execute = function() {
 	
 	// setInterval has no clue of this class's variables. i.e. cmdList
 	var t1 = setInterval( function() {
+		CommandProcessor.notify(cmdList[i]);
 		cmdList[i].execute();
 		i++;
 		if(i >= cmdList.length) { i = 0; }
@@ -189,6 +190,7 @@ RepeatCommand.prototype.execute = function() {
 		
 		// setInterval has no clue of this class's variables. i.e. step, cmdList
 		var t1 = setInterval( function() {
+			CommandProcessor.notify(cmdList[i]);
 			cmdList[i].execute();
 			i++;
 			if(i >= cmdList.length) { i = 0; n_Repeat++; }

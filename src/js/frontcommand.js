@@ -157,6 +157,12 @@ CommandProcessor.attachObserver = function(observer) {
 	CommandProcessor.observers.push(observer);
 }
 
+CommandProcessor.notify = function(delegatedCommand) {
+	CommandProcessor.observers.forEach(function(entry) {
+			entry.notify(delegatedCommand);
+	});
+}
+
 /**
  * This is the lowest point of delegation of request where this function
  * performs the ACTUAL execution of the commands
