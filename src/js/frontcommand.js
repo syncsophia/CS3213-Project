@@ -47,120 +47,94 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 	
 	var commandList = [];
 	var commandBeforeRepeat = [];
-	for(var i=0; i < commandStrArray.length; i++) {
+	var i = 0;
+	for(i; i < commandStrArray.length; i++) {
 		var tuple = commandStrArray[i].split(";");
 		var cmdType = tuple[0];
 		var cmdStep = tuple[1];
 		
 		//console.log(cmdType + " " + cmdStep);
 		
-		if(cmdType == CMD_MOVE_RIGHT)
-			commandBeforeRepeat.push(new MoveCommand(cmdStep));
-		else if (cmdType == CMD_MOVE_LEFT)
-			commandBeforeRepeat.push(new MoveCommand(-cmdStep));
-		else if (cmdType == CMD_JUMP)
-			commandBeforeRepeat.push(new JumpCommand(cmdStep));
-		else if (cmdType == CMD_SHOW)
-			commandBeforeRepeat.push(new ShowCommand());
-		else if (cmdType == CMD_HIDE)
-			commandBeforeRepeat.push(new HideCommand());
-		else if (cmdType == CMD_REPEAT) {
-			if(commandBeforeRepeat.length != 0) {
-				var repeatCmd = new RepeatCommand(cmdStep, commandBeforeRepeat);
-				commandBeforeRepeat = [];
-				commandList.push(repeatCmd);
+		if (cmdType == CMD_IF) {
+			if(i==commandStrArray.length-1)
+				console.log(i + " " + "Invalid");
+			else {
+				i++;
+				var nextStatement = commandStrArray[i].split(";");
+				var nextCommand;
+				
+				console.log(nextStatement);
+				if(nextStatement[0] == CMD_IF || nextStatement[0] == CMD_REPEAT || nextStatement[0] == CMD_IF )
+					console.log("Cannot have nested IF statements, repeat and repeatForever statements");
+				else
+					nextCommand = this.constructBasicCommand(nextStatement[0], nextStatement[1]);
+				
+				//console.log(tuple[1] + " " +  tuple[2] + " " + tuple[3] + " " + commandBeforeRepeat + " " + commandList);
+				var ifCmd = new IfCommand(tuple[1], tuple[2], tuple[3], nextCommand);
 			}
-			else { 
-				var repeatCmd = new RepeatCommand(cmdStep, commandList);
-				commandList = [];
-				commandList.push(repeatCmd);
+			
+		}
+		else if (cmdType == CMD_REPEAT) {
+			
+			if(commandBeforeRepeat.length == 0 && commandList.length == 0) {
+			
+			}
+			else {
+				if(commandBeforeRepeat.length != 0) {
+					var repeatCmd = new RepeatCommand(cmdStep, commandBeforeRepeat);
+					
+					commandBeforeRepeat = [];
+					commandList.push(repeatCmd);
+				}
+				else { 
+					var repeatCmd = new RepeatCommand(cmdStep, commandList);
+					commandList = [];
+					commandList.push(repeatCmd);
+				}
 			}
 		}
 		else if (cmdType == CMD_REPEAT_FOREVER) {
-			repeatCmdList = commandList;
-			if(commandBeforeRepeat.length != 0) {
-				for(var i=0; i < commandBeforeRepeat.length; i++) {
-					repeatCmdList.push(commandBeforeRepeat[i]);
-				}
+			if(commandBeforeRepeat.length == 0 && commandList.length == 0) {
+			
 			}
-			commandBeforeRepeat = [];
-			commandList = [];
-			commandList.push(new RepeatForeverCommand(repeatCmdList));
-			break;
-		}
-	}
-	
-	if(commandBeforeRepeat.length != 0) {
-		for(var i=0; i < commandBeforeRepeat.length; i++) {
-			commandList.push(commandBeforeRepeat[i]);
-		}
-	}
-
-	this.cmdPro.processCommands(commandList);
-}
-
-/**
- * Process the request by looking at all the requests individually.
- * It pays special attention requesting for Repeat command.
- * When a repeat command is detected, it has to 'repeat' all last performed
- * non-repeating commands. Below illustrates how it handles such a request:
- * e.g. Repeat Move_Right Jump Repeat will become:
- *		Move_Right Jump Move_Right Jump
- *
- * @param commandStrArray: string of requests delegated by the FrontControl
- * @return: an array of properly formated array of string commands ready for
- *			valid Command object creation
- */
-CommandHandler.prototype.draftCommandStrings = function(commandStrArray) {
-	var listOfCompleteStrCommands = [];
-	
-	var isRepeatCommand = false;
-	var tempCmdString = "";
-	var finalCmdString = "";
-	var str_commandType = "";
-
-	var isRepeatForeverCommand = false;
-
-	for(var i=0; i < commandStrArray.length; i++) {
-		str_commandType = commandStrArray[i].split(";")[0];
-		str_steps = commandStrArray[i].split(";")[1];
-		
-		if(str_commandType == CMD_REPEAT_FOREVER) {
-			isRepeatForeverCommand = true;
-			continue;
-		}
-
-		if(str_commandType == CMD_REPEAT)
-			isRepeatCommand = true;
-		else
-			isRepeatCommand = false;
-
-		if(isRepeatCommand) {
-			var theRepeatString = "";
-			if(tempCmdString == "")
-				theRepeatString = finalCmdString;
-			else
-				theRepeatString = tempCmdString;
-			for(var i=0; i < str_steps; i++)
-				finalCmdString += theRepeatString;
-			tempCmdString = "";
+			else {
+				repeatCmdList = commandList;
+				if(commandBeforeRepeat.length != 0) {
+					for(var i=0; i < commandBeforeRepeat.length; i++) {
+						repeatCmdList.push(commandBeforeRepeat[i]);
+					}
+				}
+				commandBeforeRepeat = [];
+				commandList = [];
+				commandList.push(new RepeatForeverCommand(repeatCmdList));
+				break;
+			}
 		}
 		else {
-			tempCmdString += str_commandType + ";" + str_steps + " ";
+			commandList.push(this.constructBasicCommand(cmdType, cmdStep));
 		}
 	}
-	if(tempCmdString != "")
-		finalCmdString+=tempCmdString;
+	
+	if(commandBeforeRepeat.length != 0)
+		for(var i=0; i < commandBeforeRepeat.length; i++)
+			commandList.push(commandBeforeRepeat[i]);
+		
+	if(commandList.length > 0)
+		this.cmdPro.processCommands(commandList);
+}
 
-
-	if(isRepeatForeverCommand)
-		finalCmdString += CMD_REPEAT_FOREVER+";100000 ";
-
-	finalCmdString = finalCmdString.trim();
-
-	listOfCompleteStrCommands = finalCmdString.split(" ");
-	return listOfCompleteStrCommands;
-};
+CommandHandler.prototype.constructBasicCommand = function(cmdType, cmdStep) {
+	if(cmdType == CMD_MOVE_RIGHT)
+		return new MoveCommand(cmdStep);
+	else if (cmdType == CMD_MOVE_LEFT)
+		return new MoveCommand(-cmdStep);
+	else if (cmdType == CMD_JUMP)
+		return new JumpCommand(cmdStep);
+	else if (cmdType == CMD_SHOW)
+		return new ShowCommand();
+	else if (cmdType == CMD_HIDE)
+		return new HideCommand();
+}
 
 function CommandProcessor() {
 	this.cmdList = [];
@@ -178,6 +152,11 @@ CommandProcessor.Interrupt = function() {
 	} 
 	
 }
+CommandProcessor.observers = [];
+CommandProcessor.attachObserver = function(observer) {
+	CommandProcessor.observers.push(observer);
+}
+
 /**
  * This is the lowest point of delegation of request where this function
  * performs the ACTUAL execution of the commands
@@ -194,20 +173,22 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 	var delay = 1500;
 	if(commandList[i] instanceof RepeatCommand)
 		delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
+	
+	var listObservers = CommandProcessor.observers;
+	
 	var t1 = setInterval( function() {
+	
+		listObservers.forEach(function(entry) {
+			entry.notify(commandList[i]);
+		});
+	
 		if(commandList[i] instanceof RepeatCommand)
 			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
 		else
 			delay = 1500;
-		// console.log("BEFORE: initX: " + game.character.initXPos + 
-// 					" initY: " + game.character.initYPos + 
-// 					" X: " + game.character.x_position + 
-// 					" Y: " + game.character.y_position);
+			
 		commandList[i].execute();
-		// console.log("AFTER: initX: " + game.character.initXPos + 
-// 					" initY: " + game.character.initYPos + 
-// 					" X: " + game.character.x_position + 
-// 					" Y: " + game.character.y_position);
+		
 		i++;
 		if(i >= commandList.length || CommandProcessor.hasInterrupted) clearInterval(t1);
 		
