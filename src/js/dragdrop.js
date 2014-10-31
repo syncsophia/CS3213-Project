@@ -250,9 +250,9 @@
 							
 				if(contentToBeDragged.id.indexOf("If") != -1){
 					contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + 
-					" <select autofocus> <option value='para1_1'>Character.X</option></select>" + 	
-					" <select autofocus> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
-					" <select autofocus> <option value='para3_1'>Goal.X</option> <option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" ;
+					" <select autofocus id='sel_Para1'> <option value='para1_1'>Character.X</option></select>" + 	
+					" <select autofocus id='sel_Para2'> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
+					" <select autofocus id='sel_Para3'> <option value='para3_1'>Goal.X</option> <option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" ;
 					//" <select autofocus> <option value='para1_tokens'>NumTokensCollected</option></select>" + 
 					//" <select autofocus> <option value='para2_<'><</option> <option value='para_2'>></option> <option value='para2_='>=</option></select>" + 
 					//" <select autofocus> <option value='para3_1<'>None</option> <option value='para3_2<'>All</option></select>";
