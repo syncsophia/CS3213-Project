@@ -257,7 +257,7 @@
 								"<option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" + buttonHTML + "</form>" ;
 								contentToBeDragged.onmousedown = function() {};
 						} else {
-						var textFieldHTML = "<input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='1' maxlength='2'>";
+						var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-50' max='50'>";
 						contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
 						// Disable drag drop to enable clicking and editing the text field.
 						contentToBeDragged.onmousedown = function() {};
