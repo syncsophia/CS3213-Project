@@ -105,7 +105,7 @@ var StartGame = function() {
 	 * Append all the dragable codes to the elements panel
 	 */
 	var addDragableCommands = function() {
-		
+
 		var dragDropElementTable = document.getElementById('allItems');
 		for (text in COMMANDS) {
 			var li_Element = document.createElement("li");

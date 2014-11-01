@@ -5,20 +5,20 @@
 //------------------------------------------------------------------------------------
 
 
-var IObject = {
-	x_position: 0,
-	y_position: 0,
-	initXPos:0,
-	initYPos:0,
-	image: "",
-	elementID: "",
+var IObject = function(){
+	this.x_position = 0,
+	this.y_position = 0,
+	this.initXPos = 0,
+	this.initYPos =0,
+	this.image = "",
+	this.elementID= "",
 
-	showObject: function(bool) {},
-	hideObject: function(bool) {},
-	deleteObject: function() {},
-	placeObject: function(x, y) {},
-	setImage: function(image) {},
-	setInitXY: function(x, y) { this.initXPos = this.x_position = parseInt(x,10); this.initYPos = this.y_position = parseInt(y,10);}
+	this.showObject= function(bool) {},
+	this.hideObject= function(bool) {},
+	this.deleteObject= function() {},
+	this.placeObject= function(x, y) {},
+	this.setImage= function(image) {},
+	this.setInitXY= function(x, y) { this.initXPos = this.x_position = parseInt(x,10); this.initYPos = this.y_position = parseInt(y,10);}
 }
 
 /* The actual character class */
@@ -32,15 +32,19 @@ var Character = function(elementId) {
 	
 	this.move = function(steps) { 
 		
-		//if (parseInt(steps*50, 10) >= 0 && (parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
-			
+		if (parseInt(steps*50, 10) >= 0 && 
+				(parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
+					console.log(parseInt(this.x_position ,10) + " + " + parseInt(steps*50, 10) +"="+ (parseInt(this.x_position ,10) + parseInt(steps*50, 10)));
+					// TODO: this is not working...
+					this.x_position = parseInt(this.x_position ,10) + parseInt(steps*50, 10);
+
 					move('.' + this.elementID)
 						.ease('.' + this.elementID)
 						.add('margin-left', 50 * steps)
 						.duration('1s')
 					.end();
 				this.x_position = (parseInt(this.x_position ,10) + parseInt(steps*50, 10));	
-		//}
+		}
     },
     this.jump = function(steps) {
 		//if (parseInt(steps*100, 10) >= 0 && (parseInt(this.y_position ,10)  + parseInt(steps*100, 10)) <= ($("#editorContainer").height() - 50)) {
@@ -62,7 +66,7 @@ var Character = function(elementId) {
 }
 
 
-Character.prototype = Object.create(IObject);
+Character.prototype = new IObject();
 
 Character.prototype.showObject = function(bool) {
 	var characterElement = document.getElementById(this.elementID);
@@ -113,7 +117,7 @@ var Goal = function(elementId) {
 	this.hasAchieved = false;
 }
 
-Goal.prototype = Object.create(IObject);
+Goal.prototype = new IObject();
 
 Goal.prototype.showObject = function(bool) {
 	var goalElement = document.getElementById(this.elementID);

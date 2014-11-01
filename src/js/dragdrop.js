@@ -66,7 +66,7 @@
 	{
 	  var returnValue = inputObj.offsetTop;
 	  while((inputObj = inputObj.offsetParent) != null){
-	  	if(inputObj.tagName!='HTML')returnValue += inputObj.offsetTop;
+	  	if(inputObj.tagName!='LI')returnValue += inputObj.offsetTop;
 	  }
 	  return returnValue;
 	}
@@ -75,7 +75,7 @@
 	{
 	  var returnValue = inputObj.offsetLeft;
 	  while((inputObj = inputObj.offsetParent) != null){
-	  	if(inputObj.tagName!='HTML')returnValue += inputObj.offsetLeft;
+	  	if(inputObj.tagName!='LI')returnValue += inputObj.offsetLeft;
 	  }
 	  return returnValue;
 	}
@@ -98,7 +98,8 @@
 		contentToBeDragged_next = false;
 		if(this.nextSibling){
 			contentToBeDragged_next = this.nextSibling;
-			if(!this.tagName && contentToBeDragged_next.nextSibling)contentToBeDragged_next = contentToBeDragged_next.nextSibling;
+			if(!this.tagName && contentToBeDragged_next.nextSibling)
+				contentToBeDragged_next = contentToBeDragged_next.nextSibling;
 		}
 		timerDrag();
 		return false;
@@ -219,6 +220,7 @@
 				}
 			}
 		}
+		console.log("[dragdrop.js]: moveDragContent_End - destinationObj: " + destinationObj);
 	}
 
 	/* End dragging
@@ -236,25 +238,33 @@
 
 
 		if(cloneSourceItems && (!destinationObj || (destinationObj && (destinationObj.id=='allItems' || destinationObj.parentNode.id=='allItems')))){
+			console.log("remove Child: " + "destinationObj " + destinationObj);
 			contentToBeDragged.parentNode.removeChild(contentToBeDragged);
 		}else{
 
 			if(destinationObj){
+				
 				// Change text to text with step field
+				if (contentToBeDragged.id.indexOf("Repeat_Forever") == -1) {
+				contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ": <input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + "</form>"; 
+				// Disable drag drop to enable clicking and editing the text field.
+				contentToBeDragged.onmousedown = function() {};
+				}
 				if (contentToBeDragged.id.indexOf("Hide") == -1 && 
 					contentToBeDragged.id.indexOf("Show") == -1 && 
-					contentToBeDragged.id.indexOf("Reset") == -1 &&
-					contentToBeDragged.id.indexOf("Repeat_Forever") == -1 &&
-					contentToBeDragged.id.indexOf("If") == -1)
-				contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + ": <input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + ""; 
-							
-				if(contentToBeDragged.id.indexOf("If") != -1){
-					contentToBeDragged.innerHTML = "" + contentToBeDragged.id.substring(3) + 
-					" <select autofocus id='sel_Para1'> <option value='para1_1'>Character.X</option></select>" + 	
-					" <select autofocus id='sel_Para2'> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
-					" <select autofocus id='sel_Para3'> <option value='para3_1'>Goal.X</option> <option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" ;
+					contentToBeDragged.id.indexOf("Reset") == -1){
+				contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":<input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + "</form>"; 
+				// Disable drag drop to enable clicking and editing the text field.
+				contentToBeDragged.onmousedown = function() {};
 				}
+				if(contentToBeDragged.id.indexOf("If") != -1){
+					contentToBeDragged.style.height = 140;
+					contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + 
+					" <select autofocus> <option value='para1_1'>Character.X</option><option value='para1_2'>Character.Y</option></select>" + 	
+					" <select autofocus> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
+					" <select autofocus> <option value='para3_1'>Goal.X</option><option value='para3_1_1'>Goal.Y</option> <option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" + "</form>" ;
 
+				}
 
 				if(destinationObj.tagName=='UL'){
 					destinationObj.appendChild(contentToBeDragged);
