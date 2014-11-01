@@ -31,19 +31,25 @@ var Character = function(elementId) {
 	this.hasArrived = false;
 	
 	this.move = function(steps) { 
-		
-		if (parseInt(steps*50, 10) >= 0 && 
-				(parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
-					console.log(parseInt(this.x_position ,10) + " + " + parseInt(steps*50, 10) +"="+ (parseInt(this.x_position ,10) + parseInt(steps*50, 10)));
-					// TODO: this is not working...
-					this.x_position = parseInt(this.x_position ,10) + parseInt(steps*50, 10);
+		if ((parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
+			console.log(parseInt(this.x_position ,10) + " + " + parseInt(steps*50, 10) +"="+ (parseInt(this.x_position ,10) + parseInt(steps*50, 10)));
 
-					move('.' + this.elementID)
-						.ease('.' + this.elementID)
-						.add('margin-left', 50 * steps)
-						.duration('1s')
-					.end();
-				this.x_position = (parseInt(this.x_position ,10) + parseInt(steps*50, 10));	
+			if (parseInt(steps*50, 10) > 0)
+			{
+				move('.' + this.elementID)
+				.ease('.' + this.elementID)
+				.add('margin-left', 50 * steps)
+				.duration('1s')
+				.end();
+			}
+			else {
+				move('.' + this.elementID)
+				.sub('margin-left', 50 * Math.abs(steps))
+				.duration('1s')
+				.end();
+			}
+			// TODO: this is not working...
+			this.x_position = (parseInt(this.x_position ,10) + parseInt(steps*50, 10));	
 		}
     },
     this.jump = function(steps) {
