@@ -58,13 +58,6 @@ var PlayEditor = function() {
 	$('.class_code').each(function() {
 		$(this).find("li").each(function() {
 			var current = $(this);
-			
-			/*
-			if(current.children().size() > 1) {
-				return true;
-			}
-			*/
-			
 			var parameters;
 			
 			var arr_SelectedItems = current.find(":selected").map(function() {
@@ -83,6 +76,9 @@ var PlayEditor = function() {
 		
 		if(listOfCurrentCommands.length <= 0)
 			return;
+		
+		// else append reset of character after execution
+		listOfCurrentCommands.push("id_" + CMD_RESET_POSITION);
 		
 		// ask the frontControl to deal with all Rquests
 		frontCtrl.getCommand(listOfCurrentCommands);

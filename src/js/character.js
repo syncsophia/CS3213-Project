@@ -24,6 +24,7 @@ var IObject = function(){
 /* The actual character class */
 var Character = function(elementId) {
 	var me = this;
+	var margin_left = 0;
 	this.elementID = elementId;
 
 	this.target_x = this.x_position + 100;
@@ -32,8 +33,7 @@ var Character = function(elementId) {
 	
 	this.move = function(steps) { 
 		if ((parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
-			console.log(parseInt(this.x_position ,10) + " + " + parseInt(steps*50, 10) +"="+ (parseInt(this.x_position ,10) + parseInt(steps*50, 10)));
-
+			
 			if (parseInt(steps*50, 10) > 0)
 			{
 				move('.' + this.elementID)
@@ -41,17 +41,20 @@ var Character = function(elementId) {
 				.add('margin-left', 50 * steps)
 				.duration('1s')
 				.end();
+				margin_left += 50*steps;
 			}
 			else {
 				move('.' + this.elementID)
 				.sub('margin-left', 50 * Math.abs(steps))
 				.duration('1s')
 				.end();
+				margin_left -= 50*Math.abs(steps);
 			}
 			// TODO: this is not working...
 			this.x_position = (parseInt(this.x_position ,10) + parseInt(steps*50, 10));	
 		}
     },
+	
     this.jump = function(steps) {
 		//if (parseInt(steps*100, 10) >= 0 && (parseInt(this.y_position ,10)  + parseInt(steps*100, 10)) <= ($("#editorContainer").height() - 50)) {
 			// no change in x and y position inside the object.
@@ -65,9 +68,15 @@ var Character = function(elementId) {
 		.end();
 		//}
     },
+	
 	this.resetPosition = function() {
-		this.x_position = this.initXPos;
-		this.y_position = this.initYPos;
+		// reset the margin left for origin position
+		move('#' + this.elementID)
+		  .set('margin-left',0)
+		  .end();
+		
+		//this.x_position = this.initXPos;
+		//this.y_position = this.initYPos;
 	}
 }
 
@@ -76,14 +85,11 @@ Character.prototype = new IObject();
 
 Character.prototype.showObject = function(bool) {
 	var characterElement = document.getElementById(this.elementID);
-	//characterElement.setAttribute("style", "opacity:1.0");
 	move("#" + this.elementID).set('opacity', 1.0).duration('0.5s').end();
 }
 
 Character.prototype.hideObject = function(bool) {
 	var characterElement = document.getElementById(this.elementID);
-	//characterElement.setAttribute("style", "opacity:0.0");
-	
 	move("#" + this.elementID).set('opacity', 0.0).duration('0.5s').end();
 }
 

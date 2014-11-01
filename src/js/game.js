@@ -37,6 +37,7 @@ COMMANDS.push( CMD_SHOW);
 COMMANDS.push( CMD_REPEAT);
 COMMANDS.push( CMD_REPEAT_FOREVER);
 COMMANDS.push( CMD_IF);
+COMMANDS.push( CMD_RESET_POSITION);
 
 var IF_SELECT_PARA1_CHAR_X = "Character.X";
 
@@ -168,14 +169,9 @@ var StartGame = function() {
 	}
 
 	this.resetCharacter = function() {
-		this.character.resetPosition();
-		
-		$("#" + this.character.elementID).css({
-			position: "absolute",
-			top:  this.character.initYPos + "px",
-			left: this.character.initXPos + "px",
-		});
-		this.character.showObject();
+		//this.character.hideObject();
+		//this.character.resetPosition();
+		//this.character.showObject();
 	}
 
 	var mediaContentManager = new MediaContent();

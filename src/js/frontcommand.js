@@ -134,6 +134,8 @@ CommandHandler.prototype.constructBasicCommand = function(cmdType, cmdStep) {
 		return new ShowCommand();
 	else if (cmdType == CMD_HIDE)
 		return new HideCommand();
+	else if (cmdType == CMD_RESET_POSITION)
+		return new SetToOriginCommand();
 }
 
 function CommandProcessor() {
@@ -196,7 +198,10 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 		commandList[i].execute();
 		
 		i++;
-		if(i >= commandList.length || CommandProcessor.hasInterrupted) clearInterval(t1);
+		if(i >= commandList.length || CommandProcessor.hasInterrupted) {
+			clearInterval(t1);
+			game.resetCharacter();
+		}
 		
 	}, delay);
 };

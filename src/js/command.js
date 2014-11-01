@@ -92,7 +92,7 @@ var SetToOriginCommand = function() {
 }
 SetToOriginCommand.prototype = Object.create(Command);
 SetToOriginCommand.prototype.execute = function() {
-	game.character.placeObject(0, 0);
+	game.character.resetPosition();
 	//console.log("[command.js] SetToOriginCommand.execute():  Set to origin.");
 }
 
