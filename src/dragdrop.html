@@ -108,14 +108,14 @@
 	</div>
 
 
-	<div id="editorContainer" style="background-size: 100% 100%;" z-index=-140 title="This is the editor. Please click the play-Button below to let the character perform your code.">
+	<div id="editorContainer" style="background-size: 100% 100%;" title="This is the editor. Please click the play-Button below to let the character perform your code.">
 		<!-- ONE <UL> for each "room" -->
-			<div class="human">
-				<img src="img/snail_1.png" class='character_human' id="character_human">
-			</div>
 			<div class="goal_object">
 				<img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
 				 class='goal_object' id="goal_object">
+			</div>
+			<div class="human">
+				<img src="img/snail_1.png" class='character_human' id="character_human">
 			</div>
 	</div>
 </div>
@@ -138,7 +138,12 @@
 <script type="text/javascript">
 
 	var characterElement = document.getElementById("character_human");
+	var draggie = new Draggabilly( 
+			characterElement, {
+			containment: "#editorContainer"
+		});
 	var goalElement = document.getElementById("goal_object");
+
 	var game = new StartGame();
 	game.init();
 		
