@@ -241,25 +241,32 @@
 		}else{
 
 			if(destinationObj){
+				var buttonHTML = " <input type='button' id='button_enable_" + contentToBeDragged.id + "' onclick='$(this).parent().parent().remove();' value='X' style='background-color:#CC3333; color:#FFFFFF; float:right;'";
 				
 				// Change text to text with step field if the command needs a textfield
 				if (contentToBeDragged.id.indexOf("Hide") == -1 && 
 					contentToBeDragged.id.indexOf("Show") == -1 && 
 					contentToBeDragged.id.indexOf("Reset") == -1 &&
 					contentToBeDragged.id.indexOf("Repeat_Forever") == -1){
-						var buttonHTML = " <input type='button' id='button_enable_" + contentToBeDragged.id + "' onclick='$(this).parent().parent().remove();' value='X' style='background-color:#CC3333; color:#FFFFFF;'";
+						if(contentToBeDragged.id.indexOf("If") != -1)
+						{
+							contentToBeDragged.style.height = 140;
+							contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + 
+								" <select autofocus> <option value='para1_1'>Character.X</option><option value='para1_2'>Character.Y</option></select>" + 	
+								" <select autofocus> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
+								" <select autofocus> <option value='para3_1'>Goal.X</option><option value='para3_1_1'>Goal.Y</option>" +
+								"<option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" + buttonHTML + "</form>" ;
+								contentToBeDragged.onmousedown = function() {};
+						} else {
 						var textFieldHTML = "<input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='1' maxlength='2'>";
 						contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
 						// Disable drag drop to enable clicking and editing the text field.
 						contentToBeDragged.onmousedown = function() {};
+					}
 				}
-				if(contentToBeDragged.id.indexOf("If") != -1){
-					contentToBeDragged.style.height = 140;
-					contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + 
-					" <select autofocus> <option value='para1_1'>Character.X</option><option value='para1_2'>Character.Y</option></select>" + 	
-					" <select autofocus> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
-					" <select autofocus> <option value='para3_1'>Goal.X</option><option value='para3_1_1'>Goal.Y</option> <option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" + "</form>" ;
-
+				else {
+					contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + buttonHTML +"</form>";
+					contentToBeDragged.onmousedown = function() {};
 				}
 
 				if(destinationObj.tagName=='UL'){
