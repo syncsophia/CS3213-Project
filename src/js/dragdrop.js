@@ -251,10 +251,10 @@
 						if(contentToBeDragged.id.indexOf("If") != -1)
 						{
 							contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + 
-								" <select autofocus> <option value='para1_1'>Character.X</option><option value='para1_2'>Character.Y</option></select>" + 	
+								" <select autofocus> <option value='para1_1'>Character.X</option><option value='para1_2'>Character.Y</option></select>" +  buttonHTML + "<br>" +	
 								" <select autofocus> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
 								" <select autofocus> <option value='para3_1'>Goal.X</option><option value='para3_1_1'>Goal.Y</option>" +
-								"<option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" + buttonHTML + "</form>" ;
+								"<option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" + "</form>" ;
 								contentToBeDragged.onmousedown = function() {};
 						} else {
 						var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-50' max='50'>";
