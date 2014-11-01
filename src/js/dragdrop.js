@@ -253,12 +253,6 @@
 					" <select autofocus id='sel_Para1'> <option value='para1_1'>Character.X</option></select>" + 	
 					" <select autofocus id='sel_Para2'> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
 					" <select autofocus id='sel_Para3'> <option value='para3_1'>Goal.X</option> <option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" ;
-					//" <select autofocus> <option value='para1_tokens'>NumTokensCollected</option></select>" + 
-					//" <select autofocus> <option value='para2_<'><</option> <option value='para_2'>></option> <option value='para2_='>=</option></select>" + 
-					//" <select autofocus> <option value='para3_1<'>None</option> <option value='para3_2<'>All</option></select>";
-					//" <select autofocus> <option value='para3_0'>0</option> <option value='para3_1'>1</option> <option value='para3_2'>2</option> <option value='para3_3'>3</option> <option value='para3_4'>4</option> <option value='para3_5'>5</option> <option value='para3_6'>6</option> <option value='para3_7'>7</option> <option value='para3_8'>8</option> <option value='para3_9'>9</option> </select>";
-					//" <select autofocus> <option value='char'>Reach</option> <option value='char'>Not Reach</option> </select>" + 
-					//" Goal";
 				}
 
 

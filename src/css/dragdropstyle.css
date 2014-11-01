@@ -23,7 +23,7 @@ body {
 
 /* buttons footer*/
 #footer {
-    height: 50px;
+    height: 55px;
     vertical-align: middle;
     text-align: left;
     clear: both;
@@ -126,6 +126,7 @@ div#dhtmlgoodies_listOfItems div ul {
 
 /* Start main container CSS : Thats the container containing the code*/
 
+/*Style for the codes in Code Panel*/
 #dhtmlgoodies_mainContainer li{
     /* Movable items, i.e. <LI> */
     list-style-type: none;
