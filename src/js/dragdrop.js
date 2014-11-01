@@ -244,15 +244,11 @@
 
 			if(destinationObj){
 				
-				// Change text to text with step field
-				if (contentToBeDragged.id.indexOf("Repeat_Forever") == -1) {
-				contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ": <input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + "</form>"; 
-				// Disable drag drop to enable clicking and editing the text field.
-				contentToBeDragged.onmousedown = function() {};
-				}
+				// Change text to text with step field if the command needs a textfield
 				if (contentToBeDragged.id.indexOf("Hide") == -1 && 
 					contentToBeDragged.id.indexOf("Show") == -1 && 
-					contentToBeDragged.id.indexOf("Reset") == -1){
+					contentToBeDragged.id.indexOf("Reset") == -1 &&
+					contentToBeDragged.id.indexOf("Repeat_Forever") == -1){
 				contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":<input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + "</form>"; 
 				// Disable drag drop to enable clicking and editing the text field.
 				contentToBeDragged.onmousedown = function() {};
