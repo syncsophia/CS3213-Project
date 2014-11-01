@@ -220,7 +220,6 @@
 				}
 			}
 		}
-		console.log("[dragdrop.js]: moveDragContent_End - destinationObj: " + destinationObj);
 	}
 
 	/* End dragging
@@ -238,7 +237,6 @@
 
 
 		if(cloneSourceItems && (!destinationObj || (destinationObj && (destinationObj.id=='allItems' || destinationObj.parentNode.id=='allItems')))){
-			console.log("remove Child: " + "destinationObj " + destinationObj);
 			contentToBeDragged.parentNode.removeChild(contentToBeDragged);
 		}else{
 
@@ -249,9 +247,11 @@
 					contentToBeDragged.id.indexOf("Show") == -1 && 
 					contentToBeDragged.id.indexOf("Reset") == -1 &&
 					contentToBeDragged.id.indexOf("Repeat_Forever") == -1){
-				contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":<input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='2' maxlength='2'>" + "</form>"; 
-				// Disable drag drop to enable clicking and editing the text field.
-				contentToBeDragged.onmousedown = function() {};
+						var buttonHTML = " <input type='button' id='button_enable_" + contentToBeDragged.id + "' onclick='$(this).parent().parent().remove();' value='X' style='background-color:#CC3333; color:#FFFFFF;'";
+						var textFieldHTML = "<input type='text' id='steps_" + contentToBeDragged.id + "' autofocus value='1' size='1' maxlength='2'>";
+						contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
+						// Disable drag drop to enable clicking and editing the text field.
+						contentToBeDragged.onmousedown = function() {};
 				}
 				if(contentToBeDragged.id.indexOf("If") != -1){
 					contentToBeDragged.style.height = 140;

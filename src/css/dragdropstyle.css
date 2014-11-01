@@ -55,7 +55,7 @@ body {
 #dragContent li,
 #dhtmlgoodies_listOfItems li,
 li#indicateDestination {
-    /* Movable items, i.e. <LI> */
+    /* Movable items, i.e. <LI> in the library */
     list-style-type: none;
     height: 20px;
     background-color: #EEE;
@@ -102,7 +102,7 @@ div#dhtmlgoodies_listOfItems div {
 
 div#dhtmlgoodies_listOfItems div ul {
     /* Left column <ul> */
-    margin-left: 10px;
+    margin-left: 5px;
     /* Space at the left of list - the arrow will be positioned there */
 }
 #dhtmlgoodies_listOfItems div p {
@@ -130,7 +130,7 @@ div#dhtmlgoodies_listOfItems div ul {
 #dhtmlgoodies_mainContainer li{
     /* Movable items, i.e. <LI> */
     list-style-type: none;
-    height: 20px;
+    height: 30px;
     background-color: #EEE;
     border: 1px solid #000;
     padding: 2px;
@@ -141,7 +141,7 @@ div#dhtmlgoodies_listOfItems div ul {
 
 div#dhtmlgoodies_mainContainer {
     /* Right column DIV */
-    width: 190px;
+    width: 180px;
     float: left;
 }
 #dhtmlgoodies_mainContainer div {
@@ -152,17 +152,17 @@ div#dhtmlgoodies_mainContainer {
     margin-top: 10px;
     border: 1px solid #999;
     /* CSS HACK */
-    width: 172px;
+    width: 180px;
     /* IE 5.x */
     width
     /* */
     :
     /**/
-    170px;
+    180px;
     /* Other browsers */
     width:
     /**/
-    170px;
+    180px;
 	height: 578px;
 }
 #dhtmlgoodies_mainContainer div ul {
@@ -181,7 +181,7 @@ div#dhtmlgoodies_mainContainer {
 }
 #dhtmlgoodies_mainContainer ul {
     /* Small box in right column ,i.e <ul> */
-    width: 152px;
+    width: 162px;
     height: 80px;
     border: 0px;
     margin-bottom: 0px;
