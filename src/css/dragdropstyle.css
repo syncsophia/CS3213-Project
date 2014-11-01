@@ -130,7 +130,7 @@ div#dhtmlgoodies_listOfItems div ul {
 #dhtmlgoodies_mainContainer li{
     /* Movable items, i.e. <LI> */
     list-style-type: none;
-    height: 30px;
+    height: auto;
     background-color: #EEE;
     border: 1px solid #000;
     padding: 2px;
