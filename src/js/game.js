@@ -169,9 +169,8 @@ var StartGame = function() {
 	}
 
 	this.resetCharacter = function() {
-		//this.character.hideObject();
-		//this.character.resetPosition();
-		//this.character.showObject();
+		this.character.resetPosition();
+		this.character.showObject();
 	}
 
 	var mediaContentManager = new MediaContent();
