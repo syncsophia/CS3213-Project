@@ -31,9 +31,16 @@ var Character = function(elementId) {
 	this.target_y = this.y_position;
 	this.hasArrived = false;
 	
+	this.getCurrentXPosition = function() {
+		return (parseInt(this.x_position ,10) + margin_left);
+	}
+	
+	this.getCurrentYPosition = function() {
+		return parseInt(this.y_position ,10);
+	}
+	
 	this.move = function(steps) { 
-		if ((parseInt(this.x_position ,10) + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50)) {
-			
+		if ((this.getCurrentXPosition() + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50) && (this.getCurrentXPosition() + parseInt(steps*50, 10)) > 0) {
 			if (parseInt(steps*50, 10) > 0)
 			{
 				move('.' + this.elementID)
@@ -50,8 +57,6 @@ var Character = function(elementId) {
 				.end();
 				margin_left -= 50*Math.abs(steps);
 			}
-			// TODO: this is not working...
-			this.x_position = (parseInt(this.x_position ,10) + parseInt(steps*50, 10));	
 		}
     },
 	
@@ -74,7 +79,8 @@ var Character = function(elementId) {
 		move('#' + this.elementID)
 		  .set('margin-left',0)
 		  .end();
-		
+		  
+		margin_left=0;
 		//this.x_position = this.initXPos;
 		//this.y_position = this.initYPos;
 	}
