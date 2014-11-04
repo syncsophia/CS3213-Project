@@ -194,9 +194,22 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
 		else
 			delay = 1500;
-			
-		commandList[i].execute();
-        var goalAchieved = game.isEndOfGame();
+
+
+        var goalAchieved = false;
+
+		var catchReturn = commandList[i].execute();
+        if(commandList[i] instanceof JumpCommand) {
+            var temp_y = game.character.getYForJump(catchReturn);
+            var dis = CountDistance(game.character, game.goal_object, temp_y)
+            if(dis <= COLLIDE_MIN)
+                goalAchieved = true;
+            console.log("distance: " + dis);
+        }
+        else
+            goalAchieved = game.isEndOfGame();
+
+
         console.log(goalAchieved);
         if (goalAchieved)
             window.alert("You won the game!");

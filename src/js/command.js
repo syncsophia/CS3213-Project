@@ -41,6 +41,7 @@ var JumpCommand = function(step) {
 JumpCommand.prototype = Object.create(Command);
 JumpCommand.prototype.execute = function() {
 	game.character.jump(this.step);
+    return this.step;
 	//console.log("[command.js] JumpCommand.execute():   Jumping: " + this.step);
 }
 

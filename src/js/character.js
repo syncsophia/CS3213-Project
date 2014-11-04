@@ -8,8 +8,8 @@
 var IObject = function(){
 	this.x_position = 0,
 	this.y_position = 0,
-	this.initXPos = 0,
-	this.initYPos =0,
+	this.imageWidth = 128,
+	this.imageHeight =128,
 	this.image = "",
 	this.elementID= "",
 
@@ -19,6 +19,8 @@ var IObject = function(){
 	this.placeObject= function(x, y) {},
 	this.setImage= function(image) {},
 	this.setInitXY= function(x, y) { this.initXPos = this.x_position = parseInt(x,10); this.initYPos = this.y_position = parseInt(y,10);}
+    this.getWidth = function(){ return this.imageWidth; }
+    this.getHeight = function(){ return this.imageHeight; }
 }
 
 /* The actual character class */
@@ -26,17 +28,13 @@ var Character = function(elementId) {
 	var me = this;
 	var margin_left = 0;
 	this.elementID = elementId;
-
-	this.target_x = this.x_position + 100;
-	this.target_y = this.y_position;
-	this.hasArrived = false;
 	
 	this.getCurrentXPosition = function() {
 		return (parseInt(this.x_position ,10) + margin_left);
 	}
 	
 	this.getCurrentYPosition = function() {
-		return parseInt(this.y_position ,10);
+		return (parseInt(this.y_position ,10));
 	}
 	
 	this.move = function(steps) { 
@@ -81,13 +79,16 @@ var Character = function(elementId) {
 		  .end();
 		  
 		margin_left=0;
-		//this.x_position = this.initXPos;
-		//this.y_position = this.initYPos;
 	}
 }
 
 
 Character.prototype = new IObject();
+
+Character.prototype.getYForJump = function(steps)
+{
+    return (parseInt(this.y_position ,10) - 50*Math.abs(steps));
+}
 
 Character.prototype.showObject = function(bool) {
 	var characterElement = document.getElementById(this.elementID);
@@ -122,6 +123,8 @@ Character.prototype.setImage = function(image) {
 	this.image = image;
 	var characterElement = document.getElementById(this.elementID);
 	characterElement.src = image;
+    this.imageHeight = characterElement.clientHeight;
+    this.imageWidth = characterElement.clientWidth;
 }
 
 //------------------------------------------------------------------------------------

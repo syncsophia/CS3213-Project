@@ -6,7 +6,7 @@
 //
 //------------------------------------------------------------------------------------
 //	Constant variables for each command
-var COLLIDE_MIN = 85;
+var COLLIDE_MIN = 80;
 
 var COMMANDS = [];
 var CMD_MOVE_RIGHT = "Move_Right";
@@ -164,7 +164,7 @@ var StartGame = function() {
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
-          if(CountDistance() <= COLLIDE_MIN) {
+          if(CountDistance(this.character, this.goal_object, this.character.getCurrentYPosition()) <= COLLIDE_MIN) {
               return true;
           }
         return false;
@@ -189,12 +189,16 @@ var StartGame = function() {
 	ChangeCharacterCostume(mediaContentManager.getArrCharacterImages()[getRandomInteger(0, 4)]);
 }
 
-var CountDistance = function()
+// the x and y position of IObject is reference to the coordinate of the "top left" corner of the object
+// hence, by adding half of the width/height to the top left will get the coordinate of the center of the object.
+// the additional "player_y" parameter is prepare for the usage of "jump command" only, because the coordinate cannot
+// be updated during .move
+var CountDistance = function(player_obj, goal_obj, player_y)
 {
-    var goal_x = game.goal_object.getCurrentXPosition();
-    var goal_y = game.goal_object.getCurrentYPosition();
-    var char_x = game.character.getCurrentXPosition();
-    var char_y = game.character.getCurrentYPosition();
+    var goal_x = goal_obj.getCurrentXPosition() + goal_obj.getWidth()/2;
+    var goal_y = goal_obj.getCurrentYPosition() + goal_obj.getHeight()/2;
+    var char_x = player_obj.getCurrentXPosition() + player_obj.getWidth()/2;
+    var char_y = player_y + player_obj.getHeight()/2;
 
     var resultX = char_x - goal_x;
     var resultY = char_y - goal_y;
@@ -204,11 +208,8 @@ var CountDistance = function()
 
     var distance = Math.sqrt(resultX+resultY);
 
-    console.log("currX:"+ game.character.getCurrentXPosition());
-    console.log("currY:"+ game.character.getCurrentYPosition());
-
-    console.log("GoalX:" + game.goal_object.getCurrentXPosition());
-    console.log("GoalY:" + game.goal_object.getCurrentYPosition());
+    console.log("currX:"+ char_x);
+    console.log("currY:"+ char_y);
     console.log("Distance: " + distance);
 
     return Math.round(distance);
@@ -273,7 +274,7 @@ var insertHomeItemsIntoMenu = function(mediaContent) {
 		this.arr_characterImages.push("img/snail_3.png");
 		this.arr_characterImages.push("img/albert.png");
 
-		this.goalImage = "img/goal.png";
+		this.goalImage = "img/star.png";//"img/goal.png";
 
 		this.arr_soundEffects.push("audio/cartoonhop,mp3");
 		this.arr_soundEffects.push("audio/cartoonwalk.mp3");
