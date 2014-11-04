@@ -185,16 +185,17 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 	var listObservers = CommandProcessor.observers;
 	
 	var t1 = setInterval( function() {
-	
-		listObservers.forEach(function(entry) {
-			entry.notify(commandList[i]);
-		});
+		
+		if(StartGame.IsMusicOn()) {
+			listObservers.forEach(function(entry) {
+				entry.notify(commandList[i]);
+			});
+		}
 	
 		if(commandList[i] instanceof RepeatCommand)
 			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
 		else
 			delay = 1500;
-
 
         var goalAchieved = false;
 

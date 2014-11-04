@@ -7,6 +7,14 @@ var newCommand = function(id) {
 }
 
 var MusicEditor = function() {
+
+	var musicEnabled = StartGame.ToogleMusic();
+	if(musicEnabled)
+		$("#id_btnMusicImg").attr("src", "img/btn_musicon.png");
+	else
+		$("#id_btnMusicImg").attr("src", "img/btn_musicoff.png");
+
+	/*
 	game.musicOn = !game.musicOn;
 	
 	if(game.musicOn) {
@@ -17,6 +25,7 @@ var MusicEditor = function() {
 		$("#id_btnMusicImg").attr("src", "img/btn_musicoff.png");
 		ToggleMusic(game.musicOn);
 	}
+	*/
 }
 
 /* User pressed stop button
@@ -80,7 +89,7 @@ var PlayEditor = function() {
 		// else append reset of character after execution
 		listOfCurrentCommands.push("id_" + CMD_RESET_POSITION);
 		
-		// ask the frontControl to deal with all Rquests
+		// ask the frontControl to deal with all Requests
 		frontCtrl.getCommand(listOfCurrentCommands);
 
 		var goalAchieved = game.isEndOfGame();

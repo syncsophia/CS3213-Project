@@ -75,18 +75,25 @@ var IF_SELECTS_EVALUATOR = [
 
 var bgAudio;
 
-var ToggleMusic = function(isMusicOn) {
-	if(isMusicOn) {
-		bgAudio.play();
-	}
-	else {
-		bgAudio.pause();
-		bgAudio.currentTime = 0;
-	}
-}
-
 var StartGame = function() {
+
+	StartGame.ToogleMusic = function() {
+		this.musicOn = !this.musicOn;
+		if(this.musicOn) {
+			bgAudio.play();
+		}
+		else {
+			bgAudio.pause();
+			bgAudio.currentTime = 0;
+		}
+	
+		return this.musicOn;
+	}
+	
+	StartGame.IsMusicOn = function() { return this.musicOn; }
+
 	bgAudio = new Audio("audio/bg.m4a");
+	bgAudio.volume = 0.2;
 	bgAudio.addEventListener('ended', function() {
 		this.currentTime = 0;
 		this.play();
@@ -123,8 +130,8 @@ var StartGame = function() {
 	
 	/**
 	 * Generate a random integer between min and max
-	 * @param min: minimum number. default value is 1
-	 *		  max: maximum number. default value is 500
+	 * @param min: minimum number.
+	 *		  max: maximum number.
 	 * @return a random integer point number
 	 */
 	var getRandomInteger = function(minValue, maxValue) {
