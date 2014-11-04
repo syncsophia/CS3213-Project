@@ -87,6 +87,18 @@
 		  			</li>
 		  		</ul>
 		</li>
+        <li>
+            <a href="#">Game Mode</a>
+                <ul class="class_MenuGoalModeSelect" id="id_MenuGoalModeSelect">
+                    <li>
+                        <a href="#" onclick="ChangeGoalMode('off')">Normal</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="ChangeGoalMode('on')">Goal</a>
+                    </li>
+                </ul>
+            </a>
+        </li>
 	</ul>
 </div>
 
@@ -143,6 +155,7 @@
 			containment: "#editorContainer"
 		});
 	var goalElement = document.getElementById("goal_object");
+    var goalElement2 = document.getElementById("goal_object_2");
 
 	var game = new StartGame();
 	game.init();

@@ -86,6 +86,8 @@ var PlayEditor = function() {
 		var goalAchieved = game.isEndOfGame();
 		if (!goalAchieved){
 			// user didn't reach the goal: set character back to origin position.
+            // toggle goal(s) on and off
+            // need to adjust for new goal scenario: multiple goals
 			game.character.placeObject(origin_x_of_Character, origin_y_of_Character);
 		}
 
