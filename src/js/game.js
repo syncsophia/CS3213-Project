@@ -28,8 +28,8 @@ var CHARACTER_MIN_X = 0;
 
 var GOAL_MAX_Y = 510;
 var GOAL_MIN_Y = 0;
-var GOAL_MAX_X = 380;
-var GOAL_MIN_X = 480;
+var GOAL_MAX_X = 480;
+var GOAL_MIN_X = 0;
 
 COMMANDS.push( CMD_MOVE_RIGHT);
 COMMANDS.push( CMD_MOVE_LEFT);
@@ -97,6 +97,7 @@ var StartGame = function() {
 	
 	this.character = new Character("character_human");
 	this.goal_object = new Goal("goal_object");
+    //this.goalArray = [];
 	
 	this.musicOn = true;
 	
@@ -147,14 +148,90 @@ var StartGame = function() {
 		
 		inObj.setInitXY(randomX, randomY);
 	}
-	
+    
+    /**
+     *  Populates goalArray with random number (1-5) of goal objects
+     */
+//    var fillGoalArray = function() {
+//        var goalArray = [];
+//        var goalNum = getRandomInteger(1,5);
+//    
+//        for (i = 0; i < goalNum; i++) {
+//            //goalArray.push(new Goal("goal_object_" + i.toString));
+//            goalArray.push(new Goal("goal_object"));
+//        }
+//        return goalArray;
+//    }
+    
+    var fillGoalArray = function(goalArray) {
+        var goalNum = getRandomInteger(1,5);
+        
+        for (i = 0; i < goalNum; i++) {
+            //goalArray.push(new Goal("goal_object_" + i.toString));
+            goalArray.push(new Goal("goal_object"));
+        }
+    }
+    
+    /**
+     *  Generate goals
+     */
+    var generateGoals = function(goalArray) {
+        for (goal in goalArray) {
+            //console.log(goal.elementID);
+            setRandomObjectPosition(goal, goal.elementID,
+                GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MIN_Y);
+        }
+    }
+    
+    /**
+    * Determines the position of the goal depending on position of the character.
+    * @return an array of goal coordinates
+    */
+    var setGoalCoordinates = function(char_x, char_y) {
+        var goalMinX = GOAL_MIN_X;
+        var goalMinY = GOAL_MIN_Y;
+        var goalMaxX = GOAL_MAX_X;
+        var goalMaxY = GOAL_MAX_Y;
+        
+        // Check character.x_position and set goal_object.x_position away from character
+        if (char_x < CHARACTER_MAX_X/2) {
+            goalMinX = char_x + COLLIDE_MIN;
+        } else {
+            goalMaxX = char_x - COLLIDE_MIN;
+        }
+        
+        // Check character.y_position and set goal_object.y_position away from character
+        if (char_y < CHARACTER_MAX_Y/2) {
+            goalMinY = char_y + COLLIDE_MIN;
+        } else {
+            goalMaxY = char_y - COLLIDE_MIN;
+        }
+        
+        return [goalMinX, goalMaxX, goalMinY, goalMaxY];
+    }
+    
 	/**
-	* Does the positioning of character and goal and 
+	* Does the positioning of character and goal(s) and
 	* adds all possible Commands to the element List (Library of commands).
 	*/
 	this.init = function() {
 		setRandomObjectPosition(this.character, this.character.elementID, CHARACTER_MIN_X, CHARACTER_MAX_X, CHARACTER_MAX_Y-2, CHARACTER_MAX_Y);
-		setRandomObjectPosition(this.goal_object, this.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MAX_Y);
+        
+        //console.log(this.character.getCurrentXPosition(), this.character.getCurrentYPosition());
+        
+        var goalCoordArray = setGoalCoordinates(this.character.getCurrentXPosition(), this.character.getCurrentYPosition());
+        
+        setRandomObjectPosition(this.goal_object, this.goal_object.elementID,
+            goalCoordArray[0], goalCoordArray[1], goalCoordArray[2],goalCoordArray[3]);
+
+        
+        //console.log(this.goal_object.getCurrentXPosition(), this.goal_object.getCurrentYPosition());
+        console.log(CountDistance());
+        
+        //this.goalArray = fillGoalArray();
+        //fillGoalArray(this.goalArray);
+        //generateGoals(this.goalArray);
+        
 		addDragableCommands();
 	},
 

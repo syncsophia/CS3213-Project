@@ -41,21 +41,9 @@ var ChangeGoalMode = function(mode) {
         //goal.deleteObject();
     } else if (mode=="on") {
         goal.showObject();
-        //goal.placeObject(100,100);
+        //goal.placeObject(480,510);
     }
 }
 // default game mode: without goal
 // if goal selected, switch modes
 // add call function to add goals
-//<li>
-//<a href="#">Game Mode</a>
-//<ul class="class_MenuGoalModeSelect" id="id_MenuGoalModeSelect">
-//<li>
-//<a href="#" onclick="ChangeGoalMode('off')">Normal</a>
-//</li>
-//<li>
-//<a href="#" onclick="ChangeGoalMode('on')">Goal</a>
-//</li>
-//</ul>
-//</a>
-//</li>
