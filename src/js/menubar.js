@@ -38,7 +38,7 @@ var ChangeGoalMode = function(mode) {
     var goal = new Goal("goal_object");
     if (mode=="off") {
         goal.hideObject();
-        goal.deleteObject();
+        //goal.deleteObject();
     } else if (mode=="on") {
         goal.showObject();
         //goal.placeObject(100,100);
