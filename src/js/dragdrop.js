@@ -394,4 +394,11 @@
 		}
 	}
 
+    function traceMouse(e)
+    {
+        var x = e.clientX - 379;
+        var y = e.clientY - 54;
+        var coor = "Coordinates: (" + x + "," + y + ")";
+        document.getElementById("coordinate").innerHTML = coor;
+    }
 	window.onload = initDragDropScript;

@@ -226,7 +226,7 @@ var StartGame = function() {
 
         
         //console.log(this.goal_object.getCurrentXPosition(), this.goal_object.getCurrentYPosition());
-        console.log(CountDistance());
+        //console.log(CountDistance());
         
         //this.goalArray = fillGoalArray();
         //fillGoalArray(this.goalArray);

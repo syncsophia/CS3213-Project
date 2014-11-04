@@ -6,7 +6,8 @@
 	
 	<link href="css/dragdropstyle.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Averia+Serif+Libre' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/runnable.css" />
+    <link href="css/runnable.css" rel="stylesheet">
+    <link href="css/mystyle.css" rel="stylesheet">
 		
 	<script type="text/javascript" src="js/draggabilly.pkgd.min.js"></script>
 	<script type="text/javascript" src="js/game.js"></script>
@@ -19,9 +20,7 @@
     <script type="text/javascript" src="js/menubar.js"></script>
 	<script type="text/javascript" src="js/frontcommand.js"></script>
 	<script type="text/javascript" src="js/buttonEvents.js"></script>
-	<script type="text/javascript">
-
-	</script>
+    <script></script>
 </head>
 
 <body>
@@ -109,9 +108,9 @@
 		</div>
 	</div>
 
-
-	<div id="editorContainer" style="background-size: 100% 100%;" title="This is the editor. Please click the play-Button below to let the character perform your code.">
-		<!-- ONE <UL> for each "room" -->
+	<div id="editorContainer" onmousemove="traceMouse(event)" style="background-size: 100% 100%;" title="This is the editor. Please click the play-Button below to let the character perform your code.">
+        <p id="coordinate" class = "floating"></p>
+        <!-- ONE <UL> for each "room" -->
 			<div class="goal_object">
 				<img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
 				 class='goal_object' id="goal_object">
@@ -151,6 +150,7 @@
 	game.init();
 		
 </script>
+
 </body>
 
 </html>
