@@ -131,20 +131,38 @@ Character.prototype.setImage = function(image) {
 //------------------------------------------------------------------------------------
 
 var Goal = function(elementId) {
+    var me = this;
+	var margin_left = 0;
 	this.elementID = elementId;
-	this.hasAchieved = false;
+    
+	this.target_x = this.x_position + 100;
+	this.target_y = this.y_position;
+	this.hasArrived = false;
+	
+	this.getCurrentXPosition = function() {
+		return (parseInt(this.x_position ,10) + margin_left);
+	}
+	
+	this.getCurrentYPosition = function() {
+		return parseInt(this.y_position ,10);
+	}
+    
+//	this.elementID = elementId;
+//	this.hasAchieved = false;
 }
 
 Goal.prototype = new IObject();
 
 Goal.prototype.showObject = function(bool) {
 	var goalElement = document.getElementById(this.elementID);
-	goalElement.setAttribute("style", "opacity:1.0");
+	//goalElement.setAttribute("style", "opacity:1.0");
+	move("#" + this.elementID).set('opacity', 1.0).duration('0.5s').end();
 }
 
 Goal.prototype.hideObject = function(bool) {
 	var goalElement = document.getElementById(this.elementID);
-	goalElement.setAttribute("style", "opacity:0.0");
+	//goalElement.setAttribute("style", "opacity:0.0");
+    move("#" + this.elementID).set('opacity', 0.0).duration('0.5s').end();
 }
 
 Goal.prototype.deleteObject = function() {

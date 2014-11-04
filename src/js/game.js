@@ -95,6 +95,9 @@ var StartGame = function() {
 	
 	this.character = new Character("character_human");
 	this.goal_object = new Goal("goal_object");
+    //this.goal_object2 = new Goal("goal_object_2");
+    //this.goalArray = [];
+    
 	
 	this.musicOn = true;
 	
@@ -145,33 +148,81 @@ var StartGame = function() {
 		
 		inObj.setInitXY(randomX, randomY);
 	}
-	
+    
+    /**
+     *  Populates goalArray with random number (1-5) of goal objects
+     */
+//    var fillGoalArray = function() {
+//        var goalArray = [];
+//        var goalNum = getRandomInteger(1,5);
+//        
+//        for (i = 0; i < goalNum; i++) {
+//            //goalArray.push(new Goal("goal_object_" + i.toString));
+//            goalArray.push(new Goal("goal_object"));
+//        }
+//        return goalArray;
+//    }
+    
+    var fillGoalArray = function(goalArray) {
+        var goalNum = getRandomInteger(1,5);
+        
+        for (i = 0; i < goalNum; i++) {
+            //goalArray.push(new Goal("goal_object_" + i.toString));
+            goalArray.push(new Goal("goal_object"));
+        }
+    }
+    
+    /**
+     *  Generate goals
+     */
+    var generateGoals = function(goalArray) {
+        for (goal in goalArray) {
+            //console.log(goal.elementID);
+            setRandomObjectPosition(goal, goal.elementID,
+                GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MIN_Y);
+        }
+    }
+    
 	/**
-	* Does the positioning of character and goal and 
+	* Does the positioning of character and goal(s) and
 	* adds all possible Commands to the element List (Library of commands).
 	*/
 	this.init = function() {
 		setRandomObjectPosition(this.character, this.character.elementID, CHARACTER_MIN_X, CHARACTER_MAX_X, CHARACTER_MAX_Y-2, CHARACTER_MAX_Y);
 		setRandomObjectPosition(this.goal_object, this.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MAX_Y);
+//        setRandomObjectPosition(this.goal_object_2, this.goal_object_2.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MAX_Y);
+        //this.goalArray = fillGoalArray();
+        //fillGoalArray(this.goalArray);
+        //generateGoals(this.goalArray);
 		addDragableCommands();
 	},
+    
 
 	/**
 	 * Checks if the character manage to reach the goal flag object
 	 * @return: true if the character reaches the goal,
 	 *			otherwise false
 	 */
-	this.isEndOfGame = function() {
-		if (Math.abs($("#character_human").css("left") - goal_object.x_position) < 50 &&
-			Math.abs($("#character_human").css("top") - goal_object.y_position) < 50)
-			return true;
-		return false;
-	}
+//	this.isEndOfGame = function() {
+//        
+//		if (Math.abs($("#character_human").css("left") - goal_object.x_position) < 50 &&
+//			Math.abs($("#character_human").css("top") - goal_object.y_position) < 50)
+//			return true;
+//		return false;
+//	}
 
 	this.resetCharacter = function() {
 		this.character.resetPosition();
 		this.character.showObject();
 	}
+    
+    this.toggleGoal = function(isGoalMode) {
+        if (isGoalMode) {
+            this.goal.placeObject();
+        } else {
+            this.goal.deleteObject();
+        }
+    }
 
 	var mediaContentManager = new MediaContent();
 
