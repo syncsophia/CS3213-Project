@@ -234,7 +234,7 @@ var IfCommand = function(para1, para2, para3, nextCommandObj) {
 	var para1E = getIfSelectEvaluators(0,para1);
  	var para2E = getIfSelectEvaluators(1,para2);
  	var para3E = getIfSelectEvaluators(2,para3);
-	console.log(eval(para1E+para2E+para3E));
+	console.log("If statement evaluation: if " + eval(para1E) + para2E + eval(para3E) + " is "  + eval(para1E+para2E+para3E));
 	
 	
 	//this.conditionalCommand = nextCommandObj;
