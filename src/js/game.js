@@ -6,6 +6,8 @@
 //
 //------------------------------------------------------------------------------------
 //	Constant variables for each command
+var COLLIDE_MIN = 85;
+
 var COMMANDS = [];
 var CMD_MOVE_RIGHT = "Move_Right";
 var CMD_MOVE_LEFT = "Move_Left";
@@ -140,7 +142,7 @@ var StartGame = function() {
 		$("#" + inObjID).css({
 			position: "absolute",
 			top:  randomY + "px",
-			left: randomX + "px",
+			left: randomX + "px"
 		});
 		
 		inObj.setInitXY(randomX, randomY);
@@ -162,10 +164,17 @@ var StartGame = function() {
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
-		if (Math.abs($("#character_human").css("left") - goal_object.x_position) < 50 &&
-			Math.abs($("#character_human").css("top") - goal_object.y_position) < 50)
-			return true;
-		return false;
+          if(CountDistance() <= COLLIDE_MIN) {
+              return true;
+          }
+        return false;
+
+
+
+//		if (Math.abs($("#character_human").css("left") - goal_object.x_position) < 50 &&
+//			Math.abs($("#character_human").css("top") - goal_object.y_position) < 50)
+//			return true;
+//		return false;
 	}
 
 	this.resetCharacter = function() {
@@ -178,6 +187,31 @@ var StartGame = function() {
 	// Randomize the sprite for both background and character
 	ChangeBackground(mediaContentManager.getArrBackgroundImages()[getRandomInteger(0, 6)]);
 	ChangeCharacterCostume(mediaContentManager.getArrCharacterImages()[getRandomInteger(0, 4)]);
+}
+
+var CountDistance = function()
+{
+    var goal_x = game.goal_object.getCurrentXPosition();
+    var goal_y = game.goal_object.getCurrentYPosition();
+    var char_x = game.character.getCurrentXPosition();
+    var char_y = game.character.getCurrentYPosition();
+
+    var resultX = char_x - goal_x;
+    var resultY = char_y - goal_y;
+
+    resultX *= resultX;
+    resultY *= resultY;
+
+    var distance = Math.sqrt(resultX+resultY);
+
+    console.log("currX:"+ game.character.getCurrentXPosition());
+    console.log("currY:"+ game.character.getCurrentYPosition());
+
+    console.log("GoalX:" + game.goal_object.getCurrentXPosition());
+    console.log("GoalY:" + game.goal_object.getCurrentYPosition());
+    console.log("Distance: " + distance);
+
+    return Math.round(distance);
 }
 
 

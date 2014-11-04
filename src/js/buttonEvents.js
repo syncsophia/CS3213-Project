@@ -95,3 +95,12 @@ var PlayEditor = function() {
 		listOfCurrentCommands = [];
 	});
 }
+
+var createDiv = function()
+{
+    var newDiv = document.createElement('div');
+    newDiv.className = 'class_code';
+    newDiv.innerHTML = "I'm the first div";
+    document.getElementById("dhtmlgoodies_mainContainer").appendChild(newDiv);
+
+}
