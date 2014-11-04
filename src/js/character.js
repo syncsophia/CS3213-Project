@@ -114,7 +114,7 @@ Character.prototype.placeObject = function(x, y) {
 	$("#" + this.elementID).css({
 		position: "absolute",
 		top: this.y_position + "px",
-		left: this.x_position + "px",
+		left: this.x_position + "px"
 	});
 }
 
@@ -136,6 +136,14 @@ var Goal = function(elementId) {
 }
 
 Goal.prototype = new IObject();
+
+Goal.prototype.getCurrentXPosition = function() {
+    return parseInt(this.x_position ,10);
+}
+
+Goal.prototype.getCurrentYPosition = function() {
+    return parseInt(this.y_position ,10);
+}
 
 Goal.prototype.showObject = function(bool) {
 	var goalElement = document.getElementById(this.elementID);
@@ -163,7 +171,7 @@ Goal.prototype.placeObject = function(x, y) {
 	$("#" + this.elementID).css({
 		position: "absolute",
 		top: this.y_position + "px",
-		left: this.x_position + "px",
+		left: this.x_position + "px"
 	});
 }
 

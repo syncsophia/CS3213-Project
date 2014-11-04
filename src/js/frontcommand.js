@@ -196,6 +196,10 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 			delay = 1500;
 			
 		commandList[i].execute();
+        var goalAchieved = game.isEndOfGame();
+        console.log(goalAchieved);
+        if (goalAchieved)
+            window.alert("You won the game!");
 		
 		i++;
 		if(i >= commandList.length || CommandProcessor.hasInterrupted) {

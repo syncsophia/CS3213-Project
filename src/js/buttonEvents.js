@@ -82,12 +82,13 @@ var PlayEditor = function() {
 		
 		// ask the frontControl to deal with all Rquests
 		frontCtrl.getCommand(listOfCurrentCommands);
-		
+
 		var goalAchieved = game.isEndOfGame();
-		if (!goalAchieved) {
+		if (!goalAchieved){
 			// user didn't reach the goal: set character back to origin position.
 			game.character.placeObject(origin_x_of_Character, origin_y_of_Character);
 		}
+
 		
 		listOfCurrentCommands = [];
 	});
