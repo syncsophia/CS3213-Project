@@ -1,2 +1,2 @@
-CS3213-Project
+CS3213-Team 5 Visual IDE
 ==============
