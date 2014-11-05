@@ -65,3 +65,21 @@ ShowHideCommandObserver.prototype.notify = function(commandObject) {
 	if(commandObject instanceof ShowCommand || commandObject instanceof HideCommand)
 		this.audio.play();	
 }
+
+//------------------------------------------------------------------------------------
+//
+//	GameWonObserver (Implements Observer)
+//
+//	Description: Observer to listen for condition of game end
+//				 Plays 'Cha Ching' sound effect when called upon
+//
+//------------------------------------------------------------------------------------
+var GameWonObserver = function() {
+	CommandProcessor.attachObserver(this);
+	this.audio = new Audio("audio/chaching.wav");
+}
+GameWonObserver.prototype = Object.create(Observer);
+GameWonObserver.prototype.notify = function() {
+ 	// as long as I'm called, I'll just play audio, so use me with caution
+	this.audio.play();	
+}
