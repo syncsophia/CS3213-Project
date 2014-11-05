@@ -48,7 +48,7 @@ var ClearEditor = function() {
 
 /* User pressed play button */
 var PlayEditor = function() {
-	
+
 	var characterElement = document.getElementById("character_human");
 	
 	var origin_x_of_Character = $("#character_human").css("left");

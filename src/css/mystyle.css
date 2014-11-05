@@ -1,6 +1,15 @@
-.floating{
+.floating_score {
+    position: relative;
+    float: left;
+    color: #ffff00;
+    text-shadow: 1px 1px #ff4500;
+}
+
+.debug_coordinate{
     position: relative;
     float:right;
     color: #ffffff;
     text-shadow: 1px 1px #000000;
 }
+
+

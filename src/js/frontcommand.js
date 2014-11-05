@@ -219,7 +219,7 @@ CommandProcessor.prototype.processCommands = function(commandList) {
             game.goal_object.hideObject();
             //window.alert("You won the game!");
         }
-		
+        displayScore();
 		i++;
 		if(i >= commandList.length || CommandProcessor.hasInterrupted) {
 			clearInterval(t1);

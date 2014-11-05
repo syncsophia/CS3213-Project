@@ -8,6 +8,7 @@
 //	Constant variables for each command
 var COLLIDE_MIN = 50;
 var GOAL_ACHIEVED = false;
+var SCORE = 0;
 
 var COMMANDS = [];
 var CMD_MOVE_RIGHT = "Move_Right";
@@ -117,7 +118,9 @@ var StartGame = function() {
 	this.character = new Character("character_human");
 	this.goal_object = new Goal("goal_object");
     //this.goalArray = [];
-	
+
+    displayScore();
+
 	this.musicOn = true;
 	
 	this.moveCommandObserver = new MoveCommandObserver();
@@ -322,7 +325,7 @@ var isCollide = function(player_obj, goal_obj, jump_step) {
         var rect1 = {x: player_obj.getCurrentXPosition(), y: player_obj.getCurrentYPosition(), width: player_obj.getWidth(), height: player_obj.getHeight()}
         var rect2 = {x: goal_obj.getCurrentXPosition(), y: goal_obj.getCurrentYPosition(), width: goal_obj.getWidth() / 4, height: goal_obj.getHeight() / 4}
 
-        if(jump_step > 0) {
+      /*  if(jump_step > 0) {
             for (i = 0; i < jump_step; i++) {
                 rect1.y = player_obj.getYForJump(i+1);
 
@@ -330,24 +333,29 @@ var isCollide = function(player_obj, goal_obj, jump_step) {
                     rect1.x + rect1.width > rect2.x &&
                     rect1.y < rect2.y + rect2.height &&
                     rect1.height + rect1.y > rect2.y) {
+                    incrementScore(100);
                     console.log("Collided!!!")
                     return true;
                 }
             }
                 return false;
-        }
+        }*/
 
+        if(jump_step > 0)
+            rect1.y = player_obj.getYForJump(jump_step);
 
         if (rect1.x < rect2.x + rect2.width &&
             rect1.x + rect1.width > rect2.x &&
             rect1.y < rect2.y + rect2.height &&
             rect1.height + rect1.y > rect2.y) {
+            incrementScore(100);
             console.log("Collided!!!")
             return true;
         }
     }
         return false;
 }
+
 
 
 
@@ -429,3 +437,22 @@ MediaContent.prototype.getSoundEffects = function() {
 MediaContent.prototype.getGoalImages = function() {
 	return this.goalImage;
 }
+
+var getScore = function()
+{
+    return SCORE;
+}
+
+var incrementScore = function(value)
+{
+    SCORE += value;
+}
+
+var displayScore = function()
+{
+    var text = "Current Score: ";
+    text += getScore();
+
+    document.getElementById("score").innerHTML = text;
+}
+
