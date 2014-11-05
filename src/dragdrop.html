@@ -27,15 +27,17 @@
 <div id="header" class="navigation">
 	<!-- do menu here: Event handling in menubar.js -->
 	<ul class="nav">
-		´
 		<li>
 		  <a href="#">Home</a>
 		  	<ul>
-		  		<li class="disabled"><a href="#">Login/Logout</a></li>
 		  		<li class="disabled"><a href="#">Save</a></li>
 		  		<li class="disabled"><a href="#">Load</a></li>
-                <li><a href="#" onclick="ChangeGoalMode('on')">Goals: ON</a></li>
-                <li><a href="#" onclick="ChangeGoalMode('off')">Goals: OFF</a></li>
+				<li><a href="#">Goal Mode</a>
+					<ul>
+						<li><a href="#" onclick="ChangeGoalMode('on')">Goals: ON</a></li>
+                		<li><a href="#" onclick="ChangeGoalMode('off')">Goals: OFF</a></li>
+					</ul>
+				</li>
 		  	</ul>
 		</li>
 		<li>

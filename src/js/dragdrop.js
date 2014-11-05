@@ -258,11 +258,23 @@
 								" <select autofocus> <option value='para4_1'>+</option> <option value='para4_2'>-</option> <option value='para4_3'>*</option> <option value='para4_4'>/</option></select>" +	
 								" <input type='number' id='para5' autofocus value='1' style='width:35px;' min='1' max='250'>" ;
 								contentToBeDragged.onmousedown = function() {};
+						} else if(contentToBeDragged.id.indexOf("Set") != -1) {
+							var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:35px;' min='0' max='500'>";
+							contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
+							// Disable drag drop to enable clicking and editing the text field.
+							contentToBeDragged.onmousedown = function() {};
 						} else {
+<<<<<<< HEAD
 						var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-10' max='10'>";
 						contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
 						// Disable drag drop to enable clicking and editing the text field.
 						contentToBeDragged.onmousedown = function() {};
+=======
+							var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-50' max='50'>";
+							contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
+							// Disable drag drop to enable clicking and editing the text field.
+							contentToBeDragged.onmousedown = function() {};
+>>>>>>> FETCH_HEAD
 					}
 				}
 				else {
