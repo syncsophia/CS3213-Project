@@ -59,17 +59,27 @@ var Character = function(elementId) {
     },
 	
     this.jump = function(steps) {
-		//if (parseInt(steps*100, 10) >= 0 && (parseInt(this.y_position ,10)  + parseInt(steps*100, 10)) <= ($("#editorContainer").height() - 50)) {
+		// Important: the upper border of the editor is initialized with y=0
+		if (parseInt(steps*100, 10) >= 0 && (this.getCurrentYPosition()  - parseInt(steps*100, 10)) >= -50) {
 			// no change in x and y position inside the object.
-    	move('.' + this.elementID)
-			.add('margin-top', -100 * steps)
+    		move('.' + this.elementID)
+				.add('margin-top', -100 * steps)
 				.then()
-					.ease('.' + this.elementID)
-					.add('margin-top', 100 * steps)
+				.ease('.' + this.elementID)
+				.add('margin-top', 100 * steps)
 				.pop()
-			.duration('0.8s')
-		.end();
-		//}
+				.duration('0.8s')
+				.end();
+		} else {
+    		move('.' + this.elementID)
+				.add('margin-top', -this.getCurrentYPosition())
+				.then()
+				.ease('.' + this.elementID)
+				.add('margin-top', this.getCurrentYPosition())
+				.pop()
+				.duration('0.8s')
+				.end();
+		}
     },
 	
 	this.resetPosition = function() {
