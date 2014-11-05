@@ -38,7 +38,7 @@ var Character = function(elementId) {
 	}
 	
 	this.move = function(steps) { 
-		if ((this.getCurrentXPosition() + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - 50) && (this.getCurrentXPosition() + parseInt(steps*50, 10)) > 0) {
+		if ((this.getCurrentXPosition() + parseInt(steps*50, 10)) <= ($("#editorContainer").width() - this.getWidth()) && (this.getCurrentXPosition() + parseInt(steps*50, 10)) > 20) {
 			if (parseInt(steps*50, 10) > 0)
 			{
 				move('.' + this.elementID)
@@ -54,6 +54,24 @@ var Character = function(elementId) {
 				.duration('1s')
 				.end();
 				margin_left -= 50*Math.abs(steps);
+			}
+		} else {
+			if (parseInt(steps*50, 10) > 0)
+			{
+				var newsteps = ($("#editorContainer").width() - this.getWidth()) - this.getCurrentXPosition();
+				move('.' + this.elementID)
+				.ease('.' + this.elementID)
+				.add('margin-left', newsteps)
+				.duration('1s')
+				.end();
+				margin_left += newsteps;
+			}
+			else {
+				move('.' + this.elementID)
+				.sub('margin-left', this.getCurrentXPosition())
+				.duration('1s')
+				.end();
+				margin_left -= this.getCurrentXPosition();
 			}
 		}
     },
