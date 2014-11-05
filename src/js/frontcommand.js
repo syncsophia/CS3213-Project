@@ -68,7 +68,7 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 					console.log("Cannot have nested IF statements, repeat and repeatForever statements");
 				else {
 					nextCommand = this.constructBasicCommand(nextStatement[0], nextStatement[1]);
-					var ifCmd = new IfCommand(tuple[1], tuple[2], tuple[3], nextCommand);
+					var ifCmd = new IfCommand(tuple[1], tuple[2], tuple[3], tuple[4], tuple[5], nextCommand);
 					commandList.push(ifCmd);	
 				}
 				
@@ -131,6 +131,10 @@ CommandHandler.prototype.constructBasicCommand = function(cmdType, cmdStep) {
 		return new MoveCommand(cmdStep);
 	else if (cmdType == CMD_MOVE_LEFT)
 		return new MoveCommand(-cmdStep);
+	else if (cmdType == CMD_SET_X)
+		return new SetXPosCommand(cmdStep);
+	else if (cmdType == CMD_SET_Y)
+		return new SetYPosCommand(cmdStep);
 	else if (cmdType == CMD_JUMP)
 		return new JumpCommand(cmdStep);
 	else if (cmdType == CMD_SHOW)
@@ -178,7 +182,7 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 	
 	CommandProcessor.StaticCommandList = this.cmdList = commandList;
 	
-	hasInterrupted = false;
+	CommandProcessor.hasInterrupted = false;
 	
 	var i = 0;
 	var delay = 1500;

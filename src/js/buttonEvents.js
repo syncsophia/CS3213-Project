@@ -68,13 +68,17 @@ var PlayEditor = function() {
 		$(this).find("li").each(function() {
 			var current = $(this);
 			var parameters;
-			
+
 			var arr_SelectedItems = current.find(":selected").map(function() {
 				return $(this).text();
 			});
-			
+
 			if(arr_SelectedItems.length == 3) {
 				parameters = arr_SelectedItems[0] + ";" + arr_SelectedItems[1] + ";" + arr_SelectedItems[2];
+			}
+			else if (arr_SelectedItems.length == 4) {
+				parameters = arr_SelectedItems[0] + ";" + arr_SelectedItems[1] + ";" + arr_SelectedItems[2] + ";" + 
+							 arr_SelectedItems[3] + ";" + current.find("#para5").val();
 			}
 			else
 				parameters = current.find("input").val();

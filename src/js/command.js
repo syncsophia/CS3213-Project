@@ -211,10 +211,12 @@ RepeatCommand.prototype.Interrupt = function() { hasBeenInterrupted = true; }
 //				 next function
 //
 //------------------------------------------------------------------------------------
-var IfCommand = function(para1, para2, para3, nextCommandObj) {
+var IfCommand = function(para1, para2, para3, para4, para5, nextCommandObj) {
 	this.para1 = para1;
 	this.para2 = para2;
-	this.para3 = para3;		
+	this.para3 = para3;
+	this.para4 = para4;
+	this.para5 = para5;		
 	this.nextCommandObj = nextCommandObj;
 }
 
@@ -230,14 +232,16 @@ IfCommand.prototype.execute = function() {
 	var para1E = getIfSelectEvaluators(0,this.para1);
  	var para2E = getIfSelectEvaluators(1,this.para2);
  	var para3E = getIfSelectEvaluators(2,this.para3);
+ 	var para4E = getIfSelectEvaluators(3,this.para4);
+ 	var para5E = this.para5;
  	
- 	var isStatementTrue = eval(para1E+para2E+para3E);
+ 	var isStatementTrue = eval(para1E+para2E+"("+para3E+para4E+para5E+")");
  	
 //  	var temp = eval(para1E);
 //  	temp = temp.substring(0,temp.length-2);
 //  	console.log("Temp: " + temp);
 
-	console.log("If statement evaluation: if " + eval(para1E) + para2E + eval(para3E) + " is "  + isStatementTrue);
+	console.log("If statement evaluation: if " + eval(para1E) + para2E + eval(para3E) + " " + para4E + " " + para5E +  " is "  + isStatementTrue);
 	
 	if(isStatementTrue) {
 	
