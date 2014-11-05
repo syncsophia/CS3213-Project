@@ -255,6 +255,6 @@ IfCommand.prototype.execute = function() {
 				});
 			}
 			clearInterval(timerInterval);
-		}, 1500);
+		}, 3000);
 	}
 }

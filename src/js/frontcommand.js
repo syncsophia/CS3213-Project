@@ -201,6 +201,8 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 	
 		if(commandList[i] instanceof RepeatCommand)
 			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
+		else if (commandList[i] instanceof IfCommand)
+			delay = 1500 * 2;
 		else
 			delay = 1500;
 
