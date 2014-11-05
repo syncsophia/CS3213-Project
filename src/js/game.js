@@ -427,7 +427,7 @@ var displayScore = function()
 
 var respawnGoal = function()
 {
-    setRandomObjectPosition(game.goal_object, game.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MIN_Y);
+    setRandomObjectPosition(game.goal_object, game.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MAX_Y);
     GOAL_ACHIEVED = false;
     game.goal_object.showObject();
 }
