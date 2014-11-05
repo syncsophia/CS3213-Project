@@ -167,13 +167,20 @@ Goal.prototype.getCurrentYPosition = function() {
 Goal.prototype.showObject = function(bool) {
 	var goalElement = document.getElementById(this.elementID);
 	//goalElement.setAttribute("style", "opacity:1.0");
-	move("#" + this.elementID).set('opacity', 1.0).duration('0.5s').end();
+	move("#" + this.elementID).set('opacity', 1.0).rotate(-1080).scale(1.0).duration('0.1s').end();
 }
 
 Goal.prototype.hideObject = function(bool) {
 	var goalElement = document.getElementById(this.elementID);
 	//goalElement.setAttribute("style", "opacity:0.0");
-    move("#" + this.elementID).set('opacity', 0.0).duration('0.5s').end();
+    move("#" + this.elementID)
+    .rotate(1080)
+    .scale(1.5)
+    .then()
+    .set('opacity', 0.0)
+    .duration('0.5s')
+    .pop()
+    .end();
 }
 
 Goal.prototype.deleteObject = function() {

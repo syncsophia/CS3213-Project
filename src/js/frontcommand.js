@@ -227,8 +227,15 @@ CommandProcessor.prototype.processCommands = function(commandList) {
         // TODO: This part i need some help! Please help me delay the disappear of the goal abit.
         // TODO: after the goal disappear, then only show the promptNext()
         if (GOAL_ACHIEVED) {
-            setTimeout(game.goal_object.hideObject(), 3000);
-            setTimeout(promptNext(), 5000);
+        	var t2 = setInterval( function() {
+        		game.goal_object.hideObject();
+        		clearInterval(t2);
+        	}, 100);
+        	
+        	var t3 = setInterval( function() {
+				promptNext();
+        		clearInterval(t3);
+        	}, 1000);
         }
 
 	}, delay);
