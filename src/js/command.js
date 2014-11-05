@@ -214,105 +214,43 @@ RepeatCommand.prototype.Interrupt = function() { hasBeenInterrupted = true; }
 var IfCommand = function(para1, para2, para3, nextCommandObj) {
 	this.para1 = para1;
 	this.para2 = para2;
-	this.para3 = para3;
-	
-	//console.log(para1 + " " + para2 + " " + para3);
-		
+	this.para3 = para3;		
 	this.nextCommandObj = nextCommandObj;
-	//console.log(game.character.x_position);
+}
+
+IfCommand.prototype = Object.create(Command);
+IfCommand.prototype.execute = function() {
+
 	var getIfSelectEvaluators = function(s, para) {
 		for(var i=0; i < IF_SELECTS[s].length; i++)
 			if (para == IF_SELECTS[s][i])
 				return IF_SELECTS_EVALUATOR[s][i];
 	}
 	
-//	var ifBitMask = 0;
-// 	var para1Bit = getBit(0,para1);
-// 	var para2Bit = getBit(1,para2);
-// 	var para3Bit = getBit(2,para3);
+	var para1E = getIfSelectEvaluators(0,this.para1);
+ 	var para2E = getIfSelectEvaluators(1,this.para2);
+ 	var para3E = getIfSelectEvaluators(2,this.para3);
+ 	
+ 	var isStatementTrue = eval(para1E+para2E+para3E);
+ 	
+//  	var temp = eval(para1E);
+//  	temp = temp.substring(0,temp.length-2);
+//  	console.log("Temp: " + temp);
+
+	console.log("If statement evaluation: if " + eval(para1E) + para2E + eval(para3E) + " is "  + isStatementTrue);
 	
-	var para1E = getIfSelectEvaluators(0,para1);
- 	var para2E = getIfSelectEvaluators(1,para2);
- 	var para3E = getIfSelectEvaluators(2,para3);
-	console.log("If statement evaluation: if " + eval(para1E) + para2E + eval(para3E) + " is "  + eval(para1E+para2E+para3E));
+	if(isStatementTrue) {
 	
-	
-	//this.conditionalCommand = nextCommandObj;
+		var nextObj = this.nextCommandObj;
+		var timerInterval = setInterval( function() {
 			
-	//ifBitMask = para1Bit | (para2Bit << 2) | (para3Bit << 4);
-	
-	/*
-	[IF_SELECT_PARA1_CHAR_X],
-	[IF_SELECT_PARA2_LESSER 	IF_SELECT_PARA2_GREATER 	IF_SELECT_PARA2_EQUAL],
-	[IF_SELECT_PARA3_GOAL_X 	IF_SELECT_PARA3_RIGHTMOST 	IF_SELECT_PARA3_LEFTMOST
-	*/
-	
-	//00 00 00
-	//00 01 00
-	//00 10 00 
-	//01 00 00
-	//01 01 00
-	//01 10 00
-	//10 00 00
-	//10 01 00 
-	//10 10 00
-	
-// 	var charX = parseInt(game.character.x_position);
-// 	console.log(charX + " " + CHARACTER_MIN_X);
-// 	
-// 	if (!(ifBitMask.toString(2) ^ "000000")) {
-// 		console.log("Want: If Char X < GoalX");
-// 		var goalX = game.goal_object.x_position;
-// 		if(charX < goalX)
-// 			console.log("perform IF");
-// 	}
-// 	else if (!(ifBitMask.toString(2) ^ "000100"))  {
-// 		console.log("Want: If Char X > GoalX");
-// 		var goalX = game.goal_object.x_position;
-// 		if(charX > goalX)
-// 			console.log("perform IF");
-// 	}
-// 	else if (!(ifBitMask.toString(2) ^ "001000"))  {
-// 		console.log("Want: If Char X == GoalX");
-// 		var goalX = game.goal_object.x_position;
-// 		if(charX == goalX)
-// 			console.log("perform IF");
-// 	}
-// 	else if (!(ifBitMask.toString(2) ^ "010000"))  {
-// 		console.log("Want: If Char X < RightMost");
-// 		if(charX < CHARACTER_MAX_X)
-// 			console.log("perform IF");
-// 	}
-// 	else if (!(ifBitMask.toString(2) ^ "010100"))  {
-// 		console.log("Want: If Char X > RightMost");
-// 		if(charX > CHARACTER_MAX_X)
-// 			console.log("perform IF");
-// 	}
-// 	else if (!(ifBitMask.toString(2) ^ "011000"))  {
-// 		console.log("Want: If Char X == RightMost");
-// 		if(charX == CHARACTER_MAX_X)
-// 			console.log("perform IF");
-// 	}
-// 	else if (!(ifBitMask.toString(2) ^ "100000"))  {
-// 		console.log("Want: If Char X < LeftMost");
-// 		if(charX < CHARACTER_MIN_X)
-// 			console.log("perform IF");
-// 	}
-// 	else if (!(ifBitMask.toString(2) ^ "100100"))  {
-// 		console.log("Want: If Char X > LeftMost");
-// 		if(charX > CHARACTER_MIN_X)
-// 			console.log("perform IF");
-// 	}
-// 	else if (!(ifBitMask.toString(2) ^ "101000"))  {
-// 		console.log("Want: If Char X == LeftMost");
-// 		if(charX == CHARACTER_MIN_X)
-// 			console.log("perform IF");
-// 	}
-}
-
-IfCommand.prototype = Object.create(Command);
-IfCommand.prototype.execute = function() {
-
-	
-
+			nextObj.execute();
+			if(StartGame.IsMusicOn()) {
+				CommandProcessor.observers.forEach(function(entry) {
+					entry.notify(nextObj);
+				});
+			}
+			clearInterval(timerInterval);
+		}, 1500);
+	}
 }
