@@ -208,7 +208,7 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 		var catchReturn = commandList[i].execute();
         if(commandList[i] instanceof JumpCommand) {
             var temp_y = game.character.getYForJump(catchReturn);
-            if(isCollide(game.character, game.goal_object, temp_y))
+            if(isCollide(game.character, game.goal_object, catchReturn))
                 GOAL_ACHIEVED = true;
             //console.log("distance: " + dis);
         }

@@ -262,7 +262,7 @@ var StartGame = function() {
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
-          if(isCollide(game.character, game.goal_object, game.character.getCurrentYPosition()))//if(CountDistance(game.character.getCurrentXPosition(), game.character.getCurrentYPosition(), game.goal_object.getCurrentXPosition(), game.goal_object.getCurrentYPosition()) < COLLIDE_MIN)
+          if(isCollide(game.character, game.goal_object, 0))//if(CountDistance(game.character.getCurrentXPosition(), game.character.getCurrentYPosition(), game.goal_object.getCurrentXPosition(), game.goal_object.getCurrentYPosition()) < COLLIDE_MIN)
           {
               console.log("Not Jump Command");
               return true;
@@ -316,21 +316,37 @@ var CountDistance = function(player_x, player_y, goal_x, goal_y)
     return distance;
 }
 
-var isCollide = function(player_obj, goal_obj, player_y) {
+var isCollide = function(player_obj, goal_obj, jump_step) {
     if (!GOAL_ACHIEVED) {
 
-    var rect1 = {x: player_obj.getCurrentXPosition(), y: player_y, width: player_obj.getWidth(), height: player_obj.getHeight()}
-    var rect2 = {x: goal_obj.getCurrentXPosition(), y: goal_obj.getCurrentYPosition(), width: goal_obj.getWidth() / 4, height: goal_obj.getHeight() / 4}
+        var rect1 = {x: player_obj.getCurrentXPosition(), y: player_obj.getCurrentYPosition(), width: player_obj.getWidth(), height: player_obj.getHeight()}
+        var rect2 = {x: goal_obj.getCurrentXPosition(), y: goal_obj.getCurrentYPosition(), width: goal_obj.getWidth() / 4, height: goal_obj.getHeight() / 4}
 
-    if (rect1.x < rect2.x + rect2.width &&
-        rect1.x + rect1.width > rect2.x &&
-        rect1.y < rect2.y + rect2.height &&
-        rect1.height + rect1.y > rect2.y) {
-        console.log("Collided!!!")
-        return true;
+        if(jump_step > 0) {
+            for (i = 0; i < jump_step; i++) {
+                rect1.y = player_obj.getYForJump(i+1);
+
+                if (rect1.x < rect2.x + rect2.width &&
+                    rect1.x + rect1.width > rect2.x &&
+                    rect1.y < rect2.y + rect2.height &&
+                    rect1.height + rect1.y > rect2.y) {
+                    console.log("Collided!!!")
+                    return true;
+                }
+            }
+                return false;
+        }
+
+
+        if (rect1.x < rect2.x + rect2.width &&
+            rect1.x + rect1.width > rect2.x &&
+            rect1.y < rect2.y + rect2.height &&
+            rect1.height + rect1.y > rect2.y) {
+            console.log("Collided!!!")
+            return true;
+        }
     }
-}
-    return false;
+        return false;
 }
 
 

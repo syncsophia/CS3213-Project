@@ -87,7 +87,7 @@ Character.prototype = new IObject();
 
 Character.prototype.getYForJump = function(steps)
 {
-    return (parseInt(this.y_position ,10) - 80*Math.abs(steps));
+    return (parseInt(this.y_position ,10) - 100*Math.abs(steps));
 }
 
 Character.prototype.showObject = function(bool) {
