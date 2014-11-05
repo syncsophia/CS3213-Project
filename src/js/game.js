@@ -6,7 +6,8 @@
 //
 //------------------------------------------------------------------------------------
 //	Constant variables for each command
-var COLLIDE_MIN = 80;
+var COLLIDE_MIN = 50;
+var GOAL_ACHIEVED = false;
 
 var COMMANDS = [];
 var CMD_MOVE_RIGHT = "Move_Right";
@@ -246,7 +247,7 @@ var StartGame = function() {
         //generateGoals(this.goalArray);
         
 		addDragableCommands();
-	},
+	}
 
 	/**
 	 * Checks if the character manage to reach the goal flag object
@@ -254,17 +255,13 @@ var StartGame = function() {
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
-          if(CountDistance(this.character, this.goal_object, this.character.getCurrentYPosition()) <= COLLIDE_MIN) {
+          if(isCollide(game.character, game.goal_object, game.character.getCurrentYPosition()))//if(CountDistance(game.character.getCurrentXPosition(), game.character.getCurrentYPosition(), game.goal_object.getCurrentXPosition(), game.goal_object.getCurrentYPosition()) < COLLIDE_MIN)
+          {
+              console.log("Not Jump Command");
               return true;
           }
         return false;
 
-
-
-//		if (Math.abs($("#character_human").css("left") - goal_object.x_position) < 50 &&
-//			Math.abs($("#character_human").css("top") - goal_object.y_position) < 50)
-//			return true;
-//		return false;
 	}
 
 	this.resetCharacter = function() {
@@ -283,26 +280,50 @@ var StartGame = function() {
 // hence, by adding half of the width/height to the top left will get the coordinate of the center of the object.
 // the additional "player_y" parameter is prepare for the usage of "jump command" only, because the coordinate cannot
 // be updated during .move
-var CountDistance = function(player_obj, goal_obj, player_y)
-{
-    var goal_x = goal_obj.getCurrentXPosition() + goal_obj.getWidth()/2;
-    var goal_y = goal_obj.getCurrentYPosition() + goal_obj.getHeight()/2;
-    var char_x = player_obj.getCurrentXPosition() + player_obj.getWidth()/2;
-    var char_y = player_y + player_obj.getHeight()/2;
 
-    var resultX = char_x - goal_x;
-    var resultY = char_y - goal_y;
+//TODO: this one got problem. change it!!!
+var CountDistance = function(player_x, player_y, goal_x, goal_y)
+{
+    var goal_r = Math.min(game.goal_object.getWidth(), game.goal_object.getHeight())/2;
+    var char_r = Math.min(game.character.getWidth(), game.character.getHeight())/2;
+
+    var goal_x = goal_x; + goal_r;
+    var goal_y = goal_y; + goal_r;
+    var char_x = player_x; + char_r;
+    var char_y = player_y; + char_r;
+
+    var resultX = goal_x - char_x;
+    var resultY = goal_y - char_y;
 
     resultX *= resultX;
     resultY *= resultY;
 
     var distance = Math.sqrt(resultX+resultY);
-
-    console.log("currX:"+ char_x);
-    console.log("currY:"+ char_y);
+    distance = Math.round(distance);
+    console.log("GoalX:"+ goal_x + ", GoalY:"+ goal_y);
+    console.log("currX:"+ char_x +", currY:"+ char_y);
     console.log("Distance: " + distance);
 
-    return Math.round(distance);
+    COLLIDE_MIN = Math.min(goal_r,char_r);
+
+    return distance;
+}
+
+var isCollide = function(player_obj, goal_obj, player_y) {
+    if (!GOAL_ACHIEVED) {
+
+    var rect1 = {x: player_obj.getCurrentXPosition(), y: player_y, width: player_obj.getWidth(), height: player_obj.getHeight()}
+    var rect2 = {x: goal_obj.getCurrentXPosition(), y: goal_obj.getCurrentYPosition(), width: goal_obj.getWidth() / 4, height: goal_obj.getHeight() / 4}
+
+    if (rect1.x < rect2.x + rect2.width &&
+        rect1.x + rect1.width > rect2.x &&
+        rect1.y < rect2.y + rect2.height &&
+        rect1.height + rect1.y > rect2.y) {
+        console.log("Collided!!!")
+        return true;
+    }
+}
+    return false;
 }
 
 

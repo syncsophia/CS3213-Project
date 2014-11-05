@@ -200,21 +200,21 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 		else
 			delay = 1500;
 
-        var goalAchieved = false;
 
 		var catchReturn = commandList[i].execute();
         if(commandList[i] instanceof JumpCommand) {
             var temp_y = game.character.getYForJump(catchReturn);
-            var dis = CountDistance(game.character, game.goal_object, temp_y)
-            if(dis <= COLLIDE_MIN)
-                goalAchieved = true;
-            console.log("distance: " + dis);
+            if(isCollide(game.character, game.goal_object, temp_y))
+                GOAL_ACHIEVED = true;
+            //console.log("distance: " + dis);
         }
         else
-            goalAchieved = game.isEndOfGame();
+            GOAL_ACHIEVED = game.isEndOfGame();
 
-        if (goalAchieved)
-            window.alert("You won the game!");
+        if (GOAL_ACHIEVED) {
+            game.goal_object.hideObject();
+            //window.alert("You won the game!");
+        }
 		
 		i++;
 		if(i >= commandList.length || CommandProcessor.hasInterrupted) {
