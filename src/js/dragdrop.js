@@ -254,10 +254,12 @@
 								" <select autofocus> <option value='para1_1'>Character.X</option><option value='para1_2'>Character.Y</option></select>" +  buttonHTML + "<br>" +	
 								" <select autofocus> <option value='para2_1'><</option> <option value='para_2'>></option> <option value='para2_3'>=</option></select>" + 
 								" <select autofocus> <option value='para3_1'>Goal.X</option><option value='para3_1_1'>Goal.Y</option>" +
-								"<option value='para3_2'>RightMost</option> <option value='para3_1'>LeftMost</option> </select>" + "</form>" ;
+								"</select>" + "</form>" +	
+								" <select autofocus> <option value='para4_1'>+</option> <option value='para4_2'>-</option> <option value='para4_3'>*</option> <option value='para4_4'>/</option></select>" +	
+								" <input type='number' id='para5' autofocus value='1' style='width:35px;' min='1' max='250'>" ;
 								contentToBeDragged.onmousedown = function() {};
 						} else {
-						var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-50' max='50'>";
+						var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-10' max='10'>";
 						contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
 						// Disable drag drop to enable clicking and editing the text field.
 						contentToBeDragged.onmousedown = function() {};

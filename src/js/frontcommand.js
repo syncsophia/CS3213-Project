@@ -68,7 +68,7 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 					console.log("Cannot have nested IF statements, repeat and repeatForever statements");
 				else {
 					nextCommand = this.constructBasicCommand(nextStatement[0], nextStatement[1]);
-					var ifCmd = new IfCommand(tuple[1], tuple[2], tuple[3], nextCommand);
+					var ifCmd = new IfCommand(tuple[1], tuple[2], tuple[3], tuple[4], tuple[5], nextCommand);
 					commandList.push(ifCmd);	
 				}
 				
@@ -178,7 +178,7 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 	
 	CommandProcessor.StaticCommandList = this.cmdList = commandList;
 	
-	hasInterrupted = false;
+	CommandProcessor.hasInterrupted = false;
 	
 	var i = 0;
 	var delay = 1500;
