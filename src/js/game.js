@@ -6,7 +6,7 @@
 //
 //------------------------------------------------------------------------------------
 //	Constant variables for each command
-var COLLIDE_MIN = 50;
+var COLLIDE_MIN = 150;
 var GOAL_ACHIEVED = false;
 var SCORE = 0;
 
@@ -261,11 +261,12 @@ var StartGame = function() {
 
 	/**
 	 * Checks if the character manage to reach the goal flag object
+     * default value of the third parameter should be Zero unless is jump command.
 	 * @return: true if the character reaches the goal,
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
-          if(isCollide(game.character, game.goal_object, 0))//if(CountDistance(game.character.getCurrentXPosition(), game.character.getCurrentYPosition(), game.goal_object.getCurrentXPosition(), game.goal_object.getCurrentYPosition()) < COLLIDE_MIN)
+          if(isCollide(game.character, game.goal_object, 0))
           {
               console.log("Not Jump Command");
               return true;
@@ -286,39 +287,7 @@ var StartGame = function() {
 	ChangeCharacterCostume(mediaContentManager.getArrCharacterImages()[getRandomInteger(0, 4)]);
 }
 
-// the x and y position of IObject is reference to the coordinate of the "top left" corner of the object
-// hence, by adding half of the width/height to the top left will get the coordinate of the center of the object.
-// the additional "player_y" parameter is prepare for the usage of "jump command" only, because the coordinate cannot
-// be updated during .move
-
-//TODO: this one got problem. change it!!!
-var CountDistance = function(player_x, player_y, goal_x, goal_y)
-{
-    var goal_r = Math.min(game.goal_object.getWidth(), game.goal_object.getHeight())/2;
-    var char_r = Math.min(game.character.getWidth(), game.character.getHeight())/2;
-
-    var goal_x = goal_x; + goal_r;
-    var goal_y = goal_y; + goal_r;
-    var char_x = player_x; + char_r;
-    var char_y = player_y; + char_r;
-
-    var resultX = goal_x - char_x;
-    var resultY = goal_y - char_y;
-
-    resultX *= resultX;
-    resultY *= resultY;
-
-    var distance = Math.sqrt(resultX+resultY);
-    distance = Math.round(distance);
-    console.log("GoalX:"+ goal_x + ", GoalY:"+ goal_y);
-    console.log("currX:"+ char_x +", currY:"+ char_y);
-    console.log("Distance: " + distance);
-
-    COLLIDE_MIN = Math.min(goal_r,char_r);
-
-    return distance;
-}
-
+// bounding Box collision detection.
 var isCollide = function(player_obj, goal_obj, jump_step) {
     if (!GOAL_ACHIEVED) {
 
@@ -456,3 +425,45 @@ var displayScore = function()
     document.getElementById("score").innerHTML = text;
 }
 
+var respawnGoal = function()
+{
+    setRandomObjectPosition(game.goal_object, game.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MIN_Y);
+    GOAL_ACHIEVED = false;
+    game.goal_object.showObject();
+}
+
+var promptNext = function() {
+    var answer = confirm("Do you wan to try another collect Goal?")
+    if (answer)
+        respawnGoal();
+    else
+        alert("Thank you for playing!")
+}
+
+/**
+ * Generate a random integer between min and max
+ * @param min: minimum number.
+ *		  max: maximum number.
+ * @return a random integer point number
+ */
+var getRandomInteger = function(minValue, maxValue) {
+    return Math.floor((Math.random() * maxValue) + minValue);
+}
+
+/**
+ *  Creates random positions for any object
+ */
+var setRandomObjectPosition = function(inObj, inObjID, minX, maxX, minY, maxY) {
+
+    var randomX = getRandomInteger(0, maxX-minX) + minX;
+    var randomY = getRandomInteger(0, maxY-minY) + minY;
+
+    // Render the character according to the position
+    $("#" + inObjID).css({
+        position: "absolute",
+        top:  randomY + "px",
+        left: randomX + "px"
+    });
+
+    inObj.setInitXY(randomX, randomY);
+}

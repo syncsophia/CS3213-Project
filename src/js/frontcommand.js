@@ -215,16 +215,20 @@ CommandProcessor.prototype.processCommands = function(commandList) {
         else
             GOAL_ACHIEVED = game.isEndOfGame();
 
-        if (GOAL_ACHIEVED) {
-            game.goal_object.hideObject();
-            //window.alert("You won the game!");
-        }
         displayScore();
 		i++;
 		if(i >= commandList.length || CommandProcessor.hasInterrupted) {
 			clearInterval(t1);
 			game.resetCharacter();
 		}
-		
+
+        // TODO: This part i need some help! Please help me delay the disappear of the goal abit.
+        // TODO: after the goal disappear, then only show the promptNext()
+        if (GOAL_ACHIEVED) {
+            setTimeout(game.goal_object.hideObject(), 3000);
+            setTimeout(promptNext(), 5000);
+        }
+
 	}, delay);
+
 };
