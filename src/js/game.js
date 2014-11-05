@@ -59,15 +59,15 @@ var IF_SELECTS = [
 	[IF_SELECT_PARA3_GOAL_X,IF_SELECT_PARA3_GOAL_Y,IF_SELECT_PARA3_RIGHTMOST,IF_SELECT_PARA3_LEFTMOST]
 ];
 
-var IF_SELECT_PARA1_CHAR_X_EVALUATOR = "game.character.x_position";
-var IF_SELECT_PARA1_CHAR_Y_EVALUATOR = "game.character.y_position";
+var IF_SELECT_PARA1_CHAR_X_EVALUATOR = "game.character.getCurrentXPosition()";
+var IF_SELECT_PARA1_CHAR_Y_EVALUATOR = "game.character.getCurrentYPosition()";
 
 var IF_SELECT_PARA2_LESSER_EVALUATOR = "<";
 var IF_SELECT_PARA2_GREATER_EVALUATOR = ">";
 var IF_SELECT_PARA2_EQUAL_EVALUATOR = "==";
 
-var IF_SELECT_PARA3_GOAL_X_EVALUATOR = "game.goal_object.x_position";
-var IF_SELECT_PARA3_GOAL_Y_EVALUATOR = "game.goal_object.y_position";
+var IF_SELECT_PARA3_GOAL_X_EVALUATOR = "game.goal_object.getCurrentXPosition()";
+var IF_SELECT_PARA3_GOAL_Y_EVALUATOR = "game.goal_object.getCurrentYPosition()";
 var IF_SELECT_PARA3_RIGHTMOST_EVALUATOR = "CHARACTER_MAX_X";
 var IF_SELECT_PARA3_LEFTMOST_EVALUATOR = "CHARACTER_MIN_X";
 
@@ -84,7 +84,7 @@ var StartGame = function() {
 	StartGame.ToogleMusic = function() {
 		this.musicOn = !this.musicOn;
 		if(this.musicOn) {
-			bgAudio.play();
+			//bgAudio.play();
 		}
 		else {
 			bgAudio.pause();
@@ -115,6 +115,8 @@ var StartGame = function() {
 	this.moveCommandObserver = new MoveCommandObserver();
 	this.jumpCommandObserver = new JumpCommandObserver();
 	this.showHideCommandObserver = new ShowHideCommandObserver();
+	
+	StartGame.ToogleMusic();
 	
 	/**
 	 * Append all the dragable codes to the elements panel

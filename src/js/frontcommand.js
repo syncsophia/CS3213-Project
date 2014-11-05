@@ -66,11 +66,14 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 				console.log(nextStatement);
 				if(nextStatement[0] == CMD_IF || nextStatement[0] == CMD_REPEAT || nextStatement[0] == CMD_IF )
 					console.log("Cannot have nested IF statements, repeat and repeatForever statements");
-				else
+				else {
 					nextCommand = this.constructBasicCommand(nextStatement[0], nextStatement[1]);
+					var ifCmd = new IfCommand(tuple[1], tuple[2], tuple[3], nextCommand);
+					commandList.push(ifCmd);	
+				}
 				
 				//console.log(tuple[1] + " " +  tuple[2] + " " + tuple[3] + " " + commandBeforeRepeat + " " + commandList);
-				var ifCmd = new IfCommand(tuple[1], tuple[2], tuple[3], nextCommand);
+				
 			}
 			
 		}
@@ -185,7 +188,7 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 	var listObservers = CommandProcessor.observers;
 	
 	var t1 = setInterval( function() {
-		
+				
 		if(StartGame.IsMusicOn()) {
 			listObservers.forEach(function(entry) {
 				entry.notify(commandList[i]);
@@ -210,8 +213,6 @@ CommandProcessor.prototype.processCommands = function(commandList) {
         else
             goalAchieved = game.isEndOfGame();
 
-
-        console.log(goalAchieved);
         if (goalAchieved)
             window.alert("You won the game!");
 		
