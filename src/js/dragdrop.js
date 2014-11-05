@@ -263,6 +263,11 @@
 							contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
 							// Disable drag drop to enable clicking and editing the text field.
 							contentToBeDragged.onmousedown = function() {};
+						} else if(contentToBeDragged.id.indexOf("Jump") != -1) {
+							var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='0' max='5'>";
+							contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
+							// Disable drag drop to enable clicking and editing the text field.
+							contentToBeDragged.onmousedown = function() {};
 						} else {
 						var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-10' max='10'>";
 						contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
