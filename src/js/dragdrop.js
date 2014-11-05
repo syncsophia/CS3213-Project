@@ -264,17 +264,11 @@
 							// Disable drag drop to enable clicking and editing the text field.
 							contentToBeDragged.onmousedown = function() {};
 						} else {
-<<<<<<< HEAD
 						var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-10' max='10'>";
 						contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
 						// Disable drag drop to enable clicking and editing the text field.
 						contentToBeDragged.onmousedown = function() {};
-=======
-							var textFieldHTML = "<input type='number' id='steps_" + contentToBeDragged.id + "' autofocus value='1' style='width:30px;' min='-50' max='50'>";
-							contentToBeDragged.innerHTML = "<form>" + contentToBeDragged.id.substring(3) + ":" + textFieldHTML + buttonHTML + "</form>"; 
-							// Disable drag drop to enable clicking and editing the text field.
-							contentToBeDragged.onmousedown = function() {};
->>>>>>> FETCH_HEAD
+
 					}
 				}
 				else {
