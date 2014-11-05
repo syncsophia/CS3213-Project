@@ -131,6 +131,10 @@ CommandHandler.prototype.constructBasicCommand = function(cmdType, cmdStep) {
 		return new MoveCommand(cmdStep);
 	else if (cmdType == CMD_MOVE_LEFT)
 		return new MoveCommand(-cmdStep);
+	else if (cmdType == CMD_SET_X)
+		return new SetXPosCommand(cmdStep);
+	else if (cmdType == CMD_SET_Y)
+		return new SetYPosCommand(cmdStep);
 	else if (cmdType == CMD_JUMP)
 		return new JumpCommand(cmdStep);
 	else if (cmdType == CMD_SHOW)
