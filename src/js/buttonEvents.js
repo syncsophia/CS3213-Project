@@ -28,6 +28,9 @@ var ClearEditor = function() {
 	$('.class_code').each(function() {
 		$(this).find("li").remove();
 	});
+	// and stop execution if any
+	CommandProcessor.Interrupt();
+	game.resetCharacter();
 }
 
 /* User pressed play button */
