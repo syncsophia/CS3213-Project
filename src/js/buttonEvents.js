@@ -13,25 +13,11 @@ var MusicEditor = function() {
 		$("#id_btnMusicImg").attr("src", "img/btn_musicon.png");
 	else
 		$("#id_btnMusicImg").attr("src", "img/btn_musicoff.png");
-
-	/*
-	game.musicOn = !game.musicOn;
-	
-	if(game.musicOn) {
-		$("#id_btnMusicImg").attr("src", "img/btn_musicon.png");
-		ToggleMusic(game.musicOn);
-	}
-	else {
-		$("#id_btnMusicImg").attr("src", "img/btn_musicoff.png");
-		ToggleMusic(game.musicOn);
-	}
-	*/
 }
 
 /* User pressed stop button
 */
 var StopEditor = function() {
-	//TODO
 	CommandProcessor.Interrupt();
 	game.resetCharacter();
 };
@@ -42,8 +28,6 @@ var ClearEditor = function() {
 	$('.class_code').each(function() {
 		$(this).find("li").remove();
 	});
-
-	console.log(CommandProcessor.hasInterrupt);
 }
 
 /* User pressed play button */
