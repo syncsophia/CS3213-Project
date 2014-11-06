@@ -362,34 +362,34 @@ var insertHomeItemsIntoMenu = function(mediaContent) {
 //				 classes
 //------------------------------------------------------------------------------------
 
-	function MediaContent() {
-		this.arr_backgroundImages = [];
-		this.arr_characterImages = [];
-		this.arr_buttonImages = [];
-		this.arr_soundEffects = [];
-		this.goalImage;
+function MediaContent() {
+	this.arr_backgroundImages = [];
+	this.arr_characterImages = [];
+	this.arr_buttonImages = [];
+	this.arr_soundEffects = [];
+	this.goalImage;
 
-		this.arr_backgroundImages.push("img/Background-wood.jpg");
-		this.arr_backgroundImages.push("img/Background-beach.jpg");
-		this.arr_backgroundImages.push("img/Background-forrest.jpg");
-		this.arr_backgroundImages.push("img/Background-heaven.jpg");
-		this.arr_backgroundImages.push("img/Background-machu.jpg");
-		this.arr_backgroundImages.push("img/Background-moai.jpg");
+	this.arr_backgroundImages.push("img/Background-wood.jpg");
+	this.arr_backgroundImages.push("img/Background-beach.jpg");
+	this.arr_backgroundImages.push("img/Background-forrest.jpg");
+	this.arr_backgroundImages.push("img/Background-heaven.jpg");
+	this.arr_backgroundImages.push("img/Background-machu.jpg");
+	this.arr_backgroundImages.push("img/Background-moai.jpg");
 
-		this.arr_buttonImages.push("img/recycle.png");
-		this.arr_buttonImages.push("img/stop.png");
-		this.arr_buttonImages.push("img/play.png");
+	this.arr_buttonImages.push("img/recycle.png");
+	this.arr_buttonImages.push("img/stop.png");
+	this.arr_buttonImages.push("img/play.png");
 
-		this.arr_characterImages.push("img/snail_1.png");
-		this.arr_characterImages.push("img/snail_2.png");
-		this.arr_characterImages.push("img/snail_3.png");
-		this.arr_characterImages.push("img/albert.png");
+	this.arr_characterImages.push("img/snail_1.png");
+	this.arr_characterImages.push("img/snail_2.png");
+	this.arr_characterImages.push("img/snail_3.png");
+	this.arr_characterImages.push("img/albert.png");
 
-		this.goalImage = "img/star.png";//"img/goal.png";
+	this.goalImage = "img/star.png";//"img/goal.png";
 
-		this.arr_soundEffects.push("audio/cartoonhop,mp3");
-		this.arr_soundEffects.push("audio/cartoonwalk.mp3");
-	}
+	this.arr_soundEffects.push("audio/cartoonhop,mp3");
+	this.arr_soundEffects.push("audio/cartoonwalk.mp3");
+}
 
 MediaContent.prototype.getArrBackgroundImages = function() {
 	return this.arr_backgroundImages;
@@ -433,11 +433,13 @@ var respawnGoal = function()
 }
 
 var promptNext = function() {
-    var answer = confirm("Do you wan to try another collect Goal?")
+    var answer = confirm("Do you want to try again?");
     if (answer)
         respawnGoal();
-    else
-        alert("Thank you for playing!")
+    else {
+        alert("Thank you for playing!");
+        window.location="http://www.comp.nus.edu.sg";
+    }
 }
 
 /**
