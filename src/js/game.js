@@ -284,8 +284,8 @@ var StartGame = function() {
 	var mediaContentManager = new MediaContent();
 
 	// Randomize the sprite for both background and character
-	ChangeBackground(mediaContentManager.getArrBackgroundImages()[getRandomInteger(0, 6)]);
-	ChangeCharacterCostume(mediaContentManager.getArrCharacterImages()[getRandomInteger(0, 4)]);
+	ChangeBackground(mediaContentManager.getArrBackgroundImages()[getRandomInteger(0, mediaContentManager.getNumBackgroundImages())]);
+	ChangeCharacterCostume(mediaContentManager.getArrCharacterImages()[getRandomInteger(0, mediaContentManager.getNumCharacterImages())]);
 }
 
 // bounding Box collision detection.
@@ -376,15 +376,18 @@ function MediaContent() {
 	this.arr_backgroundImages.push("img/Background-heaven.jpg");
 	this.arr_backgroundImages.push("img/Background-machu.jpg");
 	this.arr_backgroundImages.push("img/Background-moai.jpg");
+	this.arr_backgroundImages.push("img/Background-outerspace.jpg");
+	this.arr_backgroundImages.push("img/Background-chess.jpg");
+	this.arr_backgroundImages.push("img/Background-field.jpg");
 
 	this.arr_buttonImages.push("img/recycle.png");
 	this.arr_buttonImages.push("img/stop.png");
 	this.arr_buttonImages.push("img/play.png");
 
-	this.arr_characterImages.push("img/snail_1.png");
-	this.arr_characterImages.push("img/snail_2.png");
-	this.arr_characterImages.push("img/snail_3.png");
-	this.arr_characterImages.push("img/albert.png");
+	this.arr_characterImages.push("img/Character-bear.png");
+	this.arr_characterImages.push("img/Character-snaillightblue.png");
+	this.arr_characterImages.push("img/Character-snaildarkblue.png");
+	this.arr_characterImages.push("img/Character-albert.png");
 
 	this.goalImage = "img/star.png";//"img/goal.png";
 
@@ -407,6 +410,8 @@ MediaContent.prototype.getSoundEffects = function() {
 MediaContent.prototype.getGoalImages = function() {
 	return this.goalImage;
 }
+MediaContent.prototype.getNumBackgroundImages = function() { return this.arr_backgroundImages.length}
+MediaContent.prototype.getNumCharacterImages = function() { return this.arr_characterImages.length}
 
 var getScore = function()
 {
