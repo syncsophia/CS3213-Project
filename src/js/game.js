@@ -8,6 +8,7 @@
 //	Constant variables for each command
 var COLLIDE_MIN = 150;
 var GOAL_ACHIEVED = false;
+var MAX_SCORE = 100;
 var SCORE = 0;
 
 var COMMANDS = [];
@@ -213,6 +214,9 @@ var StartGame = function() {
     * @return an array of goal coordinates
     */
     var setGoalCoordinates = function(char_x, char_y) {
+		// Reset MAX_SCORE
+		MAX_SCORE = 100;
+		
         var goalMinX = GOAL_MIN_X;
         var goalMinY = GOAL_MIN_Y;
         var goalMaxX = GOAL_MAX_X;
@@ -267,13 +271,7 @@ var StartGame = function() {
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
-          if(isCollide(game.character, game.goal_object, 0))
-          {
-              console.log("Not Jump Command");
-              return true;
-          }
-        return false;
-
+        return isCollide(game.character, game.goal_object, 0);
 	}
 
 	this.resetCharacter = function() {
@@ -318,7 +316,7 @@ var isCollide = function(player_obj, goal_obj, jump_step) {
             rect1.x + rect1.width > rect2.x &&
             rect1.y < rect2.y + rect2.height &&
             rect1.height + rect1.y > rect2.y) {
-            incrementScore(100);
+            incrementScore();
             console.log("Collided!!!")
             return true;
         }
@@ -418,9 +416,14 @@ var getScore = function()
     return SCORE;
 }
 
-var incrementScore = function(value)
+var incrementScore = function()
 {
-    SCORE += value;
+    SCORE += MAX_SCORE;
+}
+
+var decrementMaxScore = function(value)
+{
+	MAX_SCORE -= value;
 }
 
 var displayScore = function()
