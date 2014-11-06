@@ -63,7 +63,7 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 				var nextStatement = commandStrArray[i].split(";");
 				var nextCommand;
 				
-				console.log(nextStatement);
+				//console.log(nextStatement);
 				if(nextStatement[0] == CMD_IF || nextStatement[0] == CMD_REPEAT || nextStatement[0] == CMD_IF )
 					console.log("Cannot have nested IF statements, repeat and repeatForever statements");
 				else {
@@ -162,6 +162,8 @@ CommandProcessor.Interrupt = function() {
 	
 }
 CommandProcessor.observers = [];
+CommandProcessor.executeCommandObservers = [];
+
 CommandProcessor.attachObserver = function(observer) {
 	CommandProcessor.observers.push(observer);
 }
@@ -170,6 +172,14 @@ CommandProcessor.notify = function(delegatedCommand) {
 	CommandProcessor.observers.forEach(function(entry) {
 			entry.notify(delegatedCommand);
 	});
+}
+
+CommandProcessor.notifyGameWon = function() {
+	CommandProcessor.Interrupt();
+	var timer = setInterval( function() {
+		promptNext();
+		clearInterval(timer);
+	}, 1000);
 }
 
 /**
@@ -192,21 +202,32 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 	var listObservers = CommandProcessor.observers;
 	
 	var t1 = setInterval( function() {
-				
+		
+		// Notify all observer that are suppose to listen for command execution
+		// observers mainly play sound
 		if(StartGame.IsMusicOn()) {
-			listObservers.forEach(function(entry) {
-				entry.notify(commandList[i]);
-			});
+			CommandProcessor.notify(commandList[i]);
 		}
 	
 		if(commandList[i] instanceof RepeatCommand)
-			delay = 1500 * (commandList[i].getNumRepeatCommands() + 1);
+			delay = 1500 * ((commandList[i].getNumRepeatCommands() + 1)*commandList[i].getNumberOfRepeats());
 		else if (commandList[i] instanceof IfCommand)
 			delay = 1500 * 2;
 		else
 			delay = 1500;
-
-
+		
+		displayScore();
+		
+		commandList[i].execute();
+		
+		i++;
+		if(i >= commandList.length || CommandProcessor.hasInterrupted) {
+			clearInterval(t1);
+			game.resetCharacter();
+		}
+		
+		// Check for game over state
+		/*
 		var catchReturn = commandList[i].execute();
         if(commandList[i] instanceof JumpCommand) {
             var temp_y = game.character.getYForJump(catchReturn);
@@ -224,8 +245,6 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 			game.resetCharacter();
 		}
 
-        // TODO: This part i need some help! Please help me delay the disappear of the goal abit.
-        // TODO: after the goal disappear, then only show the promptNext()
         if (GOAL_ACHIEVED) {
         	var t2 = setInterval( function() {
         		game.goal_object.hideObject();
@@ -237,7 +256,7 @@ CommandProcessor.prototype.processCommands = function(commandList) {
         		clearInterval(t3);
         	}, 1000);
         }
-
+		*/
 	}, delay);
 
 };

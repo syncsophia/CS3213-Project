@@ -126,6 +126,7 @@ var StartGame = function() {
 	this.moveCommandObserver = new MoveCommandObserver();
 	this.jumpCommandObserver = new JumpCommandObserver();
 	this.showHideCommandObserver = new ShowHideCommandObserver();
+	this.collisionObserver = new CollisionObserver();
 	
 	StartGame.ToogleMusic();
 	

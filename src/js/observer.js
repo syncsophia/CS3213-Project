@@ -83,3 +83,28 @@ GameWonObserver.prototype.notify = function() {
  	// as long as I'm called, I'll just play audio, so use me with caution
 	this.audio.play();	
 }
+
+var CollisionObserver = function() {
+	CommandProcessor.attachObserver(this);
+	this.audio = new Audio("audio/chaching.wav");
+}
+CollisionObserver.prototype = Object.create(Observer);
+CollisionObserver.prototype.notify = function(commandObject) {
+	
+	if(commandObject instanceof SetToOriginCommand)
+		return;
+	var step = 0;
+ 	if(commandObject instanceof JumpCommand) {
+ 		step = commandObject.step;
+ 	}
+	GOAL_ACHIEVED = isCollide(game.character, game.goal_object, step);
+	
+	if(GOAL_ACHIEVED) {
+		this.audio.play();
+		var t2 = setInterval( function() {
+			game.goal_object.hideObject();
+			clearInterval(t2);
+		}, 100);
+	}
+	CommandProcessor.notifyGameWon();
+}
