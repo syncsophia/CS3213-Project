@@ -41,7 +41,6 @@ var JumpCommand = function(step) {
 JumpCommand.prototype = Object.create(Command);
 JumpCommand.prototype.execute = function() {
 	game.character.jump(this.step);
-    return this.step;
 	//console.log("[command.js] JumpCommand.execute():   Jumping: " + this.step);
 }
 
@@ -201,6 +200,7 @@ RepeatCommand.prototype.execute = function() {
 }
 RepeatCommand.prototype.getNumRepeatCommands = function() { return this.numRepeatCommands; }
 RepeatCommand.prototype.Interrupt = function() { hasBeenInterrupted = true; }
+RepeatCommand.prototype.getNumberOfRepeats = function() { return this.step }
 
 
 //------------------------------------------------------------------------------------
@@ -241,7 +241,7 @@ IfCommand.prototype.execute = function() {
 //  	temp = temp.substring(0,temp.length-2);
 //  	console.log("Temp: " + temp);
 
-	console.log("If statement evaluation: if " + eval(para1E) + para2E + eval(para3E) + " " + para4E + " " + para5E +  " is "  + isStatementTrue);
+	//console.log("If statement evaluation: if " + eval(para1E) + para2E + eval(para3E) + " " + para4E + " " + para5E +  " is "  + isStatementTrue);
 	
 	if(isStatementTrue) {
 	
