@@ -24,20 +24,20 @@ var CMD_REPEAT = "Repeat";
 var CMD_REPEAT_FOREVER = "Repeat_Forever";
 var CMD_IF = "If";
 
-var CHARACTER_MAX_Y = 470;
-var CHARACTER_MIN_Y = 470;
+var CHARACTER_MAX_Y = 450;
+var CHARACTER_MIN_Y = 450;
 var CHARACTER_MAX_X = 440;
 var CHARACTER_MIN_X = 0;
 
 var GOAL_MAX_Y = 510;
-var GOAL_MIN_Y = 0;
+var GOAL_MIN_Y = 50;
 var GOAL_MAX_X = 480;
-var GOAL_MIN_X = 0;
+var GOAL_MIN_X = 10;
 
 COMMANDS.push( CMD_MOVE_RIGHT);
 COMMANDS.push( CMD_MOVE_LEFT);
 COMMANDS.push( CMD_SET_X); 
-COMMANDS.push( CMD_SET_Y); 
+//COMMANDS.push( CMD_SET_Y); 
 COMMANDS.push( CMD_JUMP);
 COMMANDS.push( CMD_HIDE);
 COMMANDS.push( CMD_SHOW);
@@ -252,6 +252,7 @@ var StartGame = function() {
         
         setRandomObjectPosition(this.goal_object, this.goal_object.elementID,
             goalCoordArray[0], goalCoordArray[1], goalCoordArray[2],goalCoordArray[3]);
+        //setRandomObjectPosition(this.goal_object, this.goal_object.elementID,0,0,50,0);
 
         
         //console.log(this.goal_object.getCurrentXPosition(), this.goal_object.getCurrentYPosition());

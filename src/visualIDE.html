@@ -158,13 +158,16 @@
 	var characterElement = document.getElementById("character_human");
 	var draggie = new Draggabilly( 
 			characterElement, {
-			containment: "#editorContainer"
+			containment: "#editorContainer",
+			axis: 'x'
 		});
+	
 	var goalElement = document.getElementById("goal_object");
     var goalElement2 = document.getElementById("goal_object_2");
 
 	var game = new StartGame();
 	game.init();
+	
 		
 </script>
 
