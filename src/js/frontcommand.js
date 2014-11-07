@@ -176,7 +176,6 @@ CommandProcessor.notify = function(delegatedCommand) {
 
 CommandProcessor.notifyGameWon = function() {
 	CommandProcessor.Interrupt();
-	increaseScore(10);
 	var timer = setInterval( function() {
 		promptNext();
 		clearInterval(timer);
