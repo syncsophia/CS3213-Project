@@ -24,8 +24,8 @@ var CMD_REPEAT = "Repeat";
 var CMD_REPEAT_FOREVER = "Repeat_Forever";
 var CMD_IF = "If";
 
-var CHARACTER_MAX_Y = 430;
-var CHARACTER_MIN_Y = 0;
+var CHARACTER_MAX_Y = 470;
+var CHARACTER_MIN_Y = 470;
 var CHARACTER_MAX_X = 440;
 var CHARACTER_MIN_X = 0;
 
@@ -420,6 +420,14 @@ var incrementScore = function()
 {
     SCORE += MAX_SCORE;
 }
+
+var decreaseScore = function(value) {
+	SCORE -= value;
+	if(SCORE <= 0)
+		SCORE = 0;
+}
+
+var increaseScore = function(value) {SCORE +=value;}
 
 var decrementMaxScore = function(value)
 {

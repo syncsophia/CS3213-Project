@@ -83,15 +83,11 @@ var PlayEditor = function() {
 		// ask the frontControl to deal with all Requests
 		frontCtrl.getCommand(listOfCurrentCommands);
 
-		var goalAchieved = game.isEndOfGame();
-		if (!goalAchieved){
+		if (!GOAL_ACHIEVED){
 			// user didn't reach the goal: set character back to origin position.
             // toggle goal(s) on and off
             // need to adjust for new goal scenario: multiple goals
 			game.character.placeObject(origin_x_of_Character, origin_y_of_Character);
-			
-			// decrement max_score because the user should only get the 100 points if the goal is reached by the first execution
-			game.MAX_SCORE -= 10;
 		}
 
 		

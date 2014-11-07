@@ -176,6 +176,7 @@ CommandProcessor.notify = function(delegatedCommand) {
 
 CommandProcessor.notifyGameWon = function() {
 	CommandProcessor.Interrupt();
+	increaseScore(10);
 	var timer = setInterval( function() {
 		promptNext();
 		clearInterval(timer);
@@ -224,39 +225,12 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 		if(i >= commandList.length || CommandProcessor.hasInterrupted) {
 			clearInterval(t1);
 			game.resetCharacter();
+			
+			// decrement score if goal is not reached
+			if(!GOAL_ACHIEVED) {
+				decreaseScore(10);
+				displayScore();
+			}
 		}
-		
-		// Check for game over state
-		/*
-		var catchReturn = commandList[i].execute();
-        if(commandList[i] instanceof JumpCommand) {
-            var temp_y = game.character.getYForJump(catchReturn);
-            if(isCollide(game.character, game.goal_object, catchReturn))
-                GOAL_ACHIEVED = true;
-            //console.log("distance: " + dis);
-        }
-        else
-            GOAL_ACHIEVED = game.isEndOfGame();
-
-        displayScore();
-		i++;
-		if(i >= commandList.length || CommandProcessor.hasInterrupted) {
-			clearInterval(t1);
-			game.resetCharacter();
-		}
-
-        if (GOAL_ACHIEVED) {
-        	var t2 = setInterval( function() {
-        		game.goal_object.hideObject();
-        		clearInterval(t2);
-        	}, 100);
-        	
-        	var t3 = setInterval( function() {
-				promptNext();
-        		clearInterval(t3);
-        	}, 1000);
-        }
-		*/
 	}, delay);
-
 };
