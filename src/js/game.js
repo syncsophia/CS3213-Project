@@ -422,17 +422,13 @@ var incrementScore = function()
     SCORE += MAX_SCORE;
 }
 
-var decreaseScore = function(value) {
-	SCORE -= value;
-	if(SCORE <= 0)
-		SCORE = 0;
-}
-
 var increaseScore = function(value) {SCORE +=value;}
 
 var decrementMaxScore = function(value)
 {
 	MAX_SCORE -= value;
+	if (MAX_SCORE <= 0)
+		MAX_SCORE = 0;
 }
 
 var displayScore = function()

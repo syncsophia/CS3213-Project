@@ -88,6 +88,7 @@ var PlayEditor = function() {
             // toggle goal(s) on and off
             // need to adjust for new goal scenario: multiple goals
 			game.character.placeObject(origin_x_of_Character, origin_y_of_Character);
+				decrementMaxScore(10);
 		}
 
 		

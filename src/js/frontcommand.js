@@ -228,7 +228,6 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 			
 			// decrement score if goal is not reached
 			if(!GOAL_ACHIEVED) {
-				decreaseScore(10);
 				displayScore();
 			}
 		}
