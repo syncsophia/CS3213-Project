@@ -3,12 +3,14 @@
     float: left;
     color: #ffff00;
     text-shadow: 1px 1px #ff4500;
+    z-index:1;
 }
 
 .debug_coordinate{
     position: relative;
     float:right;
     color: #ffffff;
+    opacity: 0.5;
     text-shadow: 1px 1px #000000;
 }
 
