@@ -82,15 +82,6 @@ var PlayEditor = function() {
 		
 		// ask the frontControl to deal with all Requests
 		frontCtrl.getCommand(listOfCurrentCommands);
-
-		if (!GOAL_ACHIEVED){
-			// user didn't reach the goal: set character back to origin position.
-            // toggle goal(s) on and off
-            // need to adjust for new goal scenario: multiple goals
-			game.character.placeObject(origin_x_of_Character, origin_y_of_Character);
-				decrementMaxScore(10);
-		}
-
 		
 		listOfCurrentCommands = [];
 	});

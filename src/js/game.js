@@ -320,9 +320,9 @@ var isCollide = function(player_obj, goal_obj, jump_step) {
             incrementScore();
             console.log("Collided!!!")
             return true;
-        }
+		}
     }
-        return false;
+    return false;
 }
 
 

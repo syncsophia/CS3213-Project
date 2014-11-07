@@ -177,6 +177,7 @@ CommandProcessor.notify = function(delegatedCommand) {
 CommandProcessor.notifyGameWon = function() {
 	CommandProcessor.Interrupt();
 	var timer = setInterval( function() {
+		MAX_SCORE = 110;
 		promptNext();
 		clearInterval(timer);
 	}, 1000);
@@ -224,9 +225,11 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 		if(i >= commandList.length || CommandProcessor.hasInterrupted) {
 			clearInterval(t1);
 			game.resetCharacter();
-			
+		}
+		if (i == commandList.length || CommandProcessor.hasInterrupted) {
 			// decrement score if goal is not reached
 			if(!GOAL_ACHIEVED) {
+				decrementMaxScore(10);
 				displayScore();
 			}
 		}
