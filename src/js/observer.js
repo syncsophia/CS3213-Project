@@ -104,7 +104,7 @@ CollisionObserver.prototype.notify = function(commandObject) {
 		var t2 = setInterval( function() {
 			game.goal_object.hideObject();
 			clearInterval(t2);
+			CommandProcessor.notifyGameWon();
 		}, 100);
 	}
-	CommandProcessor.notifyGameWon();
 }
