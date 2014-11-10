@@ -7,7 +7,8 @@
 //------------------------------------------------------------------------------------
 //	Constant variables for each command
 var COLLIDE_MIN = 150;
-var GOAL_ACHIEVED = false;
+//var GOAL_ACHIEVED = false;
+var GAME_OVER = false;
 var MAX_SCORE = 100;
 var SCORE = 0;
 
@@ -120,7 +121,8 @@ var StartGame = function() {
     
     this.goal_object0 = new Goal("goal_object0");
     this.goal_object1 = new Goal("goal_object1");
-    //this.goalArray = fillGoalArray();
+    //this.goal_array = [this.goal_object0, this.goal_object1];
+    //this.goal_array = fillGoalArray();
 
     displayScore();
 
@@ -170,15 +172,19 @@ var StartGame = function() {
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
-        //return isCollide(game.character, game.goal_object, 0);
+        //console.log("[game.js] isEndOfGame:", goal_object0);
 //        if (isCollide(game.character, game.goal_object0, 0) &&
 //            isCollide(game.character, game.goal_object1, 0)) {
 //            return true;
 //        } else {
 //            return false;
 //        }
-        console.log("[game.js] isEndOfGame:", goal_object0);
-        return isCollide(game.character, game.goal_object0, 0);
+        if (game.goal_object0.goalAchieved && game.goal_object1.goalAchieved) {
+            return true;
+        } else {
+            return false;
+        }
+        //return isCollide(game.character, game.goal_object0, 0);
 	}
 
 	this.resetCharacter = function() {
@@ -195,8 +201,10 @@ var StartGame = function() {
 
 // bounding Box collision detection.
 var isCollide = function(player_obj, goal_obj, jump_step) {
-    console.log("[game.js] isCollide:", goal_obj);
-    if (!GOAL_ACHIEVED) {
+    console.log("[game.js] isCollide:", goal_obj.elementID, goal_obj.goalAchieved);
+
+    //if (!GOAL_ACHIEVED) {
+    if (!goal_obj.goalAchieved) {
 
         var rect1 = {x: player_obj.getCurrentXPosition(), y: player_obj.getCurrentYPosition(), width: player_obj.getWidth(), height: player_obj.getHeight()}
         var rect2 = {x: goal_obj.getCurrentXPosition(), y: goal_obj.getCurrentYPosition(), width: goal_obj.getWidth() / 4, height: goal_obj.getHeight() / 4}
@@ -225,12 +233,17 @@ var isCollide = function(player_obj, goal_obj, jump_step) {
             rect1.y < rect2.y + rect2.height &&
             rect1.height + rect1.y > rect2.y) {
             incrementScore();
-            console.log("Collided!!!")
+            goal_obj.goalAchieved = true;
+            console.log(goal_obj.elementID, goal_obj.goalAchieved, "Collided!!!")
             return true;
 		}
     }
     return false;
 }
+
+//------------------------------------------------------------------------------------
+// Score Functions
+//------------------------------------------------------------------------------------
 
 var getScore = function()
 {
@@ -258,6 +271,12 @@ var displayScore = function()
     
     document.getElementById("score").innerHTML = text;
 }
+
+
+//------------------------------------------------------------------------------------
+// Goal Functions
+// Includes populating goal_array, placing goals, and respawning
+//------------------------------------------------------------------------------------
 
 /**
  * Determines the position of the goal depending on position of the character.
@@ -289,47 +308,44 @@ var setGoalCoordinates = function(char_x, char_y) {
     return [goalMinX, goalMaxX, goalMinY, goalMaxY];
 }
 
-/**
- *  Populates goalArray with random number (1-5) of goal objects
- */
 var fillGoalArray = function() {
-    var goalArray = [];
+    var goal_array = [];
     //for (i = 0; i < getRandomInteger(1,5); i++) {
     for (i = 0; i < 5; i++) {
         var goalElementId = "goal_array" + i.toString();
         console.log("[game.js] fillGoalArray: " + goalElementId);
-        goalArray.push(new Goal(goalElementId));
+        goal_array.push(new Goal(goalElementId));
     }
-    return goalArray;
+    return goal_array;
 }
 
-/**
- *  Generate goals
- */
 var generateGoals = function() {
     //goal_object0
     var goalCoords = setGoalCoordinates(game.character.getCurrentXPosition(), game.character.getCurrentYPosition());
     setRandomObjectPosition(game.goal_object0, game.goal_object0.elementID,
         goalCoords[0], goalCoords[1], goalCoords[2],goalCoords[3]);
-    console.log(game.goal_object0.elementID, game.goal_object0.getCurrentXPosition(), game.goal_object0.getCurrentYPosition());
+    console.log(game.goal_object0.elementID, game.goal_object0.getCurrentXPosition(), game.goal_object0.getCurrentYPosition(), game.goal_object0.goalAchieved);
     
     //goal_object1
     var goalCoords = setGoalCoordinates(game.character.getCurrentXPosition(), game.character.getCurrentYPosition());
     setRandomObjectPosition(game.goal_object1, game.goal_object1.elementID,
         goalCoords[0], goalCoords[1], goalCoords[2],goalCoords[3]);
-    console.log(game.goal_object1.elementID, game.goal_object1.getCurrentXPosition(), game.goal_object1.getCurrentYPosition());
+    console.log(game.goal_object1.elementID, game.goal_object1.getCurrentXPosition(), game.goal_object1.getCurrentYPosition(), game.goal_object1.goalAchieved);
 }
 
 var respawnGoal = function()
 {
-    console.log("respawnGoal");
+    console.log("[game.js] respawn");
     //setRandomObjectPosition(game.goal_object, game.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MAX_Y);
-
+    
+    //GOAL_ACHIEVED = false;
+    game.goal_object0.goalAchieved = false;
+    game.goal_object1.goalAchieved = false;
+    
     generateGoals();
     
-    GOAL_ACHIEVED = false;
-//    for (i in game.goalArray) {
-//        game.goalArray[i].showObject();
+//    for (i in game.goal_array) {
+//        game.goal_array[i].showObject();
 //    }
     game.goal_object0.showObject();
     game.goal_object1.showObject();

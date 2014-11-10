@@ -39,14 +39,14 @@ var ChangeGoalMode = function(mode) {
     var goal1 = new Goal("goal_object1");
     var goals = [goal0, goal1];
     
-    //var goals = game.goalArray;
+    //var goals = game.goal_array;
     
-    if (mode=="off") {  console.log("[menubar.js]: mode=off 0=hide");
+    if (mode=="off") {  console.log("[menubar.js]: mode=off");
         goal0.hideObject();
-        goal1.showObject();
-    } else if (mode=="on") {    console.log("[menubar.js]: mode=on 1=hide");
-        goal0.showObject();
         goal1.hideObject();
+    } else if (mode=="on") {    console.log("[menubar.js]: mode=on");
+        goal0.showObject();
+        goal1.showObject();
         
 //        for (i in goals) {
 //            goals[i].showObject();
