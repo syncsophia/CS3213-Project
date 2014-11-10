@@ -169,7 +169,6 @@ var Goal = function(elementId) {
 	this.target_x = this.x_position + 100;
 	this.target_y = this.y_position;
 	this.hasArrived = false;
-    this.goalAchieved = false;
 	
 	this.getCurrentXPosition = function() {
 		return (parseInt(this.x_position ,10) + margin_left);

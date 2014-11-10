@@ -228,8 +228,7 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 		}
 		if (i == commandList.length || CommandProcessor.hasInterrupted) {
 			// decrement score if goal is not reached
-			//if(!GOAL_ACHIEVED) {
-            if (!game.goal_object0.goalAchieved || !game.goal_object1.goalAchieved) {
+			if(!GOAL_ACHIEVED) {
 				decrementMaxScore(10);
 				displayScore();
 			}

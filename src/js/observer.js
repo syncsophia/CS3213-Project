@@ -97,48 +97,14 @@ CollisionObserver.prototype.notify = function(commandObject) {
  	if(commandObject instanceof JumpCommand) {
  		step = commandObject.step;
  	}
-    
-//    for (i in game.goal_array) {
-//        if (isCollide(game.character, game.goal_array[i], step)) {
-//            GOAL_ACHIEVED = true;
-//    }
-    
-//	if (isCollide(game.character, game.goal_object0, step) ||
-//        isCollide(game.character, game.goal_object1, step)) {
-//        GOAL_ACHIEVED = true;
-//    }
-    
-//    if (game.goal_object0.goalAchieved || game.goal_object1.goalAchieved) {
-//        GAME_OVER = true;
-//    }
-    
-    if (isCollide(game.character, game.goal_object0, step)) {
-        game.goal_object0.goalAchieved = true;
-    }
-    if (isCollide(game.character, game.goal_object1, step)) {
-        game.goal_object1.goalAchieved = true;
-    }
-    
-	//if(GOAL_ACHIEVED) {
-    if (game.goal_object0.goalAchieved) {
+	GOAL_ACHIEVED = isCollide(game.character, game.goal_object, step);
+	
+	if(GOAL_ACHIEVED) {
 		this.audio.play();
 		var t2 = setInterval( function() {
-			game.goal_object0.hideObject();
+			game.goal_object.hideObject();
 			clearInterval(t2);
-			//CommandProcessor.notifyGameWon();
+			CommandProcessor.notifyGameWon();
 		}, 100);
 	}
-    if (game.goal_object1.goalAchieved) {
-        this.audio.play();
-        var t2 = setInterval( function() {
-            game.goal_object1.hideObject();
-            clearInterval(t2);
-        //CommandProcessor.notifyGameWon();
-        }, 100);
-    }
-    
-    if (game.goal_object0.goalAchieved && game.goal_object1.goalAchieved) {
-        GAME_OVER = true;
-        CommandProcessor.notifyGameWon();
-    }
 }
