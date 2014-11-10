@@ -35,15 +35,21 @@ var ChangeCharacterCostume = function(url) {
  * function to select game mode.
  */
 var ChangeGoalMode = function(mode) {
-    var goal = new Goal("goal_object");
-    if (mode=="off") {
-        goal.hideObject();
-        //goal.deleteObject();
-    } else if (mode=="on") {
-        goal.showObject();
-        //goal.placeObject(480,510);
+    var goal0 = new Goal("goal_object0");
+    var goal1 = new Goal("goal_object1");
+    var goals = [goal0, goal1];
+    
+    //var goals = game.goalArray;
+    
+    if (mode=="off") {  console.log("[menubar.js]: mode=off 0=hide");
+        goal0.hideObject();
+        goal1.showObject();
+    } else if (mode=="on") {    console.log("[menubar.js]: mode=on 1=hide");
+        goal0.showObject();
+        goal1.hideObject();
+        
+//        for (i in goals) {
+//            goals[i].showObject();
+//        }
     }
 }
-// default game mode: without goal
-// if goal selected, switch modes
-// add call function to add goals

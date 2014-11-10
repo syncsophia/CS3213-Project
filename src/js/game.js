@@ -117,8 +117,10 @@ var StartGame = function() {
 	
 	
 	this.character = new Character("character_human");
-	this.goal_object = new Goal("goal_object");
-    //this.goalArray = [];
+    
+    this.goal_object0 = new Goal("goal_object0");
+    this.goal_object1 = new Goal("goal_object1");
+    //this.goalArray = fillGoalArray();
 
     displayScore();
 
@@ -146,98 +148,6 @@ var StartGame = function() {
 			
 		}
 	}
-	
-	/**
-	 * Generate a random integer between min and max
-	 * @param min: minimum number.
-	 *		  max: maximum number.
-	 * @return a random integer point number
-	 */
-	var getRandomInteger = function(minValue, maxValue) {
-		return Math.floor((Math.random() * maxValue) + minValue);
-	}
-
-	/**
-	*  Creates random positions for any object
-	*/	
-	var setRandomObjectPosition = function(inObj, inObjID, minX, maxX, minY, maxY) {
-		
-		var randomX = getRandomInteger(0, maxX-minX) + minX;
-		var randomY = getRandomInteger(0, maxY-minY) + minY;
-		
-		// Render the character according to the position		
-		$("#" + inObjID).css({
-			position: "absolute",
-			top:  randomY + "px",
-			left: randomX + "px"
-		});
-		
-		inObj.setInitXY(randomX, randomY);
-	}
-    
-    /**
-     *  Populates goalArray with random number (1-5) of goal objects
-     */
-//    var fillGoalArray = function() {
-//        var goalArray = [];
-//        var goalNum = getRandomInteger(1,5);
-//    
-//        for (i = 0; i < goalNum; i++) {
-//            //goalArray.push(new Goal("goal_object_" + i.toString));
-//            goalArray.push(new Goal("goal_object"));
-//        }
-//        return goalArray;
-//    }
-    
-    var fillGoalArray = function(goalArray) {
-        var goalNum = getRandomInteger(1,5);
-        
-        for (i = 0; i < goalNum; i++) {
-            //goalArray.push(new Goal("goal_object_" + i.toString));
-            goalArray.push(new Goal("goal_object"));
-        }
-    }
-    
-    /**
-     *  Generate goals
-     */
-    var generateGoals = function(goalArray) {
-        for (goal in goalArray) {
-            //console.log(goal.elementID);
-            setRandomObjectPosition(goal, goal.elementID,
-                GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MIN_Y);
-        }
-    }
-    
-    /**
-    * Determines the position of the goal depending on position of the character.
-    * @return an array of goal coordinates
-    */
-    var setGoalCoordinates = function(char_x, char_y) {
-		// Reset MAX_SCORE
-		MAX_SCORE = 100;
-		
-        var goalMinX = GOAL_MIN_X;
-        var goalMinY = GOAL_MIN_Y;
-        var goalMaxX = GOAL_MAX_X;
-        var goalMaxY = GOAL_MAX_Y;
-        
-        // Check character.x_position and set goal_object.x_position away from character
-        if (char_x < CHARACTER_MAX_X/2) {
-            goalMinX = char_x + COLLIDE_MIN;
-        } else {
-            goalMaxX = char_x - COLLIDE_MIN;
-        }
-        
-        // Check character.y_position and set goal_object.y_position away from character
-        if (char_y < CHARACTER_MAX_Y/2) {
-            goalMinY = char_y + COLLIDE_MIN;
-        } else {
-            goalMaxY = char_y - COLLIDE_MIN;
-        }
-        
-        return [goalMinX, goalMaxX, goalMinY, goalMaxY];
-    }
     
 	/**
 	* Does the positioning of character and goal(s) and
@@ -246,21 +156,9 @@ var StartGame = function() {
 	this.init = function() {
 		setRandomObjectPosition(this.character, this.character.elementID, CHARACTER_MIN_X, CHARACTER_MAX_X, CHARACTER_MAX_Y-2, CHARACTER_MAX_Y);
         
-        //console.log(this.character.getCurrentXPosition(), this.character.getCurrentYPosition());
-        
-        var goalCoordArray = setGoalCoordinates(this.character.getCurrentXPosition(), this.character.getCurrentYPosition());
-        
-        setRandomObjectPosition(this.goal_object, this.goal_object.elementID,
-            goalCoordArray[0], goalCoordArray[1], goalCoordArray[2],goalCoordArray[3]);
         //setRandomObjectPosition(this.goal_object, this.goal_object.elementID,0,0,50,0);
-
         
-        //console.log(this.goal_object.getCurrentXPosition(), this.goal_object.getCurrentYPosition());
-        //console.log(CountDistance());
-        
-        //this.goalArray = fillGoalArray();
-        //fillGoalArray(this.goalArray);
-        //generateGoals(this.goalArray);
+        generateGoals();
         
 		addDragableCommands();
 	}
@@ -272,7 +170,15 @@ var StartGame = function() {
 	 *			otherwise false
 	 */
 	this.isEndOfGame = function() {
-        return isCollide(game.character, game.goal_object, 0);
+        //return isCollide(game.character, game.goal_object, 0);
+//        if (isCollide(game.character, game.goal_object0, 0) &&
+//            isCollide(game.character, game.goal_object1, 0)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        console.log("[game.js] isEndOfGame:", goal_object0);
+        return isCollide(game.character, game.goal_object0, 0);
 	}
 
 	this.resetCharacter = function() {
@@ -289,6 +195,7 @@ var StartGame = function() {
 
 // bounding Box collision detection.
 var isCollide = function(player_obj, goal_obj, jump_step) {
+    console.log("[game.js] isCollide:", goal_obj);
     if (!GOAL_ACHIEVED) {
 
         var rect1 = {x: player_obj.getCurrentXPosition(), y: player_obj.getCurrentYPosition(), width: player_obj.getWidth(), height: player_obj.getHeight()}
@@ -325,7 +232,146 @@ var isCollide = function(player_obj, goal_obj, jump_step) {
     return false;
 }
 
+var getScore = function()
+{
+    return SCORE;
+}
 
+var incrementScore = function()
+{
+    SCORE += MAX_SCORE;
+}
+
+var increaseScore = function(value) {SCORE +=value;}
+
+var decrementMaxScore = function(value)
+{
+	MAX_SCORE -= value;
+	if (MAX_SCORE <= 0)
+		MAX_SCORE = 0;
+}
+
+var displayScore = function()
+{
+    var text = "Current Score: ";
+    text += getScore();
+    
+    document.getElementById("score").innerHTML = text;
+}
+
+/**
+ * Determines the position of the goal depending on position of the character.
+ * @return an array of goal coordinates
+ */
+var setGoalCoordinates = function(char_x, char_y) {
+    // Reset MAX_SCORE
+    MAX_SCORE = 100;
+    
+    var goalMinX = GOAL_MIN_X;
+    var goalMinY = GOAL_MIN_Y;
+    var goalMaxX = GOAL_MAX_X;
+    var goalMaxY = GOAL_MAX_Y;
+    
+    // Check character.x_position and set goal_object.x_position away from character
+    if (char_x < CHARACTER_MAX_X/2) {
+        goalMinX = char_x + COLLIDE_MIN;
+    } else {
+        goalMaxX = char_x - COLLIDE_MIN;
+    }
+    
+    // Check character.y_position and set goal_object.y_position away from character
+    if (char_y < CHARACTER_MAX_Y/2) {
+        goalMinY = char_y + COLLIDE_MIN;
+    } else {
+        goalMaxY = char_y - COLLIDE_MIN;
+    }
+    
+    return [goalMinX, goalMaxX, goalMinY, goalMaxY];
+}
+
+/**
+ *  Populates goalArray with random number (1-5) of goal objects
+ */
+var fillGoalArray = function() {
+    var goalArray = [];
+    //for (i = 0; i < getRandomInteger(1,5); i++) {
+    for (i = 0; i < 5; i++) {
+        var goalElementId = "goal_array" + i.toString();
+        console.log("[game.js] fillGoalArray: " + goalElementId);
+        goalArray.push(new Goal(goalElementId));
+    }
+    return goalArray;
+}
+
+/**
+ *  Generate goals
+ */
+var generateGoals = function() {
+    //goal_object0
+    var goalCoords = setGoalCoordinates(game.character.getCurrentXPosition(), game.character.getCurrentYPosition());
+    setRandomObjectPosition(game.goal_object0, game.goal_object0.elementID,
+        goalCoords[0], goalCoords[1], goalCoords[2],goalCoords[3]);
+    console.log(game.goal_object0.elementID, game.goal_object0.getCurrentXPosition(), game.goal_object0.getCurrentYPosition());
+    
+    //goal_object1
+    var goalCoords = setGoalCoordinates(game.character.getCurrentXPosition(), game.character.getCurrentYPosition());
+    setRandomObjectPosition(game.goal_object1, game.goal_object1.elementID,
+        goalCoords[0], goalCoords[1], goalCoords[2],goalCoords[3]);
+    console.log(game.goal_object1.elementID, game.goal_object1.getCurrentXPosition(), game.goal_object1.getCurrentYPosition());
+}
+
+var respawnGoal = function()
+{
+    console.log("respawnGoal");
+    //setRandomObjectPosition(game.goal_object, game.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MAX_Y);
+
+    generateGoals();
+    
+    GOAL_ACHIEVED = false;
+//    for (i in game.goalArray) {
+//        game.goalArray[i].showObject();
+//    }
+    game.goal_object0.showObject();
+    game.goal_object1.showObject();
+}
+
+var promptNext = function() {
+    var answer = confirm("Do you want to try again?");
+    if (answer)
+        respawnGoal();
+    else {
+        alert("Thank you for playing!");
+        window.location="http://www.comp.nus.edu.sg";
+    }
+}
+
+/**
+ * Generate a random integer between min and max
+ * @param min: minimum number.
+ *		  max: maximum number.
+ * @return a random integer point number
+ */
+var getRandomInteger = function(minValue, maxValue) {
+    return Math.floor((Math.random() * maxValue) + minValue);
+}
+
+/**
+ *  Creates random positions for any object
+ */
+var setRandomObjectPosition = function(inObj, inObjID, minX, maxX, minY, maxY) {
+    
+    var randomX = getRandomInteger(0, maxX-minX) + minX;
+    var randomY = getRandomInteger(0, maxY-minY) + minY;
+    
+    // Render the character according to the position
+    $("#" + inObjID).css({
+                         position: "absolute",
+                         top:  randomY + "px",
+                         left: randomX + "px"
+                         });
+    
+    inObj.setInitXY(randomX, randomY);
+}
 
 
 //------------------------------------------------------------------------------------
@@ -411,75 +457,3 @@ MediaContent.prototype.getGoalImages = function() {
 }
 MediaContent.prototype.getNumBackgroundImages = function() { return this.arr_backgroundImages.length}
 MediaContent.prototype.getNumCharacterImages = function() { return this.arr_characterImages.length}
-
-var getScore = function()
-{
-    return SCORE;
-}
-
-var incrementScore = function()
-{
-    SCORE += MAX_SCORE;
-}
-
-var increaseScore = function(value) {SCORE +=value;}
-
-var decrementMaxScore = function(value)
-{
-	MAX_SCORE -= value;
-	if (MAX_SCORE <= 0)
-		MAX_SCORE = 0;
-}
-
-var displayScore = function()
-{
-    var text = "Current Score: ";
-    text += getScore();
-
-    document.getElementById("score").innerHTML = text;
-}
-
-var respawnGoal = function()
-{
-    setRandomObjectPosition(game.goal_object, game.goal_object.elementID, GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MAX_Y);
-    GOAL_ACHIEVED = false;
-    game.goal_object.showObject();
-}
-
-var promptNext = function() {
-    var answer = confirm("Do you want to try again?");
-    if (answer)
-        respawnGoal();
-    else {
-        alert("Thank you for playing!");
-        window.location="http://www.comp.nus.edu.sg";
-    }
-}
-
-/**
- * Generate a random integer between min and max
- * @param min: minimum number.
- *		  max: maximum number.
- * @return a random integer point number
- */
-var getRandomInteger = function(minValue, maxValue) {
-    return Math.floor((Math.random() * maxValue) + minValue);
-}
-
-/**
- *  Creates random positions for any object
- */
-var setRandomObjectPosition = function(inObj, inObjID, minX, maxX, minY, maxY) {
-
-    var randomX = getRandomInteger(0, maxX-minX) + minX;
-    var randomY = getRandomInteger(0, maxY-minY) + minY;
-
-    // Render the character according to the position
-    $("#" + inObjID).css({
-        position: "absolute",
-        top:  randomY + "px",
-        left: randomX + "px"
-    });
-
-    inObj.setInitXY(randomX, randomY);
-}
