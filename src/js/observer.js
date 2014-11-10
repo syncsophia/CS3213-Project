@@ -24,7 +24,7 @@ var MoveCommandObserver = function() {
 }
 MoveCommandObserver.prototype = Object.create(Observer);
 MoveCommandObserver.prototype.notify = function(commandObject) { 
-	if(commandObject instanceof MoveCommand)
+	if(commandObject instanceof MoveCommand && StartGame.IsMusicOn())
 		this.audio.play();
 }
 
@@ -42,8 +42,9 @@ var JumpCommandObserver = function() {
 	this.audio = new Audio("audio/jump.m4a");
 }
 JumpCommandObserver.prototype = Object.create(Observer);
-JumpCommandObserver.prototype.notify = function(commandObject) {    	
-	if(commandObject instanceof JumpCommand)
+JumpCommandObserver.prototype.notify = function(commandObject) { 
+	console.log("notified");   	
+	if(commandObject instanceof JumpCommand && StartGame.IsMusicOn())
 		this.audio.play();	
 }
 
@@ -63,6 +64,7 @@ var ShowHideCommandObserver = function() {
 ShowHideCommandObserver.prototype = Object.create(Observer);
 ShowHideCommandObserver.prototype.notify = function(commandObject) {
 	if(commandObject instanceof ShowCommand || commandObject instanceof HideCommand)
+		if (StartGame.IsMusicOn())
 		this.audio.play();	
 }
 
@@ -81,6 +83,7 @@ var GameWonObserver = function() {
 GameWonObserver.prototype = Object.create(Observer);
 GameWonObserver.prototype.notify = function() {
  	// as long as I'm called, I'll just play audio, so use me with caution
+	if (StartGame.IsMusicOn())
 	this.audio.play();	
 }
 
@@ -100,11 +103,12 @@ CollisionObserver.prototype.notify = function(commandObject) {
 	GOAL_ACHIEVED = isCollide(game.character, game.goal_object, step);
 	
 	if(GOAL_ACHIEVED) {
-		this.audio.play();
 		var t2 = setInterval( function() {
 			game.goal_object.hideObject();
 			clearInterval(t2);
 			CommandProcessor.notifyGameWon();
 		}, 100);
+		if (StartGame.IsMusicOn())
+		this.audio.play();
 	}
 }

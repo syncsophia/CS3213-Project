@@ -206,9 +206,9 @@ CommandProcessor.prototype.processCommands = function(commandList) {
 		
 		// Notify all observer that are suppose to listen for command execution
 		// observers mainly play sound
-		if(StartGame.IsMusicOn()) {
+		
 			CommandProcessor.notify(commandList[i]);
-		}
+		
 	
 		if(commandList[i] instanceof RepeatCommand)
 			delay = 1500 * ((commandList[i].getNumRepeatCommands() + 1)*commandList[i].getNumberOfRepeats());

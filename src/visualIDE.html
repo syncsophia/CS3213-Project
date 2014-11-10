@@ -33,6 +33,12 @@
 		  	<ul>
 		  		<li class="disabled"><a href="#">Save</a></li>
 		  		<li class="disabled"><a href="#">Load</a></li>
+				<li><a href="#">Goal Mode</a>
+					<ul>
+						<li><a href="#" onclick="ChangeGoalMode('on')">Goals: ON</a></li>
+                		<li><a href="#" onclick="ChangeGoalMode('off')">Goals: OFF</a></li>
+					</ul>
+				</li>
 		  	</ul>
 		</li>
 		-->
@@ -98,13 +104,6 @@
 		  			</li>
 		  		</ul>
 		</li>
-        <li>
-            <a href="#">Goals</a>
-                <ul>
-                    <li><a href="#" onclick="ChangeGoalMode('on')">ON</a></li>
-                    <li><a href="#" onclick="ChangeGoalMode('off')">OFF</a></li>
-                </ul>
-		</li>
 	</ul>
 </div>
 
@@ -129,29 +128,10 @@
         <p id ="coordinate" class = "debug_coordinate"></p>
         <p id ="score" class = "floating_score"></p>
         <!-- ONE <UL> for each "room" -->
-            <div class="goal_object0">
-                <img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
-                class='goal_object0' id="goal_object0">
-            </div>
-			<div class="goal_object1">
+			<div class="goal_object">
 				<img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
-				 class='goal_object1' id="goal_object1">
+				 class='goal_object' id="goal_object">
 			</div>
-            
-            <!--
-            <div class="goal_object2">
-                <img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
-                class='goal_object2' id="goal_object2">
-			</div>
-            <div class="goal_object3">
-                <img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
-                class='goal_object3' id="goal_object3">
-			</div>
-            <div class="goal_object4">
-                <img src="img/goal.png" style="width:70px; height:70px; left:88%; top:55%; margin-left:0px; margin-top:0px;"
-                class='goal_object4' id="goal_object4">
-			</div> -->
-            
 			<div class="human">
 				<img src="img/Character-albert.png" class='character_human' id="character_human">
 			</div>
@@ -182,8 +162,8 @@
 			axis: 'x'
 		});
 	
-    var goalElement0 = document.getElementById("goal_object0");
-	var goalElement1 = document.getElementById("goal_object1");
+	var goalElement = document.getElementById("goal_object");
+    var goalElement2 = document.getElementById("goal_object_2");
 
 	var game = new StartGame();
 	game.init();
