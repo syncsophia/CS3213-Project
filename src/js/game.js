@@ -94,7 +94,7 @@ var StartGame = function() {
 	StartGame.ToogleMusic = function() {
 		this.musicOn = !this.musicOn;
 		if(this.musicOn) {
-			//bgAudio.play();
+			bgAudio.play();
 		}
 		else {
 			bgAudio.pause();
@@ -113,7 +113,7 @@ var StartGame = function() {
 		this.play();
 	}, false);
 	
-	//bgAudio.play();
+	bgAudio.play();
 	
 	
 	this.character = new Character("character_human");
