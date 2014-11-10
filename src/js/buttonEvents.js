@@ -1,11 +1,3 @@
-/*
-* gets the right command for the object
-*/
-var newCommand = function(id) {
-	//var commandId = id.substring(3);
-	//return commands[commandId];
-}
-
 var MusicEditor = function() {
 
 	var musicEnabled = StartGame.ToogleMusic();
@@ -40,8 +32,6 @@ var PlayEditor = function() {
 	
 	var origin_x_of_Character = $("#character_human").css("left");
 	var origin_y_of_Character = $("#character_human").css("top");
-	
-	//console.log("this is the origin of the character: " + origin_x_of_Character + "  " + origin_y_of_Character);
 	
 	var listOfCurrentCommands = [];
 	

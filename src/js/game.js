@@ -178,17 +178,6 @@ var StartGame = function() {
     /**
      *  Populates goalArray with random number (1-5) of goal objects
      */
-//    var fillGoalArray = function() {
-//        var goalArray = [];
-//        var goalNum = getRandomInteger(1,5);
-//    
-//        for (i = 0; i < goalNum; i++) {
-//            //goalArray.push(new Goal("goal_object_" + i.toString));
-//            goalArray.push(new Goal("goal_object"));
-//        }
-//        return goalArray;
-//    }
-    
     var fillGoalArray = function(goalArray) {
         var goalNum = getRandomInteger(1,5);
         
@@ -203,7 +192,6 @@ var StartGame = function() {
      */
     var generateGoals = function(goalArray) {
         for (goal in goalArray) {
-            //console.log(goal.elementID);
             setRandomObjectPosition(goal, goal.elementID,
                 GOAL_MIN_X, GOAL_MAX_X, GOAL_MIN_Y, GOAL_MIN_Y);
         }
@@ -246,21 +234,10 @@ var StartGame = function() {
 	this.init = function() {
 		setRandomObjectPosition(this.character, this.character.elementID, CHARACTER_MIN_X, CHARACTER_MAX_X, CHARACTER_MAX_Y-2, CHARACTER_MAX_Y);
         
-        //console.log(this.character.getCurrentXPosition(), this.character.getCurrentYPosition());
-        
         var goalCoordArray = setGoalCoordinates(this.character.getCurrentXPosition(), this.character.getCurrentYPosition());
         
         setRandomObjectPosition(this.goal_object, this.goal_object.elementID,
             goalCoordArray[0], goalCoordArray[1], goalCoordArray[2],goalCoordArray[3]);
-        //setRandomObjectPosition(this.goal_object, this.goal_object.elementID,0,0,50,0);
-
-        
-        //console.log(this.goal_object.getCurrentXPosition(), this.goal_object.getCurrentYPosition());
-        //console.log(CountDistance());
-        
-        //this.goalArray = fillGoalArray();
-        //fillGoalArray(this.goalArray);
-        //generateGoals(this.goalArray);
         
 		addDragableCommands();
 	}
@@ -293,22 +270,6 @@ var isCollide = function(player_obj, goal_obj, jump_step) {
 
         var rect1 = {x: player_obj.getCurrentXPosition(), y: player_obj.getCurrentYPosition(), width: player_obj.getWidth(), height: player_obj.getHeight()}
         var rect2 = {x: goal_obj.getCurrentXPosition(), y: goal_obj.getCurrentYPosition(), width: goal_obj.getWidth() / 4, height: goal_obj.getHeight() / 4}
-
-      /*  if(jump_step > 0) {
-            for (i = 0; i < jump_step; i++) {
-                rect1.y = player_obj.getYForJump(i+1);
-
-                if (rect1.x < rect2.x + rect2.width &&
-                    rect1.x + rect1.width > rect2.x &&
-                    rect1.y < rect2.y + rect2.height &&
-                    rect1.height + rect1.y > rect2.y) {
-                    incrementScore(100);
-                    console.log("Collided!!!")
-                    return true;
-                }
-            }
-                return false;
-        }*/
 
         if(jump_step > 0)
             rect1.y = player_obj.getYForJump(jump_step);

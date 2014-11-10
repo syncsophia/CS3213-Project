@@ -177,9 +177,6 @@ var Goal = function(elementId) {
 	this.getCurrentYPosition = function() {
 		return parseInt(this.y_position ,10);
 	}
-    
-//	this.elementID = elementId;
-//	this.hasAchieved = false;
 }
 
 Goal.prototype = new IObject();
@@ -194,13 +191,11 @@ Goal.prototype.getCurrentYPosition = function() {
 
 Goal.prototype.showObject = function(bool) {
 	var goalElement = document.getElementById(this.elementID);
-	//goalElement.setAttribute("style", "opacity:1.0");
 	move("#" + this.elementID).set('opacity', 1.0).rotate(-1080).scale(1.0).duration('0.1s').end();
 }
 
 Goal.prototype.hideObject = function(bool) {
 	var goalElement = document.getElementById(this.elementID);
-	//goalElement.setAttribute("style", "opacity:0.0");
     move("#" + this.elementID)
     .rotate(1080)
     .scale(1.5)
@@ -223,7 +218,6 @@ Goal.prototype.placeObject = function(x, y) {
 	if (parseInt(y, 10) >= 0 && parseInt(y, 10) <= ($("#editorContainer").height() - 50)) {
 		this.y_position = y;
 	};
-	//console.log(this.elementID);
 	$("#" + this.elementID).css({
 		position: "absolute",
 		top: this.y_position + "px",

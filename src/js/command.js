@@ -24,7 +24,6 @@ var MoveCommand = function(step) {
 MoveCommand.prototype = Object.create(Command);
 MoveCommand.prototype.execute = function() {    	
 	game.character.move(this.step)
-	//console.log("[command.js] MoveCommand.execute():  Moving: " + this.step);
 }
 
 
@@ -41,7 +40,6 @@ var JumpCommand = function(step) {
 JumpCommand.prototype = Object.create(Command);
 JumpCommand.prototype.execute = function() {
 	game.character.jump(this.step);
-	//console.log("[command.js] JumpCommand.execute():   Jumping: " + this.step);
 }
 
 
@@ -58,7 +56,6 @@ var SetXPosCommand = function(step) {
 SetXPosCommand.prototype = Object.create(Command);
 SetXPosCommand.prototype.execute = function() {
 	game.character.placeObject(this.step, game.character.y_position);
-	//console.log("[command.js] SetXPosCommand.execute(): Set X: " + this.step);
 }
 
 
@@ -75,7 +72,6 @@ var SetYPosCommand = function(step) {
 SetYPosCommand.prototype = Object.create(Command);
 SetYPosCommand.prototype.execute = function() {
 	game.character.placeObject(game.character.x_position, this.step);
-	//console.log("[command.js] SetYPosCommand.execute():  Set Y: " + this.step);
 }
 
 
@@ -93,7 +89,6 @@ var SetToOriginCommand = function() {
 SetToOriginCommand.prototype = Object.create(Command);
 SetToOriginCommand.prototype.execute = function() {
 	game.character.resetPosition();
-	//console.log("[command.js] SetToOriginCommand.execute():  Set to origin.");
 }
 
 
@@ -110,7 +105,6 @@ var HideCommand = function() {
 HideCommand.prototype = Object.create(Command);
 HideCommand.prototype.execute = function() {
 	game.character.hideObject();
-	//console.log("[command.js] HideCommand.execute():  Hide character");
 }
 
 
@@ -127,7 +121,6 @@ var ShowCommand = function() {
 ShowCommand.prototype = Object.create(Command);
 ShowCommand.prototype.execute = function() {
 	game.character.showObject();
-	//console.log("[command.js] ShowCommand.execute():  Show character");
 }
 
 
@@ -236,12 +229,6 @@ IfCommand.prototype.execute = function() {
  	var para5E = this.para5;
  	
  	var isStatementTrue = eval(para1E+para2E+"("+para3E+para4E+para5E+")");
- 	
-//  	var temp = eval(para1E);
-//  	temp = temp.substring(0,temp.length-2);
-//  	console.log("Temp: " + temp);
-
-	//console.log("If statement evaluation: if " + eval(para1E) + para2E + eval(para3E) + " " + para4E + " " + para5E +  " is "  + isStatementTrue);
 	
 	if(isStatementTrue) {
 	

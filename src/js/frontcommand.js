@@ -53,7 +53,6 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 		var cmdType = tuple[0];
 		var cmdStep = tuple[1];
 		
-		//console.log(cmdType + " " + cmdStep);
 		
 		if (cmdType == CMD_IF) {
 			if(i==commandStrArray.length-1)
@@ -63,7 +62,6 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 				var nextStatement = commandStrArray[i].split(";");
 				var nextCommand;
 				
-				//console.log(nextStatement);
 				if(nextStatement[0] == CMD_IF || nextStatement[0] == CMD_REPEAT || nextStatement[0] == CMD_IF )
 					console.log("Cannot have nested IF statements, repeat and repeatForever statements");
 				else {
@@ -71,8 +69,6 @@ CommandHandler.prototype.constructCommands = function(commandStrArray) {
 					var ifCmd = new IfCommand(tuple[1], tuple[2], tuple[3], tuple[4], tuple[5], nextCommand);
 					commandList.push(ifCmd);	
 				}
-				
-				//console.log(tuple[1] + " " +  tuple[2] + " " + tuple[3] + " " + commandBeforeRepeat + " " + commandList);
 				
 			}
 			
